@@ -13,9 +13,9 @@ export const valueCards: ValueCard[] = [
     },
     {
         number: '02',
-        title: 'Founder DNA',
+        title: 'Builder DNA',
         description:
-            'I started a company, won a government client, and pitched to senior law enforcement officials — while still in university. I manage product roadmaps, lead teams of 6, and build go-to-market strategies. I write code, yes. But I also understand why the code needs to exist.',
+            'I started a tech initiative, won a government client, and pitched to senior law enforcement officials — while still in university. I manage product roadmaps, lead teams of 6, and build go-to-market strategies. I write code, yes. But I also understand why the code needs to exist.',
     },
     {
         number: '03',

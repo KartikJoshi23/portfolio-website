@@ -6,7 +6,6 @@
 
 import SectionHeading from '@/components/ui/SectionHeading'
 import ValueCard from '@/components/ui/ValueCard'
-import ScrollReveal from '@/components/ui/ScrollReveal'
 import { valueCards } from '@/data/valueCards'
 
 export default function WhatSetsApart() {
@@ -30,15 +29,6 @@ export default function WhatSetsApart() {
                     heading="What Sets Me Apart"
                     subheading="Not buzzwords. Proof-backed value."
                 />
-
-                {/* Intro paragraph — Blueprint v4.0 Change 9 */}
-                <ScrollReveal className="mt-8">
-                    <p className="font-inter font-normal text-base md:text-lg text-silver max-w-175 leading-relaxed mb-10">
-                        I&apos;m Kartik — a Masters in AI with Business candidate at SP Jain in Dubai,
-                        with a background in founding tech startups and shipping production AI systems.
-                        I operate at the intersection of deep technical AI work and business-aware product thinking.
-                    </p>
-                </ScrollReveal>
 
                 {/* Cards Grid — 2×2 desktop, single column mobile */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
