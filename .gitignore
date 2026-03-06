@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Root-level source files (copies already in public/)
+/Headshot(1).png
+/Resume.pdf
+
+# Scaffold temp files
+/temp-scaffold/
+
+# Blueprint docs (development only)
+/BLUEPRINT.md
+/BLUEPRINT_UPDATED.md

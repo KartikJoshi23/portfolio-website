@@ -1,26 +1,247 @@
+/* ==========================================================
+ * GLOBALS.CSS — Blueprint v4.0
+ * Design System: "Obsidian & Violet" (Updated Palette)
+ * Tailwind CSS v4 CSS-based configuration
+ * ========================================================== */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ----------------------------------------------------------
+ * THEME TOKENS — Blueprint v4.0 Color Palette
+ * All colors from the updated "Obsidian & Violet" palette
+ * ---------------------------------------------------------- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* === Colors (v4.0) === */
+  --color-obsidian: #09090B;
+  --color-charcoal: #141419;
+  --color-zinc-dark: #23232D;
+  --color-violet: #7C3AED;
+  --color-violet-glow: rgba(124, 58, 237, 0.2);
+  --color-cyan: #06B6D4;
+  --color-cyan-glow: rgba(6, 182, 212, 0.15);
+  --color-emerald: #10B981;
+  --color-rose-soft: #F43F5E;
+  --color-cool-white: #F0F0F3;
+  --color-silver: #9898A6;
+  --color-glass-white: rgba(255, 255, 255, 0.05);
+
+  /* === Font Families (Section 2.3) === */
+  --font-sora: var(--font-sora-var), sans-serif;
+  --font-inter: var(--font-inter-var), sans-serif;
+  --font-mono: var(--font-mono-var), monospace;
+
+  /* === Custom Animations (Section 3.4.1) === */
+  --animate-ticker-left: ticker-left 35s linear infinite;
+  --animate-ticker-right: ticker-right 35s linear infinite;
+  --animate-bob: bob 2s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-float-slow: float-slow 30s ease-in-out infinite;
+  --animate-float-medium: float-medium 22s ease-in-out infinite;
+  --animate-float-reverse: float-reverse 26s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* === Ticker Keyframes (Section 6.4 — Skills Ticker) === */
+@keyframes ticker-left {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
   }
 }
 
+@keyframes ticker-right {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* === Bob Keyframe (Section 5.2.3 — Scroll Indicator) === */
+@keyframes bob {
+
+  0%,
+  100% {
+    transform: translateY(-4px);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* === Pulse Glow Keyframe (Education status dot) === */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.1);
+  }
+}
+
+/* === Floating Particle Keyframes (Ambient Background) === */
+@keyframes float-slow {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(30px, -40px) scale(1.05);
+  }
+
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+
+  75% {
+    transform: translate(15px, -15px) scale(1.02);
+  }
+}
+
+@keyframes float-medium {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(-25px, 30px) scale(1.08);
+  }
+
+  66% {
+    transform: translate(20px, -25px) scale(0.92);
+  }
+}
+
+@keyframes float-reverse {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(-20px, 25px) scale(0.96);
+  }
+
+  50% {
+    transform: translate(30px, -10px) scale(1.06);
+  }
+
+  75% {
+    transform: translate(-10px, -30px) scale(1);
+  }
+}
+
+/* ----------------------------------------------------------
+ * BASE STYLES — Blueprint Section 3.4.2
+ * ---------------------------------------------------------- */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #09090B;
+  color: #F0F0F3;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.03) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+}
+
+/* === Text Selection — Violet accent === */
+::selection {
+  background: rgba(124, 58, 237, 0.3);
+  color: #F0F0F3;
+}
+
+/* === Custom Scrollbar — Blueprint Section 3.4.2 === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090B;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #23232D;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9898A6;
+}
+
+/* === Focus Visible — Accessibility === */
+*:focus-visible {
+  outline: 2px solid #7C3AED;
+  outline-offset: 2px;
+}
+
+/* === Reduced Motion — Accessibility (Section 8.3) === */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------------------------
+ * LENIS SMOOTH SCROLL — Blueprint Section 3.4.5
+ * ---------------------------------------------------------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* === Skills Ticker Pause on Hover (Section 5.5.3) === */
+.ticker-row:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+/* === Ticker Edge Fade Masks === */
+.ticker-mask {
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+}
+
+/* === Section Divider Gradient === */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right,
+      transparent 0%,
+      rgba(124, 58, 237, 0.15) 30%,
+      rgba(124, 58, 237, 0.3) 50%,
+      rgba(124, 58, 237, 0.15) 70%,
+      transparent 100%);
 }
