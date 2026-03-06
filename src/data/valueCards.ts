@@ -13,7 +13,7 @@ export const valueCards: ValueCard[] = [
     },
     {
         number: '02',
-        title: 'Builder DNA',
+        title: 'Zero-to-One Mindset',
         description:
             'I started a tech initiative, won a government client, and pitched to senior law enforcement officials — while still in university. I manage product roadmaps, lead teams of 6, and build go-to-market strategies. I write code, yes. But I also understand why the code needs to exist.',
     },
