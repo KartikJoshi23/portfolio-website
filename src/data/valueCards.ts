@@ -27,6 +27,6 @@ export const valueCards: ValueCard[] = [
         number: '04',
         title: 'Pressure-Tested',
         description:
-            'Smart India Hackathon national finalist. ICC NIUM global top 10. Published researcher at 23. I perform when the stakes are high, the deadlines are tight, and the audience is watching.',
+            'Smart India Hackathon national finalist. ICC NIUM global top 10. Published researcher at 23. I don\'t just build projects for my GitHub profile — I compete, defend, and publish. I perform when the stakes are high, the deadlines are tight, and the audience is watching.',
     },
 ]

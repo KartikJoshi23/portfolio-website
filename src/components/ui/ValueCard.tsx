@@ -23,7 +23,7 @@ export default function ValueCard({ card, index }: ValueCardProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.12, ease: EASE_OUT }}
                 viewport={{ once: true, amount: 0.2 }}
-                className="group relative bg-white/3 backdrop-blur-sm border border-white/8
+                className="group relative h-full bg-white/3 backdrop-blur-sm border border-white/8
                             rounded-2xl p-6 md:p-8 border-t-2 border-t-violet/60 overflow-hidden
                             transition-all duration-500
                             hover:border-white/15 hover:bg-white/5

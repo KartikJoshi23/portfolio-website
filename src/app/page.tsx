@@ -21,10 +21,6 @@ import BackgroundOrbs from '@/components/ui/BackgroundOrbs'
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
 import CursorTrail from '@/components/ui/CursorTrail'
 
-function SectionDivider() {
-  return <div className="section-divider mx-auto max-w-5xl" />
-}
-
 export default function Home() {
   const [preloaderDone, setPreloaderDone] = useState(false)
 
@@ -47,37 +43,12 @@ export default function Home() {
       <BackgroundOrbs />
 
       <main id="main-content">
-        {/* Section 1: Hero */}
         <Hero animateEntrance={preloaderDone} />
-
-        <SectionDivider />
-
-        {/* Section 2: What Sets Me Apart */}
         <WhatSetsApart />
-
-        <SectionDivider />
-
-        {/* Section 3: Selected Work */}
         <SelectedWork />
-
-        <SectionDivider />
-
-        {/* Section 4: My Arsenal */}
         <TechStack />
-
-        <SectionDivider />
-
-        {/* Section 5: Track Record */}
         <TrackRecord />
-
-        <SectionDivider />
-
-        {/* Section 6: Education */}
         <Education />
-
-        <SectionDivider />
-
-        {/* Section 7: Let's Talk / Contact */}
         <Contact />
       </main>
 

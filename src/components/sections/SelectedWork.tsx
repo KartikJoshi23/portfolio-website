@@ -14,7 +14,7 @@ export default function SelectedWork() {
     return (
         <section
             id="work"
-            className="relative py-24 md:py-32"
+            className="relative py-16 md:py-24"
         >
             {/* Subtle background gradient */}
             <div
@@ -27,16 +27,25 @@ export default function SelectedWork() {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                 {/* Section Header */}
-                <SectionHeading
-                    heading="Selected Work"
-                    subheading="Not tutorials. Not toy projects. Production-grade systems with real stakes."
-                />
+                <div className="text-center [&_p]:mx-auto">
+                    <SectionHeading
+                        heading="What I've Built"
+                        subheading="Not tutorials. Not toy projects. Production-grade systems with real stakes."
+                    />
+                </div>
 
-                {/* Project Cards — vertical stack, constrained for readability */}
-                <div className="mt-16 max-w-4xl mx-auto flex flex-col gap-8 md:gap-10">
-                    {projects.map((project, i) => (
-                        <ProjectCard key={project.number} project={project} index={i} />
-                    ))}
+                {/* Project Cards — 2 compact cards + 1 horizontal card */}
+                <div className="mt-14 space-y-6">
+                    {/* Top row: 2 side-by-side compact cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {projects.slice(0, 2).map((project, i) => (
+                            <ProjectCard key={project.number} project={project} index={i} variant="compact" />
+                        ))}
+                    </div>
+                    {/* Bottom: Full-width horizontal card */}
+                    {projects[2] && (
+                        <ProjectCard project={projects[2]} index={2} variant="horizontal" />
+                    )}
                 </div>
             </div>
         </section>

@@ -51,7 +51,7 @@ export default function TiltCard({ children, className, maxTilt = 3 }: TiltCardP
                 transformPerspective: 800,
                 transformStyle: 'preserve-3d',
             }}
-            className={className}
+            className={`${className || ''} h-full`}
         >
             {children}
             {/* Shine overlay on hover */}

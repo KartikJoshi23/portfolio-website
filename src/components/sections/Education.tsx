@@ -12,7 +12,7 @@ export default function Education() {
     return (
         <section
             id="education"
-            className="relative py-24 md:py-32"
+            className="relative py-16 md:py-24"
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Section Header */}

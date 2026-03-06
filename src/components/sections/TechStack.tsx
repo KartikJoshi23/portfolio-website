@@ -32,7 +32,7 @@ export default function TechStack() {
     return (
         <section
             id="skills"
-            className="relative py-24 md:py-32"
+            className="relative py-16 md:py-24"
         >
             {/* Subtle background gradient for depth */}
             <div

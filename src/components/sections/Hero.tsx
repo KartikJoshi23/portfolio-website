@@ -100,32 +100,38 @@ export default function Hero({ animateEntrance }: HeroProps) {
                                 animate="visible"
                                 className="font-sora font-bold text-cool-white uppercase"
                                 style={{
-                                    fontSize: 'clamp(2.5rem, 10vw, 9rem)',
+                                    fontSize: 'clamp(2.5rem, 8vw, 7rem)',
                                     letterSpacing: '-0.02em',
-                                    lineHeight: 0.95,
+                                    lineHeight: 1,
                                 }}
                             >
-                                {heroContent.name.split('').map((char, i) => (
-                                    <motion.span
-                                        key={i}
-                                        variants={{
-                                            hidden: { y: 80, opacity: 0, rotateX: -90 },
-                                            visible: {
-                                                y: 0,
-                                                opacity: 1,
-                                                rotateX: 0,
-                                                transition: {
-                                                    duration: 0.6,
-                                                    delay: 0.2 + i * 0.035,
-                                                    ease: EASE_OUT,
-                                                },
-                                            },
-                                        }}
-                                        className="inline-block"
-                                        style={{ whiteSpace: char === ' ' ? 'pre' : undefined }}
-                                    >
-                                        {char === ' ' ? '\u00A0' : char}
-                                    </motion.span>
+                                {['KARTIK', 'JOSHI'].map((word, wi) => (
+                                    <span key={wi} className="block">
+                                        {word.split('').map((char, ci) => {
+                                            const i = wi === 0 ? ci : 7 + ci
+                                            return (
+                                                <motion.span
+                                                    key={i}
+                                                    variants={{
+                                                        hidden: { y: 80, opacity: 0, rotateX: -90 },
+                                                        visible: {
+                                                            y: 0,
+                                                            opacity: 1,
+                                                            rotateX: 0,
+                                                            transition: {
+                                                                duration: 0.6,
+                                                                delay: 0.2 + i * 0.035,
+                                                                ease: EASE_OUT,
+                                                            },
+                                                        },
+                                                    }}
+                                                    className="inline-block"
+                                                >
+                                                    {char}
+                                                </motion.span>
+                                            )
+                                        })}
+                                    </span>
                                 ))}
                             </motion.h1>
                         )}
