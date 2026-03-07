@@ -23,7 +23,7 @@ interface HeroProps {
 
 const heroContent = {
     name: 'KARTIK JOSHI',
-    tagline: 'Automating intelligence. Decentralizing trust.',
+    tagline: 'Automating Intelligence. Decentralizing Trust.',
     subtitle: 'Masters in AI with Business | SP Jain School of Global Management, Dubai',
     ctaPrimary: { text: 'See My Work', target: '#work' },
     ctaSecondary: { text: "Let's Connect", target: '#contact' },
