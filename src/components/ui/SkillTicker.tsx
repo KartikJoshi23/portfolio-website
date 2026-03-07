@@ -22,7 +22,7 @@ export default function SkillTicker({ category, index }: SkillTickerProps) {
     const pills = [...category.skills, ...category.skills, ...category.skills]
 
     return (
-        <div className="ticker-row relative">
+        <div className="ticker-row relative overflow-hidden">
             {/* Category label — always above */}
             <div className="mb-2 px-6 lg:px-8">
                 <span className="font-sora font-medium text-[11px] text-violet/70 uppercase tracking-[0.15em]">

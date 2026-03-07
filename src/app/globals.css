@@ -147,7 +147,12 @@
 /* ----------------------------------------------------------
  * BASE STYLES — Blueprint Section 3.4.2
  * ---------------------------------------------------------- */
+html {
+  overflow-x: hidden;
+}
+
 body {
+  overflow-x: hidden;
   background-color: #09090B;
   color: #F0F0F3;
   font-family: var(--font-inter);

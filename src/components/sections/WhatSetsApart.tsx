@@ -12,7 +12,7 @@ export default function WhatSetsApart() {
     return (
         <section
             id="about"
-            className="relative py-16 md:py-24"
+            className="relative py-16 md:py-24 overflow-hidden"
         >
             {/* Subtle gradient background */}
             <div

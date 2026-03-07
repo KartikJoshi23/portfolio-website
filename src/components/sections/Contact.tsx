@@ -75,7 +75,7 @@ export default function Contact() {
     return (
         <section
             id="contact"
-            className="relative py-16 md:py-24"
+            className="relative py-16 md:py-24 overflow-hidden"
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Section Header — Blueprint §5.8.2 */}
@@ -234,12 +234,12 @@ export default function Contact() {
                                                 href={href}
                                                 target={type !== 'Email' && type !== 'Phone' ? '_blank' : undefined}
                                                 rel={type !== 'Email' && type !== 'Phone' ? 'noopener noreferrer' : undefined}
-                                                className="font-inter font-medium text-base text-cool-white hover:text-violet transition-colors"
+                                                className="font-inter font-medium text-base text-cool-white hover:text-violet transition-colors break-all"
                                             >
                                                 {value}
                                             </a>
                                         ) : (
-                                            <span className="font-inter font-medium text-base text-cool-white">
+                                            <span className="font-inter font-medium text-base text-cool-white break-all">
                                                 {value}
                                             </span>
                                         )}

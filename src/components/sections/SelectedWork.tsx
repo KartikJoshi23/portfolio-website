@@ -14,7 +14,7 @@ export default function SelectedWork() {
     return (
         <section
             id="work"
-            className="relative py-16 md:py-24"
+            className="relative py-16 md:py-24 overflow-hidden"
         >
             {/* Subtle background gradient */}
             <div
