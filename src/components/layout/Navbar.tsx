@@ -8,6 +8,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Download, Menu, X } from 'lucide-react'
+import Image from 'next/image'
 import { navLinks } from '@/data/navigation'
 import { useActiveSection } from '@/hooks/useActiveSection'
 import { useLenis } from '@/hooks/useLenis'
@@ -97,13 +98,23 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center justify-between">
 
                     {/* === Left: Logo — Blueprint Section 4.3.1 ===
-           * "KJ" initials — click scrolls to top */}
+           * KJ gradient monogram — click scrolls to top
+           * mix-blend-mode: lighten removes the dark background from the PNG
+           * If the dark bg is not fully removed, manually process Logo.png through remove.bg for a transparent version */}
                     <button
                         onClick={handleLogoClick}
-                        className="font-sora font-bold text-cool-white text-xl tracking-tight hover:text-violet transition-colors duration-200"
+                        className="flex items-center"
                         aria-label="Scroll to top"
                     >
-                        KJ
+                        <Image
+                            src="/Logo.png"
+                            alt="Kartik Joshi"
+                            width={36}
+                            height={36}
+                            priority
+                            className="h-9 w-auto transition-[filter] duration-300 ease-in-out hover:drop-shadow-[0_0_12px_rgba(124,58,237,0.4)]"
+                            style={{ mixBlendMode: 'lighten' }}
+                        />
                     </button>
 
                     {/* === Center: Desktop Nav Links — Blueprint Section 4.3.1 ===

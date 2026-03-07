@@ -45,6 +45,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Kartik Joshi' }],
   creator: 'Kartik Joshi',
   metadataBase: new URL('https://your-project.vercel.app'),
+  // TODO: Update og-image.png to use the new KJ gradient logo
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -53,6 +54,10 @@ export const metadata: Metadata = {
     description:
       'AI/ML specialist building production-grade intelligent systems. Explore projects, research, and experience.',
     siteName: 'Kartik Joshi Portfolio',
+  },
+  icons: {
+    icon: '/Logo.png',
+    apple: '/Logo.png',
   },
   twitter: {
     card: 'summary',
@@ -94,8 +99,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
-        {/* Favicon — SVG with violet brand color */}
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>" />
+        {/* Favicon — Logo.png (temporary; generate proper 16x16 and 32x32 .ico versions later)
+           Next.js metadata.icons handles the favicon via /Logo.png */}
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#7C3AED" />
 
