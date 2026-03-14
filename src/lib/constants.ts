@@ -25,9 +25,10 @@ export const SECTION_IDS = {
     hero: 'hero',
     about: 'about',
     work: 'work',
-    skills: 'skills',
-    achievements: 'achievements',
-    education: 'education',
+    proof: 'proof',
+    howIWork: 'how-i-work',
+    research: 'research',
+    opportunities: 'opportunities',
     contact: 'contact',
 } as const
 

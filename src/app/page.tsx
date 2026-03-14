@@ -15,9 +15,11 @@ import SelectedWork from '@/components/sections/SelectedWork'
 import TechStack from '@/components/sections/TechStack'
 import TrackRecord from '@/components/sections/TrackRecord'
 import Education from '@/components/sections/Education'
+import Opportunities from '@/components/sections/Opportunities'
 import Contact from '@/components/sections/Contact'
 import FloatingParticles from '@/components/ui/FloatingParticles'
 import BackgroundOrbs from '@/components/ui/BackgroundOrbs'
+import CredibilityStrip from '@/components/ui/CredibilityStrip'
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
 import CursorTrail from '@/components/ui/CursorTrail'
 
@@ -44,11 +46,13 @@ export default function Home() {
 
       <main id="main-content">
         <Hero animateEntrance={preloaderDone} />
+        <CredibilityStrip />
         <WhatSetsApart />
         <SelectedWork />
-        <TechStack />
         <TrackRecord />
+        <TechStack />
         <Education />
+        <Opportunities />
         <Contact />
       </main>
 

@@ -7,26 +7,20 @@ import type { ValueCard } from '@/types'
 export const valueCards: ValueCard[] = [
     {
         number: '01',
-        title: 'Full-Stack AI Products, Not Just Models',
+        title: 'Prompt-Native System Design',
         description:
-            "Most AI candidates hand you a Jupyter notebook. I hand you a deployed product — frontend, backend, ML pipeline, Docker, CI/CD, tests. My trading dashboard processes live market data across 13,000+ lines of production code. I don't prototype. I ship.",
+            'I think in workflows, prompts, evaluation loops, and user decisions, not just model calls. That matters when an AI product has to feel reliable, legible, and genuinely useful.',
     },
     {
         number: '02',
-        title: 'Zero-to-One Mindset',
+        title: 'Full-Stack Delivery',
         description:
-            'I started a tech initiative, won a government client, and pitched to senior law enforcement officials — while still in university. I manage product roadmaps, lead teams of 6, and build go-to-market strategies. I write code, yes. But I also understand why the code needs to exist.',
+            'I move from product idea to working system across frontend, backend, APIs, orchestration, testing, and deployment. The value is speed without handing off the hard parts.',
     },
     {
         number: '03',
-        title: 'AI-Augmented Velocity',
+        title: 'Research-Grounded Execution',
         description:
-            "I build with Cursor, Copilot, and Claude as force multipliers — not crutches. The result: I ship production-grade systems at a pace that doesn't make sense for a single person. Three complex full-stack AI products. Speed without sacrificing depth.",
-    },
-    {
-        number: '04',
-        title: 'Pressure-Tested',
-        description:
-            'Smart India Hackathon national finalist. ICC NIUM global top 10. Published researcher at 23. I don\'t just build projects for my GitHub profile — I compete, defend, and publish. I perform when the stakes are high, the deadlines are tight, and the audience is watching.',
+            'I can operate in build mode and investigation mode: comparing approaches, pressure-testing decisions, and translating what works into something usable for teams, judges, and end users.',
     },
 ]

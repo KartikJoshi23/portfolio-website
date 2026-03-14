@@ -5,8 +5,17 @@
 "use client"
 
 import { useState, useEffect } from 'react'
+import { SECTION_IDS } from '@/lib/constants'
 
-const sections = ['hero', 'about', 'work', 'skills', 'achievements', 'education', 'contact']
+const sections = [
+    SECTION_IDS.hero,
+    SECTION_IDS.about,
+    SECTION_IDS.work,
+    SECTION_IDS.proof,
+    SECTION_IDS.howIWork,
+    SECTION_IDS.research,
+    SECTION_IDS.contact,
+]
 
 export function useActiveSection() {
     const [active, setActive] = useState('hero')

@@ -1,10 +1,10 @@
 /* ==========================================================
- * WHATSETSAPART.TSX — Blueprint v4.0 (was WhatIBring.tsx)
- * "What Sets Me Apart" — Intro paragraph + 4 value cards
+ * WHATSETSAPART.TSX — Phase 1 redesign
+ * About / Positioning section with editorial intro + proof blocks
  * ========================================================== */
 "use client"
 
-import SectionHeading from '@/components/ui/SectionHeading'
+import ScrollReveal from '@/components/ui/ScrollReveal'
 import ValueCard from '@/components/ui/ValueCard'
 import { valueCards } from '@/data/valueCards'
 
@@ -14,27 +14,50 @@ export default function WhatSetsApart() {
             id="about"
             className="relative py-16 md:py-24 overflow-hidden"
         >
-            {/* Subtle gradient background */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background:
-                        'radial-gradient(ellipse 60% 50% at 80% 30%, rgba(124, 58, 237, 0.02) 0%, transparent 60%)',
+                        'radial-gradient(ellipse 60% 50% at 20% 35%, rgba(124, 58, 237, 0.03) 0%, transparent 65%)',
                 }}
             />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-                {/* Section Header */}
-                <SectionHeading
-                    heading="What Sets Me Apart"
-                    subheading="Not buzzwords. Proof-backed value."
-                />
+                <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 items-start">
+                    <ScrollReveal className="max-w-2xl">
+                        <span className="font-mono text-[11px] text-violet/70 uppercase tracking-[0.2em]">
+                            Positioning
+                        </span>
+                        <h2 className="mt-4 font-sora font-semibold text-3xl md:text-5xl text-cool-white leading-tight">
+                            Built for practical AI work, not isolated demos.
+                        </h2>
+                        <p className="mt-6 font-inter text-base md:text-lg text-silver leading-8">
+                            I build prompt-native AI products end to end, from interaction design and orchestration
+                            to usable interfaces, backend logic, and deployment-ready systems. My edge is not just
+                            model familiarity or frontend polish. It is the ability to turn emerging AI workflows
+                            into working products quickly, with enough depth to matter and enough clarity to be useful.
+                        </p>
+                        <div className="mt-8 space-y-4 border-t border-white/8 pt-6">
+                            {[
+                                'Designed for recruiters, research leads, and product teams evaluating real execution depth.',
+                                'Comfortable moving between prompt design, system architecture, experimentation, and delivery.',
+                                'Best work sits where applied AI, usable products, and fast iteration meet.',
+                            ].map((point) => (
+                                <div key={point} className="flex items-start gap-3">
+                                    <span className="mt-1.5 h-2 w-2 rounded-full bg-violet shrink-0" />
+                                    <p className="font-inter text-sm md:text-[15px] text-silver/90 leading-7">
+                                        {point}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </ScrollReveal>
 
-                {/* Cards Grid — 2×2 desktop, single column mobile */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-                    {valueCards.map((card, i) => (
-                        <ValueCard key={card.number} card={card} index={i} />
-                    ))}
+                    <div className="space-y-5">
+                        {valueCards.map((card, i) => (
+                            <ValueCard key={card.number} card={card} index={i} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

@@ -1,11 +1,6 @@
 /* ==========================================================
- * HERO.TSX — Blueprint v4.0 Section 5.2
- * Name, tagline, subtitle, CTAs, social links, scroll indicator
- * + HEADSHOT INTEGRATION
- *
- * Desktop (lg+): 60% text LEFT, 40% headshot RIGHT
- * Mobile (<lg): Headshot ABOVE name, centered
- * Colors: Obsidian & Violet palette
+ * HERO.TSX — Phase 1 redesign
+ * Positioning-first hero with stronger CTAs and opportunity framing
  * ========================================================== */
 "use client"
 
@@ -14,7 +9,7 @@ import Image from 'next/image'
 import { Linkedin, Github, Mail, ChevronDown } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
 import VioletGlow from '@/components/ui/VioletGlow'
-import { EASE_OUT } from '@/lib/constants'
+import { EASE_OUT, PERSONAL } from '@/lib/constants'
 import { useLenis } from '@/hooks/useLenis'
 
 interface HeroProps {
@@ -23,14 +18,18 @@ interface HeroProps {
 
 const heroContent = {
     name: 'KARTIK JOSHI',
-    tagline: 'Automating Intelligence. Decentralizing Trust.',
-    subtitle: 'Masters in AI with Business | SP Jain School of Global Management, Dubai',
-    ctaPrimary: { text: 'See My Work', target: '#work' },
-    ctaSecondary: { text: "Let's Connect", target: '#contact' },
+    eyebrow: 'Dubai-based • Open to AI roles, research, and product collaborations',
+    role: 'AI Product Builder for Prompt-Driven Systems',
+    summary:
+        'I design and ship applied AI systems across prompting, product architecture, and rapid prototyping, with a focus on tools people can actually use.',
+    subtitle: `${PERSONAL.degree} • ${PERSONAL.institution}`,
+    ctaPrimary: { text: 'View Case Studies', target: '#work' },
+    ctaSecondary: { text: 'Work With Me', target: '#opportunities' },
+    ctaTertiary: { text: 'Explore Research', target: '#research' },
     socials: [
-        { platform: 'LinkedIn', url: 'https://linkedin.com/in/kartikjoshi23', Icon: Linkedin },
-        { platform: 'GitHub', url: 'https://github.com/KartikJoshi23', Icon: Github },
-        { platform: 'Email', url: 'mailto:kartik.as25dxb025@spjain.org', Icon: Mail },
+        { platform: 'LinkedIn', url: PERSONAL.linkedin, Icon: Linkedin },
+        { platform: 'GitHub', url: PERSONAL.github, Icon: Github },
+        { platform: 'Email', url: `mailto:${PERSONAL.email}`, Icon: Mail },
     ],
 }
 
@@ -50,7 +49,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
     return (
         <section
             id="hero"
-            className="relative min-h-screen flex items-center overflow-hidden"
+            className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-20 lg:pt-24"
             style={{
                 background:
                     'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(124, 58, 237, 0.04) 0%, transparent 70%), #09090B',
@@ -60,8 +59,6 @@ export default function Hero({ animateEntrance }: HeroProps) {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
                 <div className="flex flex-col lg:flex-row items-center lg:items-center gap-10 lg:gap-0">
-
-                    {/* Mobile: Headshot appears FIRST (above name) */}
                     {animateEntrance && (
                         <motion.div
                             {...stagger(0)}
@@ -92,8 +89,16 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         </motion.div>
                     )}
 
-                    {/* Text Content (60% desktop) */}
                     <div className="lg:w-[60%] text-center lg:text-left space-y-5">
+                        {animateEntrance && (
+                            <motion.p
+                                {...stagger(0.15)}
+                                className="inline-flex items-center rounded-full border border-white/10 bg-white/4 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-violet/75"
+                            >
+                                {heroContent.eyebrow}
+                            </motion.p>
+                        )}
+
                         {animateEntrance && (
                             <motion.h1
                                 initial="hidden"
@@ -139,17 +144,26 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         {animateEntrance && (
                             <motion.p
                                 {...stagger(0.4)}
-                                className="font-sora font-medium text-violet"
-                                style={{ fontSize: 'clamp(1rem, 2.2vw, 1.6rem)' }}
+                                className="font-sora font-medium text-violet max-w-2xl"
+                                style={{ fontSize: 'clamp(1.1rem, 2.3vw, 1.7rem)' }}
                             >
-                                {heroContent.tagline}
+                                {heroContent.role}
                             </motion.p>
                         )}
 
                         {animateEntrance && (
                             <motion.p
                                 {...stagger(0.55)}
-                                className="font-inter text-silver text-sm"
+                                className="font-inter text-silver text-base md:text-lg max-w-2xl leading-8"
+                            >
+                                {heroContent.summary}
+                            </motion.p>
+                        )}
+
+                        {animateEntrance && (
+                            <motion.p
+                                {...stagger(0.62)}
+                                className="font-inter text-silver/80 text-sm uppercase tracking-[0.08em]"
                             >
                                 {heroContent.subtitle}
                             </motion.p>
@@ -158,9 +172,8 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         {animateEntrance && (
                             <motion.div
                                 {...stagger(0.7)}
-                                className="flex flex-col sm:flex-row items-center gap-4 lg:justify-start justify-center"
+                                className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-4 lg:justify-start justify-center"
                             >
-                                {/* Primary CTA — gradient bg */}
                                 <MagneticButton
                                     onClick={() => handleCTA(heroContent.ctaPrimary.target)}
                                     className="text-cool-white font-sora font-medium text-[14px] uppercase tracking-[0.05em] px-8 py-4 rounded-full hover:shadow-[0_0_30px_rgba(124,58,237,0.3)] w-full sm:w-auto bg-linear-to-br from-violet to-cyan"
@@ -168,13 +181,19 @@ export default function Hero({ animateEntrance }: HeroProps) {
                                     {heroContent.ctaPrimary.text}
                                 </MagneticButton>
 
-                                {/* Secondary CTA — violet border */}
                                 <MagneticButton
                                     onClick={() => handleCTA(heroContent.ctaSecondary.target)}
                                     className="border border-violet text-violet font-sora font-medium text-[14px] uppercase tracking-[0.05em] px-8 py-4 rounded-full hover:bg-violet/10 w-full sm:w-auto"
                                 >
                                     {heroContent.ctaSecondary.text}
                                 </MagneticButton>
+
+                                <button
+                                    onClick={() => handleCTA(heroContent.ctaTertiary.target)}
+                                    className="font-inter text-sm text-silver hover:text-cool-white transition-colors duration-300 underline underline-offset-4 decoration-violet/50 hover:decoration-violet"
+                                >
+                                    {heroContent.ctaTertiary.text}
+                                </button>
                             </motion.div>
                         )}
 
@@ -199,7 +218,6 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         )}
                     </div>
 
-                    {/* Desktop: Headshot RIGHT (40%) */}
                     {animateEntrance && (
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
@@ -234,7 +252,6 @@ export default function Hero({ animateEntrance }: HeroProps) {
                 </div>
             </div>
 
-            {/* Scroll Indicator */}
             {animateEntrance && (
                 <motion.div
                     initial={{ opacity: 0 }}

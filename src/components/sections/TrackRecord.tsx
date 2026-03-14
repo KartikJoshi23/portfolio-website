@@ -14,7 +14,7 @@ import { BookOpen } from 'lucide-react'
 export default function TrackRecord() {
     return (
         <section
-            id="achievements"
+            id="proof"
             className="relative py-16 md:py-24 overflow-hidden"
         >
             {/* Subtle gradient background */}
@@ -29,8 +29,8 @@ export default function TrackRecord() {
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                 {/* Section Header */}
                 <SectionHeading
-                    heading="Track Record"
-                    subheading="I don't just build in isolation — I compete, present, and win."
+                    heading="Proof of Work"
+                    subheading="Tested under competition, research, and institutional scrutiny."
                 />
 
                 {/* Stats counters row */}
@@ -39,7 +39,7 @@ export default function TrackRecord() {
                         <AnimatedCounter end={5} suffix="+" label="Hackathons" />
                         <AnimatedCounter end={3} suffix="" label="Projects Shipped" />
                         <AnimatedCounter end={1} suffix="" label="Publication" />
-                        <AnimatedCounter end={13000} suffix="+" label="Lines of Code" />
+                        <AnimatedCounter prefix="Top " end={10} label="Global Finish" />
                     </div>
                 </ScrollReveal>
 

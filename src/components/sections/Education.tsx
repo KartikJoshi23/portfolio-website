@@ -11,12 +11,15 @@ import { education } from '@/data/education'
 export default function Education() {
     return (
         <section
-            id="education"
+            id="research"
             className="relative py-16 md:py-24 overflow-hidden"
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Section Header */}
-                <SectionHeading heading="Education" />
+                <SectionHeading
+                    heading="Research & Education"
+                    subheading="Academic grounding for applied AI systems, with room for deeper collaboration and further study."
+                />
 
                 {/* Two cards side by side on desktop, stacked on mobile */}
                 <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -31,7 +31,7 @@ const pillItem = {
 export default function TechStack() {
     return (
         <section
-            id="skills"
+            id="how-i-work"
             className="relative py-16 md:py-24 overflow-hidden"
         >
             {/* Subtle background gradient for depth */}
@@ -44,7 +44,10 @@ export default function TechStack() {
             />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-                <SectionHeading heading="My Arsenal" />
+                <SectionHeading
+                    heading="How I Work"
+                    subheading="Capabilities first. Tools second. The stack is there to support speed, clarity, and useful outcomes."
+                />
 
                 {/* Skill categories — wrapped pill groups */}
                 <div className="mt-14 space-y-10">
