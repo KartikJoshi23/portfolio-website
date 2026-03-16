@@ -32,7 +32,7 @@ export default function TechStack() {
     return (
         <section
             id="how-i-work"
-            className="relative py-16 md:py-24 overflow-hidden"
+            className="relative py-12 md:py-16 overflow-hidden"
         >
             {/* Subtle background gradient for depth */}
             <div
@@ -54,7 +54,7 @@ export default function TechStack() {
                     {skillCategories.map((cat, i) => (
                         <ScrollReveal key={cat.category} delay={i * 0.05}>
                             <div>
-                                <span className="font-sora font-medium text-[11px] text-violet/70 uppercase tracking-[0.15em]">
+                                <span className="font-sora font-medium text-[11px] text-cyan-300/90 uppercase tracking-[0.15em]">
                                     {cat.category}
                                 </span>
                                 <motion.div

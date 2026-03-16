@@ -15,7 +15,7 @@ export default function TrackRecord() {
     return (
         <section
             id="proof"
-            className="relative py-16 md:py-24 overflow-hidden"
+            className="relative py-12 md:py-16 overflow-hidden"
         >
             {/* Subtle gradient background */}
             <div

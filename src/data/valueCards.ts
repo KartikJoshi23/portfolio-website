@@ -7,9 +7,9 @@ import type { ValueCard } from '@/types'
 export const valueCards: ValueCard[] = [
     {
         number: '01',
-        title: 'Prompt-Native System Design',
+        title: 'AI Workflow System Design',
         description:
-            'I think in workflows, prompts, evaluation loops, and user decisions, not just model calls. That matters when an AI product has to feel reliable, legible, and genuinely useful.',
+            'I think in workflows, evaluation loops, and user decisions, not just model calls. That matters when an AI product has to feel reliable, legible, and genuinely useful.',
     },
     {
         number: '02',

@@ -99,7 +99,7 @@ export default function Navbar() {
 
                     {/* === Left: Logo — Blueprint Section 4.3.1 ===
            * KJ gradient monogram — click scrolls to top
-           * mix-blend-mode: lighten removes the dark background from the PNG
+           * mix-blend-mode: screen reduces the dark matte from the PNG
            * If the dark bg is not fully removed, manually process Logo.png through remove.bg for a transparent version */}
                     <button
                         onClick={handleLogoClick}
@@ -113,7 +113,7 @@ export default function Navbar() {
                             height={36}
                             priority
                             className="h-9 w-auto transition-[filter] duration-300 ease-in-out hover:drop-shadow-[0_0_12px_rgba(124,58,237,0.4)]"
-                            style={{ mixBlendMode: 'lighten' }}
+                            style={{ mixBlendMode: 'screen' }}
                         />
                     </button>
 

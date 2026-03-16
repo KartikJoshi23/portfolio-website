@@ -37,7 +37,7 @@ export default function ValueCard({ card, index }: ValueCardProps) {
             />
 
             {/* Number */}
-            <span className="relative z-10 font-mono text-sm text-violet/80">
+            <span className="relative z-10 font-mono text-sm text-cyan-300/90">
                 {card.number}
             </span>
 

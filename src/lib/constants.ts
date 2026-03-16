@@ -27,7 +27,7 @@ export const SECTION_IDS = {
     work: 'work',
     proof: 'proof',
     howIWork: 'how-i-work',
-    research: 'research',
+    education: 'education',
     opportunities: 'opportunities',
     contact: 'contact',
 } as const

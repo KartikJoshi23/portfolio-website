@@ -13,7 +13,7 @@ const sections = [
     SECTION_IDS.work,
     SECTION_IDS.proof,
     SECTION_IDS.howIWork,
-    SECTION_IDS.research,
+    SECTION_IDS.education,
     SECTION_IDS.contact,
 ]
 

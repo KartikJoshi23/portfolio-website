@@ -43,7 +43,7 @@ export default function EducationCard({ item, index }: EducationCardProps) {
             {item.status === 'current' && (
                 <div className="mt-3 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-violet animate-pulse-glow" />
-                    <span className="font-mono text-[11px] text-violet uppercase tracking-wide">
+                    <span className="font-mono text-[11px] text-cyan-300 uppercase tracking-wide">
                         Current
                     </span>
                 </div>
@@ -51,7 +51,7 @@ export default function EducationCard({ item, index }: EducationCardProps) {
 
             {/* CGPA */}
             {item.cgpa && (
-                <p className="mt-3 font-mono text-sm text-violet">
+                <p className="mt-3 font-mono text-sm text-cyan-300">
                     CGPA: {item.cgpa}
                 </p>
             )}

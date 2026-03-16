@@ -54,9 +54,6 @@ export default function Footer() {
                     <p className="font-inter text-sm text-silver">
                         Designed &amp; Built by Kartik Joshi
                     </p>
-                    <p className="mt-1 font-mono text-xs text-zinc-dark">
-                        Next.js · Tailwind CSS · Framer Motion
-                    </p>
                 </div>
 
                 {/* Copyright + Back-to-top */}

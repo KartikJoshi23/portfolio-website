@@ -1,6 +1,6 @@
 /* ==========================================================
  * HERO.TSX — Phase 1 redesign
- * Positioning-first hero with stronger CTAs and opportunity framing
+ * Outcome-first hero with stronger CTAs and clear positioning
  * ========================================================== */
 "use client"
 
@@ -18,14 +18,13 @@ interface HeroProps {
 
 const heroContent = {
     name: 'KARTIK JOSHI',
-    eyebrow: 'Dubai-based • Open to AI roles, research, and product collaborations',
-    role: 'AI Product Builder for Prompt-Driven Systems',
+    eyebrow: 'Automating Intelligence. Decentralizing Trust.',
+    role: 'AI Product Builder',
     summary:
-        'I design and ship applied AI systems across prompting, product architecture, and rapid prototyping, with a focus on tools people can actually use.',
+        'I design and ship applied AI systems across model integration, product architecture, and production deployment with a focus on measurable real-world outcomes.',
     subtitle: `${PERSONAL.degree} • ${PERSONAL.institution}`,
-    ctaPrimary: { text: 'View Case Studies', target: '#work' },
-    ctaSecondary: { text: 'Work With Me', target: '#opportunities' },
-    ctaTertiary: { text: 'Explore Research', target: '#research' },
+    ctaPrimary: { text: 'See Selected Work', target: '#work' },
+    ctaSecondary: { text: 'Ways to Collaborate', target: '#opportunities' },
     socials: [
         { platform: 'LinkedIn', url: PERSONAL.linkedin, Icon: Linkedin },
         { platform: 'GitHub', url: PERSONAL.github, Icon: Github },
@@ -93,7 +92,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         {animateEntrance && (
                             <motion.p
                                 {...stagger(0.15)}
-                                className="inline-flex items-center rounded-full border border-white/10 bg-white/4 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-violet/75"
+                                className="inline-flex items-center rounded-full border border-white/10 bg-white/4 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-300/90"
                             >
                                 {heroContent.eyebrow}
                             </motion.p>
@@ -188,12 +187,6 @@ export default function Hero({ animateEntrance }: HeroProps) {
                                     {heroContent.ctaSecondary.text}
                                 </MagneticButton>
 
-                                <button
-                                    onClick={() => handleCTA(heroContent.ctaTertiary.target)}
-                                    className="font-inter text-sm text-silver hover:text-cool-white transition-colors duration-300 underline underline-offset-4 decoration-violet/50 hover:decoration-violet"
-                                >
-                                    {heroContent.ctaTertiary.text}
-                                </button>
                             </motion.div>
                         )}
 

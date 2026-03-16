@@ -1,6 +1,6 @@
 /* ==========================================================
  * WHATSETSAPART.TSX — Phase 1 redesign
- * About / Positioning section with editorial intro + proof blocks
+ * About section with editorial intro + proof blocks
  * ========================================================== */
 "use client"
 
@@ -12,7 +12,7 @@ export default function WhatSetsApart() {
     return (
         <section
             id="about"
-            className="relative py-16 md:py-24 overflow-hidden"
+            className="relative py-12 md:py-16 overflow-hidden"
         >
             <div
                 className="absolute inset-0 pointer-events-none"
@@ -25,14 +25,11 @@ export default function WhatSetsApart() {
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                 <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 items-start">
                     <ScrollReveal className="max-w-2xl">
-                        <span className="font-mono text-[11px] text-violet/70 uppercase tracking-[0.2em]">
-                            Positioning
-                        </span>
-                        <h2 className="mt-4 font-sora font-semibold text-3xl md:text-5xl text-cool-white leading-tight">
+                        <h2 className="font-sora font-semibold text-3xl md:text-5xl text-cool-white leading-tight">
                             Built for practical AI work, not isolated demos.
                         </h2>
                         <p className="mt-6 font-inter text-base md:text-lg text-silver leading-8">
-                            I build prompt-native AI products end to end, from interaction design and orchestration
+                            I build applied AI products end to end, from interaction design and orchestration
                             to usable interfaces, backend logic, and deployment-ready systems. My edge is not just
                             model familiarity or frontend polish. It is the ability to turn emerging AI workflows
                             into working products quickly, with enough depth to matter and enough clarity to be useful.
@@ -40,7 +37,7 @@ export default function WhatSetsApart() {
                         <div className="mt-8 space-y-4 border-t border-white/8 pt-6">
                             {[
                                 'Designed for recruiters, research leads, and product teams evaluating real execution depth.',
-                                'Comfortable moving between prompt design, system architecture, experimentation, and delivery.',
+                                'Comfortable moving between AI system design, architecture, experimentation, and delivery.',
                                 'Best work sits where applied AI, usable products, and fast iteration meet.',
                             ].map((point) => (
                                 <div key={point} className="flex items-start gap-3">

@@ -75,7 +75,7 @@ export default function Contact() {
     return (
         <section
             id="contact"
-            className="relative py-16 md:py-24 overflow-hidden"
+            className="relative py-12 md:py-16 overflow-hidden"
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Section Header — Blueprint §5.8.2 */}
@@ -101,7 +101,7 @@ export default function Contact() {
                     <div className="mt-4 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-emerald" />
                         <span className="font-inter text-sm text-silver italic">
-                            Currently open to opportunities in AI/ML engineering, research, and product development.
+                            Building and collaborating on applied AI systems, research initiatives, and product execution.
                         </span>
                     </div>
                 </ScrollReveal>

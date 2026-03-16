@@ -53,7 +53,7 @@ export const skillCategories: SkillCategory[] = [
             { name: 'LLM Integration', icon: null },
             { name: 'Blockchain/Web3', icon: null },
             { name: 'Biometric Systems', icon: null },
-            { name: 'Prompt Engineering', icon: null },
+            { name: 'LLM Workflow Design', icon: null },
             { name: 'Data Analytics', icon: null },
         ],
     },
