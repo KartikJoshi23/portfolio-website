@@ -18,6 +18,7 @@ const greetings = [
     { text: 'Hello', lang: 'en' },
     { text: '\u0645\u0631\u062D\u0628\u0627', lang: 'ar' },
     { text: '\u0928\u092E\u0938\u094D\u0924\u0947', lang: 'hi' },
+    { text: '\u0AA8\u0AAE\u0AB8\u0ACD\u0AA4\u0AC7', lang: 'gu' },
     { text: 'Hola', lang: 'es' },
     { text: 'Bonjour', lang: 'fr' },
     { text: '\u3053\u3093\u306B\u3061\u306F', lang: 'ja' },
@@ -25,7 +26,7 @@ const greetings = [
     { text: "Hello, I'm Kartik.", lang: 'final' },
 ]
 
-const timings = [350, 350, 350, 350, 350, 350, 350, 400, 500]
+const timings = [350, 350, 350, 350, 350, 350, 350, 350, 500]
 
 export default function Preloader({ onComplete }: PreloaderProps) {
     const [currentIndex, setCurrentIndex] = useState(0)

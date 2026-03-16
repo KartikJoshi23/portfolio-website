@@ -18,7 +18,7 @@ interface HeroProps {
 
 const heroContent = {
     name: 'KARTIK JOSHI',
-    eyebrow: 'Automating Intelligence. Decentralizing Trust.',
+    tagline: 'Automating Intelligence. Decentralizing Trust.',
     role: 'AI Product Builder',
     summary:
         'I design and ship applied AI systems across model integration, product architecture, and production deployment with a focus on measurable real-world outcomes.',
@@ -89,14 +89,6 @@ export default function Hero({ animateEntrance }: HeroProps) {
                     )}
 
                     <div className="lg:w-[60%] text-center lg:text-left space-y-5">
-                        {animateEntrance && (
-                            <motion.p
-                                {...stagger(0.15)}
-                                className="inline-flex items-center rounded-full border border-white/10 bg-white/4 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-300/90"
-                            >
-                                {heroContent.eyebrow}
-                            </motion.p>
-                        )}
 
                         {animateEntrance && (
                             <motion.h1
@@ -147,6 +139,15 @@ export default function Hero({ animateEntrance }: HeroProps) {
                                 style={{ fontSize: 'clamp(1.1rem, 2.3vw, 1.7rem)' }}
                             >
                                 {heroContent.role}
+                            </motion.p>
+                        )}
+
+                        {animateEntrance && (
+                            <motion.p
+                                {...stagger(0.48)}
+                                className="font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-300/90"
+                            >
+                                {heroContent.tagline}
                             </motion.p>
                         )}
 
