@@ -51,7 +51,7 @@ export default function Opportunities() {
                     {opportunityCards.map((card, index) => (
                         <ScrollReveal key={card.number} delay={index * 0.08}>
                             <div className="h-full rounded-2xl border border-white/8 bg-white/4 p-6 md:p-7 backdrop-blur-sm transition-all duration-300 hover:border-violet/25 hover:bg-white/6">
-                                <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-cyan-300/90">
+                                <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-violet">
                                     {card.eyebrow}
                                 </span>
                                 <h3 className="mt-4 font-sora text-xl text-cool-white leading-snug">

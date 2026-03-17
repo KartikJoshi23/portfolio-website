@@ -113,7 +113,6 @@ export default function Navbar() {
                             height={36}
                             priority
                             className="h-9 w-auto transition-[filter] duration-300 ease-in-out hover:drop-shadow-[0_0_12px_rgba(124,58,237,0.4)]"
-                            style={{ mixBlendMode: 'screen' }}
                         />
                     </button>
 

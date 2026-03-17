@@ -35,7 +35,7 @@ export const SECTION_IDS = {
 // === Personal Info (Blueprint Section 11.1) ===
 export const PERSONAL = {
     name: 'Kartik Joshi',
-    email: 'kartik.as25dxb025@spjain.org',
+    email: 'kartujoshi2002@gmail.com',
     phone: '+971 56 558 2009',
     phoneHref: 'tel:+971565582009',
     location: 'Dubai, UAE',

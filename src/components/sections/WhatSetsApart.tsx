@@ -50,7 +50,7 @@ export default function WhatSetsApart() {
                         </div>
                     </ScrollReveal>
 
-                    <div className="grid grid-cols-1 gap-4 content-start">
+                    <div className="grid grid-cols-1 gap-4 content-stretch">
                         {valueCards.map((card, i) => (
                             <ValueCard key={card.number} card={card} index={i} />
                         ))}

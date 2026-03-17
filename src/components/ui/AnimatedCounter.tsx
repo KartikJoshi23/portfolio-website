@@ -1,12 +1,11 @@
 /* ==========================================================
  * ANIMATEDCOUNTER.TSX
- * Single animated number that counts up when scrolled into view
- * Uses existing useCounter + useInView hooks
+ * Static counter with fade-in animation on scroll into view
+ * Shows final value immediately — no count-up that can get stuck at 0
  * ========================================================== */
 "use client"
 
-import { useCounter } from '@/hooks/useCounter'
-import { useInView } from '@/hooks/useInView'
+import { motion } from 'framer-motion'
 
 interface AnimatedCounterProps {
     prefix?: string
@@ -16,18 +15,21 @@ interface AnimatedCounterProps {
     duration?: number
 }
 
-export default function AnimatedCounter({ prefix = '', end, suffix = '', label, duration = 2000 }: AnimatedCounterProps) {
-    const { ref, isInView } = useInView<HTMLDivElement>({ threshold: 0.5 })
-    const count = useCounter({ end, duration, enabled: isInView })
-
+export default function AnimatedCounter({ prefix = '', end, suffix = '', label }: AnimatedCounterProps) {
     return (
-        <div ref={ref} className="text-center">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, margin: '-50px' }}
+            className="text-center"
+        >
             <span className="font-sora font-bold text-4xl md:text-5xl text-cool-white">
-                {prefix}{count}{suffix}
+                {prefix}{end}{suffix}
             </span>
             <p className="mt-2 font-inter text-sm text-silver uppercase tracking-wider">
                 {label}
             </p>
-        </div>
+        </motion.div>
     )
 }

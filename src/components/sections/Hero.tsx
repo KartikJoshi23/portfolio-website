@@ -6,7 +6,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { Linkedin, Github, Mail, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
 import VioletGlow from '@/components/ui/VioletGlow'
 import { EASE_OUT, PERSONAL } from '@/lib/constants'
@@ -25,11 +25,6 @@ const heroContent = {
     subtitle: `${PERSONAL.degree} • ${PERSONAL.institution}`,
     ctaPrimary: { text: 'See Selected Work', target: '#work' },
     ctaSecondary: { text: 'Ways to Collaborate', target: '#opportunities' },
-    socials: [
-        { platform: 'LinkedIn', url: PERSONAL.linkedin, Icon: Linkedin },
-        { platform: 'GitHub', url: PERSONAL.github, Icon: Github },
-        { platform: 'Email', url: `mailto:${PERSONAL.email}`, Icon: Mail },
-    ],
 }
 
 const stagger = (delay: number) => ({
@@ -48,7 +43,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
     return (
         <section
             id="hero"
-            className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-20 lg:pt-24"
+            className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16 lg:pt-20"
             style={{
                 background:
                     'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(124, 58, 237, 0.04) 0%, transparent 70%), #09090B',
@@ -79,16 +74,16 @@ export default function Hero({ animateEntrance }: HeroProps) {
                                     priority
                                     className="object-cover"
                                     style={{
-                                        objectPosition: 'center top',
-                                        transform: 'scale(1.08)',
-                                        transformOrigin: 'center top',
+                                        objectPosition: 'center 15%',
+                                        transform: 'scale(1.15)',
+                                        transformOrigin: 'center 15%',
                                     }}
                                 />
                             </div>
                         </motion.div>
                     )}
 
-                    <div className="lg:w-[60%] text-center lg:text-left space-y-5">
+                    <div className="lg:w-[60%] text-center lg:text-left space-y-3">
 
                         {animateEntrance && (
                             <motion.h1
@@ -96,7 +91,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                                 animate="visible"
                                 className="font-sora font-bold text-cool-white uppercase"
                                 style={{
-                                    fontSize: 'clamp(2.5rem, 8vw, 7rem)',
+                                    fontSize: 'clamp(2.2rem, 6.5vw, 5.5rem)',
                                     letterSpacing: '-0.02em',
                                     lineHeight: 1,
                                 }}
@@ -145,7 +140,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         {animateEntrance && (
                             <motion.p
                                 {...stagger(0.48)}
-                                className="font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-300/90"
+                                className="font-mono text-[11px] uppercase tracking-[0.16em] text-silver"
                             >
                                 {heroContent.tagline}
                             </motion.p>
@@ -191,25 +186,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                             </motion.div>
                         )}
 
-                        {animateEntrance && (
-                            <motion.div
-                                {...stagger(0.8)}
-                                className="flex items-center gap-5 lg:justify-start justify-center"
-                            >
-                                {heroContent.socials.map((social) => (
-                                    <a
-                                        key={social.platform}
-                                        href={social.url}
-                                        target={social.platform !== 'Email' ? '_blank' : undefined}
-                                        rel={social.platform !== 'Email' ? 'noopener noreferrer' : undefined}
-                                        aria-label={social.platform}
-                                        className="text-silver hover:text-violet transition-colors duration-200"
-                                    >
-                                        <social.Icon size={24} />
-                                    </a>
-                                ))}
-                            </motion.div>
-                        )}
+
                     </div>
 
                     {animateEntrance && (
@@ -235,9 +212,9 @@ export default function Hero({ animateEntrance }: HeroProps) {
                                     priority
                                     className="object-cover"
                                     style={{
-                                        objectPosition: 'center top',
-                                        transform: 'scale(1.08)',
-                                        transformOrigin: 'center top',
+                                        objectPosition: 'center 15%',
+                                        transform: 'scale(1.15)',
+                                        transformOrigin: 'center 15%',
                                     }}
                                 />
                             </div>
