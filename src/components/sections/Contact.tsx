@@ -41,11 +41,19 @@ export default function Contact() {
         const form = e.currentTarget
         const formData = new FormData(form)
 
+        const name = formData.get('name') as string
+        const email = formData.get('email') as string
+        const message = formData.get('message') as string
+
         try {
             const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID
             if (!formspreeId) {
-                // Fallback — no Formspree ID set
-                setStatus('error')
+                // No Formspree ID — open mailto with pre-filled fields
+                const subject = encodeURIComponent(`Portfolio Contact from ${name}`)
+                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
+                window.open(`mailto:${PERSONAL.email}?subject=${subject}&body=${body}`, '_self')
+                setStatus('success')
+                form.reset()
                 setTimeout(() => setStatus('idle'), 3000)
                 return
             }

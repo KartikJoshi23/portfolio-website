@@ -23,8 +23,8 @@ export default function WhatSetsApart() {
             />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-                <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12 items-stretch">
-                    <ScrollReveal className="max-w-2xl h-full">
+                <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12 items-start">
+                    <ScrollReveal className="max-w-2xl">
                         <h2 className="font-sora font-semibold text-3xl md:text-5xl text-cool-white leading-tight">
                             Built for practical AI work, not isolated demos.
                         </h2>
@@ -50,7 +50,7 @@ export default function WhatSetsApart() {
                         </div>
                     </ScrollReveal>
 
-                    <div className="grid grid-cols-1 gap-4 content-stretch">
+                    <div className="grid grid-cols-1 gap-4">
                         {valueCards.map((card, i) => (
                             <ValueCard key={card.number} card={card} index={i} />
                         ))}

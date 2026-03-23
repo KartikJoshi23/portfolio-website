@@ -23,7 +23,7 @@ const heroContent = {
     summary:
         'I design and ship applied AI systems across model integration, product architecture, and production deployment with a focus on measurable real-world outcomes.',
     subtitle: `${PERSONAL.degree} • ${PERSONAL.institution}`,
-    ctaPrimary: { text: 'See Selected Work', target: '#work' },
+    ctaPrimary: { text: 'View My Projects', target: '#work' },
     ctaSecondary: { text: 'Ways to Collaborate', target: '#opportunities' },
 }
 
@@ -140,7 +140,13 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         {animateEntrance && (
                             <motion.p
                                 {...stagger(0.48)}
-                                className="font-mono text-[11px] uppercase tracking-[0.16em] text-silver"
+                                className="font-sora font-medium text-[13px] uppercase tracking-[0.14em]"
+                                style={{
+                                    backgroundImage: 'linear-gradient(90deg, #7C3AED 0%, #06B6D4 100%)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    backgroundClip: 'text',
+                                }}
                             >
                                 {heroContent.tagline}
                             </motion.p>
