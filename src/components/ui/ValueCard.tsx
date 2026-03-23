@@ -24,7 +24,7 @@ export default function ValueCard({ card, index }: ValueCardProps) {
                 transition={{ duration: 0.6, delay: index * 0.12, ease: EASE_OUT }}
                 viewport={{ once: true, amount: 0.2 }}
                 className="group relative h-full bg-white/3 backdrop-blur-sm border border-white/8
-                            rounded-2xl p-6 md:p-8 border-t-2 border-t-violet/60 overflow-hidden
+                            rounded-2xl p-5 md:p-6 border-t-2 border-t-violet/60 overflow-hidden
                             transition-all duration-500
                             hover:border-white/15 hover:bg-white/5
                             hover:shadow-[0_8px_60px_rgba(124,58,237,0.06)]"
@@ -42,13 +42,13 @@ export default function ValueCard({ card, index }: ValueCardProps) {
             </span>
 
             {/* Title */}
-            <h3 className="relative z-10 mt-3 font-sora font-semibold text-xl md:text-[22px] text-cool-white
+            <h3 className="relative z-10 mt-2 font-sora font-semibold text-xl md:text-[22px] text-cool-white
                            group-hover:text-cool-white transition-colors duration-300">
                 {card.title}
             </h3>
 
             {/* Description */}
-            <p className="relative z-10 mt-3 font-inter font-normal text-sm md:text-[15px] text-silver/90 leading-[1.75]">
+            <p className="relative z-10 mt-2 font-inter font-normal text-sm md:text-[15px] text-silver/90 leading-[1.7]">
                 {card.description}
             </p>
             </motion.div>
