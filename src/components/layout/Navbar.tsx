@@ -150,7 +150,7 @@ export default function Navbar() {
                         {/* Resume button — Blueprint Section 4.3.1
              * Ember gold background, download icon, triggers PDF download */}
                         <a
-                            href="/Resume.pdf"
+                            href="/Kartik-Joshi_Resume.pdf"
                             download
                             className={cn(
                                 'hidden lg:flex items-center gap-2',

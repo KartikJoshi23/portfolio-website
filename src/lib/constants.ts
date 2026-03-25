@@ -43,7 +43,7 @@ export const PERSONAL = {
     github: 'https://github.com/KartikJoshi23',
     institution: 'SP Jain School of Global Management',
     degree: 'Masters in AI with Business',
-    resumePath: '/Kartik_Joshi_Resume.pdf',
+    resumePath: '/Kartik-Joshi_Resume.pdf',
 } as const
 
 // === Meta (Blueprint Section 8.1) ===
