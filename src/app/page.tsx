@@ -5,7 +5,7 @@
  * ========================================================== */
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import Preloader from '@/components/sections/Preloader'
@@ -25,6 +25,13 @@ import CursorTrail from '@/components/ui/CursorTrail'
 
 export default function Home() {
   const [preloaderDone, setPreloaderDone] = useState(false)
+
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <>
