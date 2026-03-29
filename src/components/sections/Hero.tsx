@@ -19,7 +19,7 @@ interface HeroProps {
 const heroContent = {
     name: 'KARTIK JOSHI',
     tagline: 'Automating Intelligence. Decentralizing Trust.',
-    role: 'AI Product Builder',
+    role: 'AI-Native Engineer',
     summary:
         'I design and ship applied AI systems across model integration, product architecture, and production deployment with a focus on measurable real-world outcomes.',
     subtitle: `${PERSONAL.degree} • ${PERSONAL.institution}`,
