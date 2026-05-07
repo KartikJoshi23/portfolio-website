@@ -7,7 +7,7 @@ const credibilityItems = [
     { value: 'Global Top 10', label: 'ICC NIUM Hackathon' },
     { value: 'National Finalist', label: 'Smart India Hackathon' },
     { value: 'Published Researcher', label: 'IJANA / ASICS 2024' },
-    { value: '3 AI Systems', label: 'Built Across product, infra, and ML' },
+    { value: '4 AI Systems', label: 'Built Across product, infra, and ML' },
 ]
 
 export default function CredibilityStrip() {

@@ -82,7 +82,7 @@ export default function MobileMenu({
                     >
                         {/* Resume download */}
                         <a
-                            href="/Kartik-Joshi_Resume.pdf"
+                            href="/Kartik_Resume.pdf"
                             download
                             onClick={onClose}
                             className={cn(

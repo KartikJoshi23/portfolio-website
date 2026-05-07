@@ -1,8 +1,6 @@
 /* ==========================================================
  * SELECTEDWORK.TSX — Blueprint Section 5.4 (Redesigned)
- * THE centerpiece — 3 project showcase cards
- * Clean vertical stack, no alternating layout
- * Subtle gradient background for section depth
+ * 4 project showcase cards in 2x2 grid
  * ========================================================== */
 "use client"
 
@@ -34,18 +32,11 @@ export default function SelectedWork() {
                     />
                 </div>
 
-                {/* Project Cards — 2 compact cards + 1 horizontal card */}
-                <div className="mt-14 space-y-6">
-                    {/* Top row: 2 side-by-side compact cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {projects.slice(0, 2).map((project, i) => (
-                            <ProjectCard key={project.number} project={project} index={i} variant="compact" />
-                        ))}
-                    </div>
-                    {/* Bottom: Full-width horizontal card */}
-                    {projects[2] && (
-                        <ProjectCard project={projects[2]} index={2} variant="horizontal" />
-                    )}
+                {/* Project Cards — 2x2 grid */}
+                <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {projects.map((project, i) => (
+                        <ProjectCard key={project.number} project={project} index={i} variant="compact" />
+                    ))}
                 </div>
             </div>
         </section>

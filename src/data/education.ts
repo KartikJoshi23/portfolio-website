@@ -7,6 +7,7 @@ export const education: EducationItem[] = [
         location: 'Dubai, UAE',
         period: '2025 - 2027',
         status: 'current',
+        cgpa: '3.4 / 4.0',
         coursework: [
             'Machine Learning',
             'Data Visualization & Analytics',

@@ -43,7 +43,7 @@ export const PERSONAL = {
     github: 'https://github.com/KartikJoshi23',
     institution: 'SP Jain School of Global Management',
     degree: 'Masters in AI with Business',
-    resumePath: '/Kartik-Joshi_Resume.pdf',
+    resumePath: '/Kartik_Resume.pdf',
 } as const
 
 // === Meta (Blueprint Section 8.1) ===
@@ -52,5 +52,5 @@ export const META = {
     description:
         'AI/ML specialist building production-grade intelligent systems. Published researcher, hackathon competitor. Masters in AI with Business at SP Jain, Dubai.',
     tagline: 'Automating intelligence. Decentralizing trust.',
-    siteUrl: 'https://your-project.vercel.app', // Update on deployment
+    siteUrl: 'https://kartik-joshi.vercel.app',
 } as const

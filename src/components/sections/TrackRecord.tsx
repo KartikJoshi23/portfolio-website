@@ -37,7 +37,7 @@ export default function TrackRecord() {
                 <ScrollReveal className="mt-14">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 py-8 border-y border-white/8">
                         <AnimatedCounter end={5} suffix="+" label="Hackathons" />
-                        <AnimatedCounter end={3} suffix="" label="Projects Shipped" />
+                        <AnimatedCounter end={4} suffix="" label="Projects Shipped" />
                         <AnimatedCounter end={1} suffix="" label="Publication" />
                         <AnimatedCounter prefix="Top " end={10} label="Global Finish" />
                     </div>

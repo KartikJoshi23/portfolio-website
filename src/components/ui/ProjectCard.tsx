@@ -9,12 +9,13 @@ import { motion } from 'framer-motion'
 import type { Project } from '@/types'
 import StatusBadge from '@/components/ui/StatusBadge'
 import { EASE_OUT } from '@/lib/constants'
-import { BarChart3, Shield, Fingerprint } from 'lucide-react'
+import { BarChart3, Shield, TrafficCone, Fingerprint } from 'lucide-react'
 
 const projectIcons: Record<string, React.ComponentType<{ className?: string }>> = {
     '01': BarChart3,
     '02': Shield,
-    '03': Fingerprint,
+    '03': TrafficCone,
+    '04': Fingerprint,
 }
 
 interface ProjectCardProps {
