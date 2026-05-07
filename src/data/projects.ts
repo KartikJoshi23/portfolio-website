@@ -50,7 +50,7 @@ export const projects: Project[] = [
         title: 'Smart City Traffic Management',
         subtitle: 'Multi-Agent Reinforcement Learning System',
         year: '2026',
-        status: 'in-progress',
+        status: 'completed',
         oneLiner:
             'MARL system optimizing adaptive traffic signal control across a 16-intersection Dubai grid.',
         highlights: [
