@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Download, Menu, X } from 'lucide-react'
 import Image from 'next/image'
+import { usePathname, useRouter } from 'next/navigation'
 import { navLinks } from '@/data/navigation'
 import { useActiveSection } from '@/hooks/useActiveSection'
 import { useLenis } from '@/hooks/useLenis'
@@ -21,6 +22,9 @@ export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false)
     const activeSection = useActiveSection()
     const { scrollTo } = useLenis()
+    const pathname = usePathname()
+    const router = useRouter()
+    const isHome = pathname === '/'
 
     // Blueprint Section 4.3.1 — Glassmorphism after scroll + hide/show on direction
     useEffect(() => {
@@ -64,6 +68,10 @@ export default function Navbar() {
 
     const handleNavClick = (href: string) => {
         setMobileOpen(false)
+        if (!isHome) {
+            router.push(`/${href}`)
+            return
+        }
         const target = href.replace('#', '')
         const element = document.getElementById(target)
         if (element) {
@@ -73,6 +81,10 @@ export default function Navbar() {
 
     const handleLogoClick = () => {
         setMobileOpen(false)
+        if (!isHome) {
+            router.push('/')
+            return
+        }
         scrollTo(0)
     }
 
@@ -90,7 +102,7 @@ export default function Navbar() {
                     // Glassmorphism states
                     scrolled
                         ? // After scroll: glassmorphism (bg-white/5 backdrop-blur-xl border-b border-white/10)
-                        'bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border-b border-[rgba(255,255,255,0.1)]'
+                        'bg-glass-white backdrop-blur-xl border-b border-[rgba(255,255,255,0.1)]'
                         : // Over Hero: fully transparent
                         'bg-transparent border-b border-transparent'
                 )}
@@ -136,7 +148,7 @@ export default function Navbar() {
                                 {activeSection === link.sectionId && (
                                     <motion.div
                                         layoutId="nav-active"
-                                        className="absolute -bottom-1 left-0 right-0 h-[2px] bg-violet"
+                                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-violet"
                                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                                     />
                                 )}

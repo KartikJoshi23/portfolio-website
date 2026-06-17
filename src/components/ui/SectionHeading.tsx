@@ -1,12 +1,12 @@
 /* ==========================================================
- * SECTIONHEADING.TSX — Blueprint Section 5.x headers
- * Reusable heading + subheading pair
- * Heading: Sora 600, 48px/32px. Subheading: Inter 400, 18px, stone-gray
- * Wrapped in ScrollReveal
+ * SECTIONHEADING.TSX — kinetic heading + subheading pair
+ * Heading reveals word-by-word on scroll; subheading fades up.
  * ========================================================== */
 "use client"
 
-import ScrollReveal from '@/components/ui/ScrollReveal'
+import { motion } from 'framer-motion'
+import SplitText from '@/components/ui/SplitText'
+import { EASE_OUT } from '@/lib/constants'
 
 interface SectionHeadingProps {
     heading: string
@@ -20,15 +20,23 @@ export default function SectionHeading({
     className = '',
 }: SectionHeadingProps) {
     return (
-        <ScrollReveal className={className}>
-            <h2 className="font-sora font-semibold text-3xl md:text-5xl text-cool-white">
-                {heading}
-            </h2>
+        <div className={className}>
+            <SplitText
+                as="h2"
+                text={heading}
+                className="font-sora font-semibold text-3xl md:text-5xl text-cool-white"
+            />
             {subheading && (
-                <p className="mt-4 font-inter font-normal text-base md:text-lg text-silver max-w-2xl">
+                <motion.p
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.15, ease: EASE_OUT }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    className="mt-4 font-inter font-normal text-base md:text-lg text-silver max-w-2xl"
+                >
                     {subheading}
-                </p>
+                </motion.p>
             )}
-        </ScrollReveal>
+        </div>
     )
 }

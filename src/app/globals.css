@@ -38,6 +38,37 @@
   --animate-float-slow: float-slow 30s ease-in-out infinite;
   --animate-float-medium: float-medium 22s ease-in-out infinite;
   --animate-float-reverse: float-reverse 26s ease-in-out infinite;
+  --animate-aurora-1: aurora-1 24s ease-in-out infinite;
+  --animate-aurora-2: aurora-2 30s ease-in-out infinite;
+  --animate-aurora-3: aurora-3 36s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 18s linear infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+}
+
+/* === Aurora ambient drift keyframes === */
+@keyframes aurora-1 {
+  0%, 100% { transform: translate(-12%, -8%) scale(1); }
+  50% { transform: translate(10%, 12%) scale(1.25); }
+}
+
+@keyframes aurora-2 {
+  0%, 100% { transform: translate(12%, 8%) scale(1.1); }
+  50% { transform: translate(-14%, -10%) scale(0.9); }
+}
+
+@keyframes aurora-3 {
+  0%, 100% { transform: translate(0%, 10%) scale(1); opacity: 0.7; }
+  50% { transform: translate(8%, -12%) scale(1.2); opacity: 1; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+/* === Conic border / shimmer sweep === */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* === Ticker Keyframes (Section 6.4 — Skills Ticker) === */
@@ -250,3 +281,105 @@ html.lenis body {
       rgba(124, 58, 237, 0.15) 70%,
       transparent 100%);
 }
+
+/* === Film grain overlay (premium texture) === */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* === Gradient text helper (violet → cyan) === */
+.text-gradient {
+  background-image: linear-gradient(90deg, #7C3AED 0%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* === Animated conic border ("star border") === */
+.conic-border {
+  position: relative;
+  border-radius: 9999px;
+  isolation: isolate;
+}
+.conic-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    transparent 0%,
+    #7C3AED 25%,
+    #06B6D4 50%,
+    transparent 75%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-angle 4s linear infinite;
+  z-index: -1;
+}
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle {
+  to { --angle: 360deg; }
+}
+
+/* === Hero headshot animated gradient ring === */
+.hero-ring {
+  background: conic-gradient(
+    from 0deg,
+    #7c3aed,
+    #06b6d4,
+    #3b82f6,
+    #a855f7,
+    #7c3aed
+  );
+  animation: ring-spin 6s linear infinite;
+}
+@keyframes ring-spin {
+  to { transform: rotate(1turn); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ring { animation: none; }
+}
+
+/* === Horizontal scroll snap track (projects showcase fallback) === */
+.snap-x-track {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.snap-x-track::-webkit-scrollbar { display: none; }
+.snap-item { scroll-snap-align: center; }
+
+/* === Spotlight card hover glow (driven by --mx / --my) === */
+.spotlight-card {
+  position: relative;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    400px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(124, 58, 237, 0.12),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+.spotlight-card:hover::before { opacity: 1; }

@@ -2,30 +2,8 @@
 
 import SectionHeading from '@/components/ui/SectionHeading'
 import ScrollReveal from '@/components/ui/ScrollReveal'
-
-const opportunityCards = [
-    {
-        number: '01',
-        eyebrow: 'For Recruiters',
-        title: 'Applied AI roles with delivery depth',
-        description:
-            'Built for teams hiring AI engineers and builders who can turn requirements into working systems with strong product execution.',
-    },
-    {
-        number: '02',
-        eyebrow: 'For Research Collaboration',
-        title: 'Product-facing applied research',
-        description:
-            'Strong fit for conversations around intelligent systems, multimodal interfaces, and applied experiments that can move beyond papers.',
-    },
-    {
-        number: '03',
-        eyebrow: 'For Product Builds',
-        title: 'AI tools and product MVPs',
-        description:
-            'Available for select collaborations involving internal AI workflows, developer-facing tooling, and fast prototype-to-product iterations.',
-    },
-]
+import { onSpotlightMove } from '@/lib/spotlight'
+import { opportunities } from '@/data/opportunities'
 
 export default function Opportunities() {
     return (
@@ -48,9 +26,12 @@ export default function Opportunities() {
                 />
 
                 <div className="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-5">
-                    {opportunityCards.map((card, index) => (
+                    {opportunities.map((card, index) => (
                         <ScrollReveal key={card.number} delay={index * 0.08}>
-                            <div className="h-full rounded-2xl border border-white/8 bg-white/4 p-6 md:p-7 backdrop-blur-sm transition-all duration-300 hover:border-violet/25 hover:bg-white/6">
+                            <div
+                                onMouseMove={onSpotlightMove}
+                                className="spotlight-card group h-full rounded-2xl border border-white/8 bg-white/4 p-6 md:p-7 backdrop-blur-sm transition-all duration-300 hover:border-violet/25 hover:bg-white/6"
+                            >
                                 <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-violet">
                                     {card.eyebrow}
                                 </span>

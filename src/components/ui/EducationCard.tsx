@@ -8,6 +8,7 @@
 import { motion } from 'framer-motion'
 import type { EducationItem } from '@/types'
 import { EASE_OUT } from '@/lib/constants'
+import { onSpotlightMove } from '@/lib/spotlight'
 
 interface EducationCardProps {
     item: EducationItem
@@ -21,8 +22,9 @@ export default function EducationCard({ item, index }: EducationCardProps) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2, ease: EASE_OUT }}
             viewport={{ once: true, amount: 0.2 }}
-            className="bg-glass-white backdrop-blur-sm border border-zinc-dark rounded-2xl p-8
-                       border-t-2 border-t-violet"
+            onMouseMove={onSpotlightMove}
+            className="spotlight-card bg-glass-white backdrop-blur-sm border border-zinc-dark rounded-2xl p-8
+                       border-t-2 border-t-violet transition-colors duration-500 hover:border-t-violet hover:border-white/15"
         >
             {/* Degree */}
             <h3 className="font-sora font-semibold text-[22px] text-cool-white">

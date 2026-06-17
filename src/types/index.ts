@@ -3,17 +3,47 @@
  * All TypeScript interfaces for the portfolio
  * ========================================================== */
 
-// === Project Card (Blueprint Section 5.4.2) ===
+// === Project Links (optional — provided once projects are deployed) ===
+export interface ProjectLinks {
+    live?: string
+    github?: string
+    demo?: string
+    paper?: string
+}
+
+// === Project Metric (small stat chips on card / detail page) ===
+export interface ProjectMetric {
+    label: string
+    value: string
+}
+
+/**
+ * === Project ===
+ * To add a NEW project: append an object to the `projects` array in
+ * src/data/projects.ts. Everything else (home showcase, /projects archive,
+ * filters, detail pages) updates automatically. Fully static — no CMS.
+ *
+ * - `slug`     unique URL id, e.g. 'algoviz' -> /projects/algoviz
+ * - `category` free-form label used for filter chips (e.g. 'AI/ML', 'Web3')
+ * - `featured` show in the homepage horizontal showcase (curated subset)
+ * - `links`    optional; safe to omit until the project is deployed
+ */
 export interface Project {
-    number: string          // "01", "02", "03"
+    slug: string
+    number: string          // "01", "02", "03" — display ordering label
     title: string
     subtitle: string
     year: string
     status: 'completed' | 'in-progress'
+    category: string        // e.g. 'AI/ML' | 'Web3' | 'Reinforcement Learning'
+    featured: boolean
     oneLiner: string
+    description?: string     // longer narrative for the detail page
     highlights: string[]
     tech: string[]
-    image: string | null    // path or null for placeholder
+    metrics?: ProjectMetric[]
+    image: string | null    // cover path, or null for generated gradient cover
+    links?: ProjectLinks
 }
 
 // === Value Proposition Card (Blueprint Section 5.3.2) ===

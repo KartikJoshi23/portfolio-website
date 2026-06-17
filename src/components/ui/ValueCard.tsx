@@ -8,6 +8,7 @@
 import { motion } from 'framer-motion'
 import type { ValueCard as ValueCardType } from '@/types'
 import { EASE_OUT } from '@/lib/constants'
+import { onSpotlightMove } from '@/lib/spotlight'
 import TiltCard from '@/components/ui/TiltCard'
 
 interface ValueCardProps {
@@ -23,7 +24,8 @@ export default function ValueCard({ card, index }: ValueCardProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.12, ease: EASE_OUT }}
                 viewport={{ once: true, amount: 0.2 }}
-                className="group relative h-full bg-white/3 backdrop-blur-sm border border-white/8
+                onMouseMove={onSpotlightMove}
+                className="spotlight-card group relative h-full bg-white/3 backdrop-blur-sm border border-white/8
                             rounded-2xl p-5 md:p-6 border-t-2 border-t-violet/60 overflow-hidden
                             transition-all duration-500
                             hover:border-white/15 hover:bg-white/5

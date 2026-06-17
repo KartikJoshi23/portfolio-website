@@ -22,7 +22,7 @@ interface MagneticButtonProps {
     download?: boolean
     target?: string
     rel?: string
-    as?: 'button' | 'a'
+    as?: 'button' | 'a' | 'div'
     ariaLabel?: string
 }
 
@@ -81,7 +81,7 @@ export default function MagneticButton({
         scale.set(1)
     }
 
-    const Component = as === 'a' ? motion.a : motion.button
+    const Component = as === 'a' ? motion.a : as === 'div' ? motion.div : motion.button
 
     return (
         <motion.div

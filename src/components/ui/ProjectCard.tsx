@@ -1,162 +1,138 @@
 /* ==========================================================
- * PROJECTCARD.TSX — Enhanced with visual header
- * Premium glassmorphism card with gradient visual area
- * Supports compact (grid) and horizontal (full-width) variants
+ * PROJECTCARD.TSX — clinical, modern project card
+ * Variants:
+ *   - 'showcase' : large card for the homepage horizontal scroller
+ *   - 'grid'     : compact card for the /projects archive grid
+ * Entire card links to /projects/[slug]. Spotlight hover glow.
  * ========================================================== */
 "use client"
 
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
 import type { Project } from '@/types'
 import StatusBadge from '@/components/ui/StatusBadge'
+import ProjectCover from '@/components/ui/ProjectCover'
 import { EASE_OUT } from '@/lib/constants'
-import { BarChart3, Shield, TrafficCone, Fingerprint } from 'lucide-react'
-
-const projectIcons: Record<string, React.ComponentType<{ className?: string }>> = {
-    '01': BarChart3,
-    '02': Shield,
-    '03': TrafficCone,
-    '04': Fingerprint,
-}
 
 interface ProjectCardProps {
     project: Project
-    index: number
-    variant?: 'compact' | 'horizontal'
+    index?: number
+    variant?: 'showcase' | 'grid'
 }
 
-function VisualHeader({ project, variant }: { project: Project; variant: 'compact' | 'horizontal' }) {
-    const Icon = projectIcons[project.number] || BarChart3
-    const isHorizontal = variant === 'horizontal'
-
-    return (
-        <div className={`relative overflow-hidden ${
-            isHorizontal ? 'h-48 md:h-auto md:min-h-full' : 'h-32 md:h-36'
-        }`}>
-            <div
-                className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-                style={{
-                    background: `linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(6, 182, 212, 0.08) 50%, rgba(16, 185, 129, 0.05) 100%)`,
-                }}
-            />
-            <div
-                className="absolute inset-0 opacity-10"
-                style={{
-                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)',
-                    backgroundSize: '24px 24px',
-                }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-                <Icon className={`text-violet/30 transition-all duration-500 group-hover:text-violet/50 group-hover:scale-110 ${
-                    isHorizontal ? 'w-20 h-20 md:w-24 md:h-24' : 'w-12 h-12 md:w-16 md:h-16'
-                }`} />
-            </div>
-            <div className="absolute inset-0 bg-violet/0 group-hover:bg-violet/5 transition-colors duration-500" />
-            <span className={`absolute right-4 -bottom-4 font-sora font-bold
-                             text-white/3 select-none pointer-events-none leading-none ${
-                isHorizontal ? 'text-[120px] md:text-[160px]' : 'text-[80px] md:text-[100px]'
-            }`}>
-                {project.number}
-            </span>
-        </div>
-    )
+function handleSpotlight(e: React.MouseEvent<HTMLElement>) {
+    const el = e.currentTarget
+    const rect = el.getBoundingClientRect()
+    el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
+    el.style.setProperty('--my', `${e.clientY - rect.top}px`)
 }
 
-function CardContent({ project, variant }: { project: Project; variant: 'compact' | 'horizontal' }) {
-    const isHorizontal = variant === 'horizontal'
-
-    return (
-        <div className={`relative z-10 ${isHorizontal ? 'p-6 md:p-8' : 'p-5 md:p-6'}`}>
-            <div className="flex items-center gap-3">
-                <StatusBadge status={project.status} />
-                <span className="font-mono text-sm text-silver">
-                    {project.year}
-                </span>
-            </div>
-
-            <h3 className={`mt-4 font-sora font-semibold text-cool-white leading-tight
-                           group-hover:text-violet transition-colors duration-300 ${
-                isHorizontal ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'
-            }`}>
-                {project.title}
-            </h3>
-
-            <p className={`mt-1.5 font-inter text-silver/80 italic ${
-                isHorizontal ? 'text-base' : 'text-sm'
-            }`}>
-                {project.subtitle}
-            </p>
-
-            <p className={`mt-3 font-inter text-cool-white/90 leading-relaxed ${
-                isHorizontal ? 'text-base md:text-[17px]' : 'text-sm md:text-[15px]'
-            }`}>
-                {project.oneLiner}
-            </p>
-
-            <div className="my-4 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
-
-            <ul className={`space-y-2 ${isHorizontal ? '' : 'line-clamp-none'}`}>
-                {project.highlights.map((h, i) => (
-                    <li
-                        key={i}
-                        className={`flex items-start gap-2.5 font-inter text-silver leading-relaxed ${
-                            isHorizontal ? 'text-sm md:text-[15px]' : 'text-xs md:text-sm'
-                        }`}
-                    >
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-violet shrink-0" />
-                        {h}
-                    </li>
-                ))}
-            </ul>
-
-            <div className="mt-4 flex flex-wrap gap-1.5">
-                {project.tech.map((t) => (
-                    <span
-                        key={t}
-                        className="font-mono text-xs text-silver/80 bg-white/3
-                                   border border-white/8 rounded-full px-2.5 py-0.5
-                                   transition-all duration-300
-                                   hover:border-violet/40 hover:text-cool-white"
-                    >
-                        {t}
-                    </span>
-                ))}
-            </div>
-        </div>
-    )
-}
-
-export default function ProjectCard({ project, index, variant = 'compact' }: ProjectCardProps) {
-    const isHorizontal = variant === 'horizontal'
+export default function ProjectCard({
+    project,
+    index = 0,
+    variant = 'grid',
+}: ProjectCardProps) {
+    const isShowcase = variant === 'showcase'
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.1, ease: EASE_OUT }}
+            transition={{ duration: 0.6, delay: index * 0.08, ease: EASE_OUT }}
             viewport={{ once: true, amount: 0.15 }}
-            className={`group relative bg-white/3 backdrop-blur-sm border border-white/8
-                        rounded-2xl overflow-hidden
-                        border-t-2 border-t-violet/60
-                        transition-all duration-500
-                        hover:border-white/15 hover:bg-white/5
-                        hover:shadow-[0_0_80px_rgba(124,58,237,0.06)]
-                        ${isHorizontal ? 'md:flex md:flex-row' : 'h-full'}`}
+            className="h-full"
         >
-            {isHorizontal ? (
-                <>
-                    <div className="md:w-2/5 md:shrink-0">
-                        <VisualHeader project={project} variant={variant} />
+            <Link
+                href={`/projects/${project.slug}`}
+                onMouseMove={handleSpotlight}
+                aria-label={`View ${project.title}`}
+                className="spotlight-card group relative flex h-full flex-col overflow-hidden rounded-2xl
+                           border border-white/8 bg-white/3 backdrop-blur-sm
+                           transition-all duration-500
+                           hover:border-violet/30 hover:bg-white/5
+                           hover:shadow-[0_0_70px_rgba(124,58,237,0.10)]
+                           focus-visible:border-violet/50"
+            >
+                {/* Cover */}
+                <ProjectCover
+                    project={project}
+                    className={isShowcase ? 'h-52 md:h-60' : 'h-40'}
+                    iconSize={isShowcase ? 60 : 44}
+                />
+
+                {/* Body */}
+                <div className={`relative z-10 flex flex-1 flex-col ${isShowcase ? 'p-6 md:p-7' : 'p-5'}`}>
+                    <div className="flex items-center gap-3">
+                        <StatusBadge status={project.status} />
+                        <span className="font-mono text-[11px] uppercase tracking-wider text-silver/70">
+                            {project.category}
+                        </span>
+                        <span className="ml-auto font-mono text-xs text-silver/60">
+                            {project.year}
+                        </span>
                     </div>
-                    <div className="md:w-3/5">
-                        <CardContent project={project} variant={variant} />
+
+                    <h3
+                        className={`mt-3 font-sora font-semibold leading-tight text-cool-white
+                                    transition-colors duration-300 group-hover:text-violet
+                                    ${isShowcase ? 'text-2xl md:text-[28px]' : 'text-lg md:text-xl'}`}
+                    >
+                        {project.title}
+                    </h3>
+                    <p className={`mt-1 font-inter italic text-silver/75 ${isShowcase ? 'text-[15px]' : 'text-sm'}`}>
+                        {project.subtitle}
+                    </p>
+
+                    <p className={`mt-3 font-inter leading-relaxed text-cool-white/85 ${isShowcase ? 'text-[15px]' : 'text-sm line-clamp-2'}`}>
+                        {project.oneLiner}
+                    </p>
+
+                    {/* Metrics (showcase only) */}
+                    {isShowcase && project.metrics && (
+                        <div className="mt-5 grid grid-cols-3 gap-3">
+                            {project.metrics.map((m) => (
+                                <div
+                                    key={m.label}
+                                    className="rounded-xl border border-white/8 bg-white/2 px-3 py-2.5 text-center"
+                                >
+                                    <div className="font-sora text-base font-semibold text-cool-white md:text-lg">
+                                        {m.value}
+                                    </div>
+                                    <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-silver/60">
+                                        {m.label}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Tech pills */}
+                    <div className="mt-5 flex flex-wrap gap-1.5">
+                        {project.tech.slice(0, isShowcase ? 8 : 4).map((t) => (
+                            <span
+                                key={t}
+                                className="rounded-full border border-white/8 bg-white/3 px-2.5 py-0.5
+                                           font-mono text-[11px] text-silver/80"
+                            >
+                                {t}
+                            </span>
+                        ))}
+                        {!isShowcase && project.tech.length > 4 && (
+                            <span className="px-1 py-0.5 font-mono text-[11px] text-silver/50">
+                                +{project.tech.length - 4}
+                            </span>
+                        )}
                     </div>
-                </>
-            ) : (
-                <>
-                    <VisualHeader project={project} variant={variant} />
-                    <CardContent project={project} variant={variant} />
-                </>
-            )}
+
+                    {/* Footer affordance */}
+                    <div className="mt-auto flex items-center gap-1.5 pt-5 font-sora text-sm font-medium text-violet
+                                    opacity-80 transition-all duration-300 group-hover:gap-2.5 group-hover:opacity-100">
+                        View project
+                        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </div>
+                </div>
+            </Link>
         </motion.div>
     )
 }

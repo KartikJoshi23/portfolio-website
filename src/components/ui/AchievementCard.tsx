@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import type { Achievement } from '@/types'
 import { EASE_OUT } from '@/lib/constants'
+import { onSpotlightMove } from '@/lib/spotlight'
 import TiltCard from '@/components/ui/TiltCard'
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -58,7 +59,8 @@ export default function AchievementCard({
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1, ease: EASE_OUT }}
                 viewport={{ once: true, amount: 0.2 }}
-                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6
+                onMouseMove={onSpotlightMove}
+                className="spotlight-card h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6
                            border-t-2 border-t-violet"
             >
             {/* Icon + Scope badge row */}

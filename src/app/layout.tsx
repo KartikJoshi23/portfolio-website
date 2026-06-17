@@ -9,6 +9,7 @@ import { Sora, Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import SmoothScroll from '@/components/layout/SmoothScroll'
+import { META, PERSONAL } from '@/lib/constants'
 import './globals.css'
 
 /* --- Font Loading (Blueprint Section 2.3.2) --- */
@@ -44,12 +45,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Kartik Joshi' }],
   creator: 'Kartik Joshi',
-  metadataBase: new URL('https://your-project.vercel.app'),
+  metadataBase: new URL(META.siteUrl),
   // TODO: Update og-image.png to use the new KJ gradient logo
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://your-project.vercel.app',
+    url: META.siteUrl,
     title: 'Kartik Joshi — Automating Intelligence. Decentralizing Trust.',
     description:
       'AI/ML specialist building production-grade intelligent systems. Explore projects, research, and experience.',
@@ -72,10 +73,10 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Kartik Joshi',
-  url: 'https://your-project.vercel.app',
+  url: META.siteUrl,
   description: 'AI/ML specialist, published researcher',
-  email: 'kartik.as25dxb025@spjain.org',
-  telephone: '+971565582009',
+  email: PERSONAL.email,
+  telephone: PERSONAL.phoneHref.replace('tel:', ''),
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Dubai',
@@ -86,8 +87,8 @@ const jsonLd = {
     { '@type': 'EducationalOrganization', name: 'Parul University' },
   ],
   sameAs: [
-    'https://linkedin.com/in/kartikjoshi23',
-    'https://github.com/KartikJoshi23',
+    PERSONAL.linkedin,
+    PERSONAL.github,
   ],
 }
 

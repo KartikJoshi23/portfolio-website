@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { ChevronDown } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
 import VioletGlow from '@/components/ui/VioletGlow'
+import ShinyText from '@/components/ui/ShinyText'
 import { EASE_OUT, PERSONAL } from '@/lib/constants'
 import { useLenis } from '@/hooks/useLenis'
 
@@ -44,14 +45,34 @@ export default function Hero({ animateEntrance }: HeroProps) {
         <section
             id="hero"
             className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16 lg:pt-20"
-            style={{
-                background:
-                    'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(124, 58, 237, 0.04) 0%, transparent 70%), #09090B',
-            }}
         >
+            {/* Hero ambient composition (sits over the global strands) */}
+            <div
+                className="pointer-events-none absolute left-1/2 top-[-12%] -translate-x-1/2 w-190 h-190 rounded-full"
+                aria-hidden="true"
+                style={{
+                    background:
+                        'radial-gradient(circle, rgba(124,58,237,0.20) 0%, rgba(6,182,212,0.06) 45%, transparent 70%)',
+                    filter: 'blur(20px)',
+                }}
+            />
+            <div
+                className="pointer-events-none absolute inset-0 opacity-50"
+                aria-hidden="true"
+                style={{
+                    backgroundImage:
+                        'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+                    backgroundSize: '72px 72px',
+                    maskImage:
+                        'radial-gradient(ellipse 70% 60% at 50% 42%, black 0%, transparent 75%)',
+                    WebkitMaskImage:
+                        'radial-gradient(ellipse 70% 60% at 50% 42%, black 0%, transparent 75%)',
+                }}
+            />
+
             <VioletGlow />
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-10">
                 <div className="flex flex-col lg:flex-row items-center lg:items-center gap-10 lg:gap-0">
                     {animateEntrance && (
                         <motion.div
@@ -84,6 +105,21 @@ export default function Hero({ animateEntrance }: HeroProps) {
                     )}
 
                     <div className="lg:w-[60%] text-center lg:text-left space-y-3">
+
+                        {animateEntrance && (
+                            <motion.div
+                                {...stagger(0)}
+                                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 backdrop-blur-sm"
+                            >
+                                <span className="relative flex h-2 w-2">
+                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald opacity-75" />
+                                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald" />
+                                </span>
+                                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-silver">
+                                    Open to AI roles &amp; collaborations
+                                </span>
+                            </motion.div>
+                        )}
 
                         {animateEntrance && (
                             <motion.h1
@@ -141,14 +177,8 @@ export default function Hero({ animateEntrance }: HeroProps) {
                             <motion.p
                                 {...stagger(0.48)}
                                 className="font-sora font-medium text-[13px] uppercase tracking-[0.14em]"
-                                style={{
-                                    backgroundImage: 'linear-gradient(90deg, #7C3AED 0%, #06B6D4 100%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    backgroundClip: 'text',
-                                }}
                             >
-                                {heroContent.tagline}
+                                <ShinyText text={heroContent.tagline} />
                             </motion.p>
                         )}
 
@@ -199,30 +229,33 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.8, ease: EASE_OUT }}
+                            transition={{ duration: 0.8, delay: 0.6, ease: EASE_OUT }}
                             className="hidden lg:flex lg:w-[40%] justify-center items-center"
                         >
+                            {/* Headshot inside an animated gradient ring */}
                             <div
-                                className="relative rounded-full overflow-hidden border-2 border-violet"
-                                style={{
-                                    width: 310,
-                                    height: 310,
-                                    boxShadow: '0 0 40px rgba(124, 58, 237, 0.15)',
-                                }}
+                                className="relative rounded-full p-1.25"
+                                style={{ width: 320, height: 320 }}
                             >
-                                <Image
-                                    src="/Headshot(1).png"
-                                    alt="Kartik Joshi"
-                                    width={310}
-                                    height={310}
-                                    priority
-                                    className="object-cover"
-                                    style={{
-                                        objectPosition: 'center 15%',
-                                        transform: 'scale(1.15)',
-                                        transformOrigin: 'center 15%',
-                                    }}
-                                />
+                                <div className="hero-ring absolute inset-0 rounded-full" aria-hidden="true" />
+                                <div
+                                    className="relative z-10 h-full w-full rounded-full overflow-hidden border-2 border-obsidian"
+                                    style={{ boxShadow: '0 0 50px rgba(124, 58, 237, 0.22)' }}
+                                >
+                                    <Image
+                                        src="/Headshot(1).png"
+                                        alt="Kartik Joshi"
+                                        width={320}
+                                        height={320}
+                                        priority
+                                        className="object-cover"
+                                        style={{
+                                            objectPosition: 'center 15%',
+                                            transform: 'scale(1.15)',
+                                            transformOrigin: 'center 15%',
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </motion.div>
                     )}

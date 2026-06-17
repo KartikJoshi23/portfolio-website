@@ -174,7 +174,7 @@ export default function Contact() {
                             </div>
 
                             {/* Submit Button */}
-                            <MagneticButton>
+                            <MagneticButton as="div" className="w-full">
                                 <button
                                     type="submit"
                                     disabled={status === 'submitting'}
@@ -263,19 +263,19 @@ export default function Contact() {
                                 { Icon: Github, href: PERSONAL.github, label: 'GitHub' },
                                 { Icon: Mail, href: `mailto:${PERSONAL.email}`, label: 'Email' },
                             ].map(({ Icon, href, label }) => (
-                                <MagneticButton key={label}>
-                                    <a
-                                        href={href}
-                                        target={label !== 'Email' ? '_blank' : undefined}
-                                        rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
-                                        aria-label={label}
-                                        className="flex items-center justify-center w-10 h-10 rounded-full
-                                                   bg-white/5 backdrop-blur-sm border border-white/10
-                                                   text-silver hover:text-violet hover:border-violet
-                                                   transition-colors duration-300"
-                                    >
-                                        <Icon className="w-5 h-5" />
-                                    </a>
+                                <MagneticButton
+                                    key={label}
+                                    as="a"
+                                    href={href}
+                                    target={label !== 'Email' ? '_blank' : undefined}
+                                    rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
+                                    ariaLabel={label}
+                                    className="w-10 h-10 rounded-full
+                                               bg-white/5 backdrop-blur-sm border border-white/10
+                                               text-silver hover:text-violet hover:border-violet
+                                               transition-colors duration-300"
+                                >
+                                    <Icon className="w-5 h-5" />
                                 </MagneticButton>
                             ))}
                         </div>

@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Download, Linkedin, Github, Mail } from 'lucide-react'
 import { navLinks } from '@/data/navigation'
 import { cn } from '@/lib/utils'
-import { EASE_OUT } from '@/lib/constants'
+import { EASE_OUT, PERSONAL } from '@/lib/constants'
 
 interface MobileMenuProps {
     isOpen: boolean
@@ -82,7 +82,7 @@ export default function MobileMenu({
                     >
                         {/* Resume download */}
                         <a
-                            href="/Kartik_Resume.pdf"
+                            href={PERSONAL.resumePath}
                             download
                             onClick={onClose}
                             className={cn(
@@ -96,10 +96,10 @@ export default function MobileMenu({
                             Resume
                         </a>
 
-                        {/* Social icons — Blueprint Section 5.2.2 socials reference */}
+                        {/* Social icons — sourced from PERSONAL (single source of truth) */}
                         <div className="flex items-center gap-5">
                             <a
-                                href="https://linkedin.com/in/kartikjoshi23"
+                                href={PERSONAL.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="LinkedIn"
@@ -108,7 +108,7 @@ export default function MobileMenu({
                                 <Linkedin size={20} />
                             </a>
                             <a
-                                href="https://github.com/KartikJoshi23"
+                                href={PERSONAL.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="GitHub"
@@ -117,7 +117,7 @@ export default function MobileMenu({
                                 <Github size={20} />
                             </a>
                             <a
-                                href="mailto:kartik.as25dxb025@spjain.org"
+                                href={`mailto:${PERSONAL.email}`}
                                 aria-label="Email"
                                 className="text-silver hover:text-violet transition-colors duration-200"
                             >
