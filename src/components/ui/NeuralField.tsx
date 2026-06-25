@@ -56,6 +56,10 @@ export default function NeuralField() {
         const pointer = { x: 0, y: 0 }
         const eased = { x: 0, y: 0 }
 
+        // Cursor pixel position for live interaction (eased).
+        const mouse = { x: -9999, y: -9999, active: false }
+        const mouseEased = { x: -9999, y: -9999 }
+
         const buildNodes = () => {
             // Density relative to area, gently capped for performance.
             const target = Math.round((width * height) / 22000)
@@ -90,28 +94,69 @@ export default function NeuralField() {
         const onPointer = (e: PointerEvent) => {
             pointer.x = (e.clientX / width - 0.5) * 2
             pointer.y = (e.clientY / height - 0.5) * 2
+            mouse.x = e.clientX
+            mouse.y = e.clientY
+            mouse.active = true
         }
         window.addEventListener('pointermove', onPointer)
+
+        const onLeave = (e: PointerEvent) => {
+            // Only deactivate when the pointer actually leaves the window,
+            // not when moving between elements (pointerout bubbles).
+            if (!e.relatedTarget) mouse.active = false
+        }
+        window.addEventListener('pointerout', onLeave)
 
         // Link distance threshold (squared for cheap comparison).
         const LINK = 168
         const LINK_SQ = LINK * LINK
+
+        // Cursor interaction radius — the "reach" of the live network.
+        const CURSOR = 230
+        const CURSOR_SQ = CURSOR * CURSOR
 
         const draw = (time: number) => {
             // Ease pointer toward target for buttery parallax.
             eased.x += (pointer.x - eased.x) * 0.04
             eased.y += (pointer.y - eased.y) * 0.04
 
+            // Ease the cursor's pixel position for smooth interaction.
+            mouseEased.x += (mouse.x - mouseEased.x) * 0.12
+            mouseEased.y += (mouse.y - mouseEased.y) * 0.12
+            const mActive = mouse.active
+            const mx = mouseEased.x
+            const my = mouseEased.y
+
             ctx.clearRect(0, 0, width, height)
 
-            // Precompute parallax-projected positions.
+            // Precompute parallax-projected positions, with a gentle pull
+            // of nearby nodes toward the cursor (purely visual / stable).
             const px: number[] = new Array(nodes.length)
             const py: number[] = new Array(nodes.length)
+            const boost: number[] = new Array(nodes.length)
             for (let i = 0; i < nodes.length; i++) {
                 const n = nodes[i]
                 const shift = 8 + n.depth * 26
-                px[i] = n.x + eased.x * shift
-                py[i] = n.y + eased.y * shift
+                let x = n.x + eased.x * shift
+                let y = n.y + eased.y * shift
+                let b = 0
+                if (mActive) {
+                    const ddx = mx - x
+                    const ddy = my - y
+                    const dsq = ddx * ddx + ddy * ddy
+                    if (dsq < CURSOR_SQ) {
+                        const prox = 1 - Math.sqrt(dsq) / CURSOR
+                        // Pull up to ~16px toward cursor, scaled by proximity.
+                        const pull = prox * prox * 16
+                        const inv = 1 / (Math.sqrt(dsq) + 0.001)
+                        x += ddx * inv * pull
+                        y += ddy * inv * pull
+                        b = prox
+                    }
+                }
+                px[i] = x
+                py[i] = y
+                boost[i] = b
             }
 
             // Links first (under nodes).
@@ -122,13 +167,14 @@ export default function NeuralField() {
                     const dsq = dx * dx + dy * dy
                     if (dsq > LINK_SQ) continue
                     const t = 1 - dsq / LINK_SQ
-                    // Faint links — depth-weighted, very low alpha.
+                    // Faint links — depth-weighted, brightened near cursor.
                     const depth = (nodes[i].depth + nodes[j].depth) * 0.5
-                    const alpha = t * t * (0.07 + depth * 0.11)
+                    const near = (boost[i] + boost[j]) * 0.5
+                    const alpha = t * t * (0.07 + depth * 0.11) + near * t * 0.22
                     if (alpha < 0.004) continue
                     const c = mix(VIOLET, CYAN, (nodes[i].hue + nodes[j].hue) * 0.5)
                     ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},${alpha})`
-                    ctx.lineWidth = 0.6 + depth * 0.5
+                    ctx.lineWidth = 0.6 + depth * 0.5 + near * 0.8
                     ctx.beginPath()
                     ctx.moveTo(px[i], py[i])
                     ctx.lineTo(px[j], py[j])
@@ -136,12 +182,39 @@ export default function NeuralField() {
                 }
             }
 
-            // Nodes on top — small, soft, low brightness.
+            // Cursor links — glowing filaments from the pointer to nearby
+            // nodes, so the network visibly reaches toward the visitor.
+            if (mActive) {
+                for (let i = 0; i < nodes.length; i++) {
+                    if (boost[i] <= 0) continue
+                    const prox = boost[i]
+                    const c = mix(VIOLET, CYAN, nodes[i].hue)
+                    ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},${prox * prox * 0.5})`
+                    ctx.lineWidth = 0.6 + prox * 1.1
+                    ctx.beginPath()
+                    ctx.moveTo(mx, my)
+                    ctx.lineTo(px[i], py[i])
+                    ctx.stroke()
+                }
+
+                // Soft aura at the cursor.
+                const aura = ctx.createRadialGradient(mx, my, 0, mx, my, 90)
+                aura.addColorStop(0, 'rgba(124,58,237,0.10)')
+                aura.addColorStop(0.5, 'rgba(6,182,212,0.05)')
+                aura.addColorStop(1, 'rgba(6,182,212,0)')
+                ctx.fillStyle = aura
+                ctx.beginPath()
+                ctx.arc(mx, my, 90, 0, Math.PI * 2)
+                ctx.fill()
+            }
+
+            // Nodes on top — small, soft, low brightness (brighter near cursor).
             for (let i = 0; i < nodes.length; i++) {
                 const n = nodes[i]
                 const breathe = 0.75 + 0.25 * Math.sin(time * 0.0009 + n.pulse)
-                const r = (0.8 + n.depth * 1.9) * breathe
-                const alpha = (0.14 + n.depth * 0.34) * breathe
+                const nb = boost[i]
+                const r = (0.8 + n.depth * 1.9) * breathe * (1 + nb * 1.2)
+                const alpha = (0.14 + n.depth * 0.34) * breathe + nb * 0.4
                 const c = mix(VIOLET, CYAN, n.hue)
                 // Soft halo.
                 const grad = ctx.createRadialGradient(px[i], py[i], 0, px[i], py[i], r * 4)
@@ -152,7 +225,7 @@ export default function NeuralField() {
                 ctx.arc(px[i], py[i], r * 4, 0, Math.PI * 2)
                 ctx.fill()
                 // Crisp core.
-                ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${Math.min(alpha * 1.6, 0.5)})`
+                ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${Math.min(alpha * 1.6, 0.65)})`
                 ctx.beginPath()
                 ctx.arc(px[i], py[i], r, 0, Math.PI * 2)
                 ctx.fill()
@@ -196,6 +269,7 @@ export default function NeuralField() {
             cancelAnimationFrame(raf)
             window.removeEventListener('resize', resize)
             window.removeEventListener('pointermove', onPointer)
+            window.removeEventListener('pointerout', onLeave)
             document.removeEventListener('visibilitychange', onVisibility)
         }
     }, [reduced])
