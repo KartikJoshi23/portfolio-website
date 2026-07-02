@@ -51,10 +51,10 @@ export default function EducationCard({ item, index }: EducationCardProps) {
                 </div>
             )}
 
-            {/* CGPA */}
+            {/* GPA */}
             {item.cgpa && (
                 <p className="mt-3 font-mono text-sm text-cyan-300">
-                    CGPA: {item.cgpa}
+                    GPA: {item.cgpa}
                 </p>
             )}
 
