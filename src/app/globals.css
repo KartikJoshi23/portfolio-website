@@ -1,0 +1,623 @@
+/* ==========================================================
+ * GLOBALS.CSS — Blueprint v4.0
+ * Design System: "Obsidian & Violet" (Updated Palette)
+ * Tailwind CSS v4 CSS-based configuration
+ * ========================================================== */
+
+@import "tailwindcss";
+
+/* ----------------------------------------------------------
+ * THEME TOKENS — Blueprint v4.0 Color Palette
+ * All colors from the updated "Obsidian & Violet" palette
+ * ---------------------------------------------------------- */
+@theme inline {
+  /* === Colors (v4.0) === */
+  --color-obsidian: #09090B;
+  --color-charcoal: #141419;
+  --color-zinc-dark: #23232D;
+  --color-violet: #7C3AED;
+  --color-violet-glow: rgba(124, 58, 237, 0.2);
+  --color-cyan: #06B6D4;
+  --color-cyan-glow: rgba(6, 182, 212, 0.15);
+  --color-emerald: #10B981;
+  --color-rose-soft: #F43F5E;
+  --color-cool-white: #F0F0F3;
+  --color-silver: #9898A6;
+  --color-glass-white: rgba(255, 255, 255, 0.05);
+  --color-violet-bright: #B794F6;
+  --color-panel: #0E0E14;
+
+  /* === Font Families (Section 2.3) === */
+  --font-sora: var(--font-sora-var), sans-serif;
+  --font-inter: var(--font-inter-var), sans-serif;
+  --font-mono: var(--font-mono-var), monospace;
+
+  /* === Custom Animations (Section 3.4.1) === */
+  --animate-ticker-left: ticker-left 35s linear infinite;
+  --animate-ticker-right: ticker-right 35s linear infinite;
+  --animate-bob: bob 2s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-float-slow: float-slow 30s ease-in-out infinite;
+  --animate-float-medium: float-medium 22s ease-in-out infinite;
+  --animate-float-reverse: float-reverse 26s ease-in-out infinite;
+  --animate-aurora-1: aurora-1 24s ease-in-out infinite;
+  --animate-aurora-2: aurora-2 30s ease-in-out infinite;
+  --animate-aurora-3: aurora-3 36s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 18s linear infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+}
+
+/* === Aurora ambient drift keyframes === */
+@keyframes aurora-1 {
+  0%, 100% { transform: translate(-12%, -8%) scale(1); }
+  50% { transform: translate(10%, 12%) scale(1.25); }
+}
+
+@keyframes aurora-2 {
+  0%, 100% { transform: translate(12%, 8%) scale(1.1); }
+  50% { transform: translate(-14%, -10%) scale(0.9); }
+}
+
+@keyframes aurora-3 {
+  0%, 100% { transform: translate(0%, 10%) scale(1); opacity: 0.7; }
+  50% { transform: translate(8%, -12%) scale(1.2); opacity: 1; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+/* === Conic border / shimmer sweep === */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* === Ticker Keyframes (Section 6.4 — Skills Ticker) === */
+@keyframes ticker-left {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ticker-right {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* === Bob Keyframe (Section 5.2.3 — Scroll Indicator) === */
+@keyframes bob {
+
+  0%,
+  100% {
+    transform: translateY(-4px);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* === Pulse Glow Keyframe (Education status dot) === */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.1);
+  }
+}
+
+/* === Floating Particle Keyframes (Ambient Background) === */
+@keyframes float-slow {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(30px, -40px) scale(1.05);
+  }
+
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+
+  75% {
+    transform: translate(15px, -15px) scale(1.02);
+  }
+}
+
+@keyframes float-medium {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(-25px, 30px) scale(1.08);
+  }
+
+  66% {
+    transform: translate(20px, -25px) scale(0.92);
+  }
+}
+
+@keyframes float-reverse {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(-20px, 25px) scale(0.96);
+  }
+
+  50% {
+    transform: translate(30px, -10px) scale(1.06);
+  }
+
+  75% {
+    transform: translate(-10px, -30px) scale(1);
+  }
+}
+
+/* ----------------------------------------------------------
+ * BASE STYLES — Blueprint Section 3.4.2
+ * ---------------------------------------------------------- */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  /* `clip` prevents horizontal overflow WITHOUT creating a scroll
+     container — `hidden` here would break position: sticky (the
+     interlude pins) by re-anchoring it to body instead of the
+     viewport. */
+  overflow-x: clip;
+  background-color: #09090B;
+  color: #F0F0F3;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.03) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+}
+
+/* === Text Selection — Violet accent === */
+::selection {
+  background: rgba(124, 58, 237, 0.3);
+  color: #F0F0F3;
+}
+
+/* === Custom Scrollbar — Blueprint Section 3.4.2 === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090B;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #23232D;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9898A6;
+}
+
+/* === Focus Visible — Accessibility === */
+*:focus-visible {
+  outline: 2px solid #7C3AED;
+  outline-offset: 2px;
+}
+
+/* === Reduced Motion — Accessibility (Section 8.3) === */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------------------------
+ * LENIS SMOOTH SCROLL — Blueprint Section 3.4.5
+ * ---------------------------------------------------------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* === Skills Ticker Pause on Hover (Section 5.5.3) === */
+.ticker-row:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+/* === Ticker Edge Fade Masks === */
+.ticker-mask {
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+}
+
+/* === Section Divider Gradient === */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right,
+      transparent 0%,
+      rgba(124, 58, 237, 0.15) 30%,
+      rgba(124, 58, 237, 0.3) 50%,
+      rgba(124, 58, 237, 0.15) 70%,
+      transparent 100%);
+}
+
+/* === Film grain overlay (premium texture) === */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* === Gradient text helper (violet → cyan) === */
+.text-gradient {
+  background-image: linear-gradient(90deg, #7C3AED 0%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* === Animated conic border ("star border") === */
+.conic-border {
+  position: relative;
+  border-radius: 9999px;
+  isolation: isolate;
+}
+.conic-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    transparent 0%,
+    #7C3AED 25%,
+    #06B6D4 50%,
+    transparent 75%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-angle 4s linear infinite;
+  z-index: -1;
+}
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle {
+  to { --angle: 360deg; }
+}
+
+/* === Hero headshot animated gradient ring === */
+.hero-ring {
+  background: conic-gradient(
+    from 0deg,
+    #7c3aed,
+    #06b6d4,
+    #3b82f6,
+    #a855f7,
+    #7c3aed
+  );
+  animation: ring-spin 6s linear infinite;
+}
+@keyframes ring-spin {
+  to { transform: rotate(1turn); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ring { animation: none; }
+}
+
+/* === Horizontal scroll snap track (projects showcase fallback) === */
+.snap-x-track {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.snap-x-track::-webkit-scrollbar { display: none; }
+.snap-item { scroll-snap-align: center; }
+
+/* === Spotlight card hover glow (driven by --mx / --my) === */
+.spotlight-card {
+  position: relative;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    400px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(124, 58, 237, 0.12),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+.spotlight-card:hover::before { opacity: 1; }
+
+/* ==========================================================
+ * FORWARD-PASS OVERHAUL — new visual language utilities
+ * ========================================================== */
+
+/* === HUD act label (mono system annotation) === */
+.hud-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(152, 152, 166, 0.85);
+}
+.hud-label .hud-accent {
+  color: #06B6D4;
+}
+
+/* === HUD corner brackets (replaces plain card borders) ===
+   Draws four 10px corner ticks via two layered gradients. */
+.hud-corners {
+  position: relative;
+}
+.hud-corners::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --tick: 14px;
+  --line: rgba(240, 240, 243, 0.22);
+  background:
+    linear-gradient(var(--line), var(--line)) top left / var(--tick) 1px,
+    linear-gradient(var(--line), var(--line)) top left / 1px var(--tick),
+    linear-gradient(var(--line), var(--line)) top right / var(--tick) 1px,
+    linear-gradient(var(--line), var(--line)) top right / 1px var(--tick),
+    linear-gradient(var(--line), var(--line)) bottom left / var(--tick) 1px,
+    linear-gradient(var(--line), var(--line)) bottom left / 1px var(--tick),
+    linear-gradient(var(--line), var(--line)) bottom right / var(--tick) 1px,
+    linear-gradient(var(--line), var(--line)) bottom right / 1px var(--tick);
+  background-repeat: no-repeat;
+  transition: opacity 0.3s ease;
+}
+
+/* === Glass panel (glassmorphism surface) === */
+.glass-panel {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* === Scroll cue — signal dropping down a wire === */
+.signal-wire {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, rgba(152,152,166,0.4), transparent);
+  overflow: hidden;
+}
+.signal-wire::after {
+  content: "";
+  position: absolute;
+  left: -1.5px;
+  top: -8px;
+  width: 4px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #06B6D4;
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.9);
+  animation: signal-drop 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes signal-drop {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: translateY(64px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signal-wire::after { animation: none; }
+}
+
+/* ==========================================================
+ * SCENE STAGE — photographic backdrops, palette-graded
+ * ========================================================== */
+
+/* Crossfade + scale settle between act scenes */
+.scene-layer {
+  transition: opacity 0.9s ease, scale 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+}
+
+/* Base grade: dim, slightly desaturated, contrast lifted */
+.scene-img {
+  filter: grayscale(0.25) brightness(0.62) contrast(1.06) saturate(1.05);
+}
+
+/* Bright grade — for statement scenes (hero skyline, dawn) */
+.scene-img-bright {
+  filter: grayscale(0.12) brightness(0.82) contrast(1.08) saturate(1.15);
+}
+
+/* Slow "breathing" so active scenes feel alive, never static */
+.scene-img,
+.scene-img-bright {
+  animation: scene-breathe 46s ease-in-out infinite alternate;
+}
+@keyframes scene-breathe {
+  from { scale: 1; }
+  to { scale: 1.055; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-img,
+  .scene-img-bright {
+    animation: none;
+  }
+}
+
+/* Duotone tint pulls every photo into the violet/cyan system */
+.scene-duotone {
+  background: linear-gradient(
+    120deg,
+    rgba(124, 58, 237, 0.4) 0%,
+    rgba(6, 182, 212, 0.25) 100%
+  );
+  mix-blend-mode: color;
+}
+
+/* Obsidian veil: darker at top/bottom so nav + content edges hold */
+.scene-veil {
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 9, 11, 0.72) 0%,
+    rgba(9, 9, 11, 0.28) 40%,
+    rgba(9, 9, 11, 0.38) 70%,
+    rgba(9, 9, 11, 0.85) 100%
+  );
+}
+
+/* Light veil — keeps top nav + bottom edge grounded but lets the
+   scene's midfield (the skyline band) actually read */
+.scene-veil-light {
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 9, 11, 0.6) 0%,
+    rgba(9, 9, 11, 0.1) 42%,
+    rgba(9, 9, 11, 0.16) 72%,
+    rgba(9, 9, 11, 0.66) 100%
+  );
+}
+
+/* Global vignette — edges stay obsidian regardless of scene */
+.scene-vignette {
+  background: radial-gradient(
+    ellipse 85% 75% at 50% 45%,
+    transparent 45%,
+    rgba(9, 9, 11, 0.55) 100%
+  );
+}
+
+/* Parallax wrapper gets transform written per-frame */
+.scene-parallax {
+  will-change: transform;
+}
+
+/* === Act-boundary light sweep (one-shot, keyed remount) === */
+.act-sweep-beam {
+  display: block;
+  height: 100%;
+  width: 38%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(124, 58, 237, 0.9) 40%,
+    rgba(6, 182, 212, 1) 60%,
+    transparent 100%
+  );
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+  animation: act-sweep-run 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes act-sweep-run {
+  0% { transform: translateX(-40vw); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateX(110vw); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .act-sweep-beam { animation: none; opacity: 0; }
+}
+
+/* === Backprop pulse — a gradient signal traveling the rail === */
+.backprop-pulse {
+  position: absolute;
+  left: 4.5px;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: #06B6D4;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.9);
+  animation: backprop-travel 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes backprop-travel {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: 1; }
+  82% { opacity: 1; }
+  100% { transform: translateY(min(38rem, 70vh)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .backprop-pulse { display: none; }
+}
+
+/* === Terminal caret blink (hero tagline / contact prompts) === */
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: #06B6D4;
+  animation: caret-blink 1s steps(1) infinite;
+}
+@keyframes caret-blink {
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret::after { animation: none; }
+}
