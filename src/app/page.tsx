@@ -84,7 +84,7 @@ export default function Home() {
               id="interlude-dubai"
               image="/scenes/interlude-dubai.jpg"
               label="interlude / deployment"
-              lines={[
+              titleLines={[
                 { text: 'Trained in theory.' },
                 { text: 'Deployed in Dubai.', em: true },
               ]}
@@ -99,7 +99,7 @@ export default function Home() {
               id="interlude-dawn"
               image="/scenes/dawn.jpg"
               label="interlude / continuation"
-              lines={[
+              titleLines={[
                 { text: 'The next model is' },
                 { text: 'always in training.', em: true },
               ]}
