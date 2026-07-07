@@ -22,7 +22,9 @@
   --color-emerald: #10B981;
   --color-rose-soft: #F43F5E;
   --color-cool-white: #F0F0F3;
-  --color-silver: #9898A6;
+  /* Lifted from #9898A6 — the old silver fell below comfortable
+     contrast once photographic scenes sat behind the text. */
+  --color-silver: #ABABBC;
   --color-glass-white: rgba(255, 255, 255, 0.05);
   --color-violet-bright: #B794F6;
   --color-panel: #0E0E14;
@@ -393,6 +395,33 @@ html.lenis body {
 /* ==========================================================
  * FORWARD-PASS OVERHAUL — new visual language utilities
  * ========================================================== */
+
+/* === Logo monogram — junction nodes breathe, staggered === */
+.logo-node {
+  animation: logo-pulse 2.8s ease-in-out infinite;
+}
+.logo-node-2 {
+  animation-delay: 0.9s;
+}
+.logo-node-3 {
+  animation-delay: 1.8s;
+}
+@keyframes logo-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-node, .logo-node-2, .logo-node-3 { animation: none; }
+}
+
+/* === Legibility shadow for text sitting on photography ===
+   A soft obsidian halo — invisible as a "shadow", decisive for
+   contrast over bright scene areas. */
+.text-legible {
+  text-shadow:
+    0 1px 3px rgba(9, 9, 11, 0.9),
+    0 2px 18px rgba(9, 9, 11, 0.75);
+}
 
 /* === HUD act label (mono system annotation) === */
 .hud-label {

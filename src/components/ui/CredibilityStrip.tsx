@@ -14,7 +14,8 @@ const credibilityItems = [
     { value: 'Global Top 10', label: 'ICC NIUM Hackathon' },
     { value: 'National Finalist', label: 'Smart India Hackathon' },
     { value: 'Published Researcher', label: 'IJANA / ASICS 2024' },
-    { value: '4 AI Systems', label: 'Across product, infra, and ML' },
+    // No hard count — the log keeps growing.
+    { value: 'AI Systems in Production', label: 'Across product, infra, and ML' },
 ]
 
 export default function CredibilityStrip() {

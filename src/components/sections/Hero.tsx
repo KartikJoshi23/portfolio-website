@@ -216,19 +216,20 @@ export default function Hero({ animateEntrance }: HeroProps) {
                             </motion.p>
                         )}
 
-                        {/* Summary */}
+                        {/* Summary — bright + shadowed: it sits directly on
+                            the skyline photograph */}
                         {animateEntrance && (
                             <MaskReveal
                                 text={heroContent.summary}
                                 delay={1.05}
-                                className="mt-6 font-inter text-silver text-base md:text-lg max-w-2xl leading-8"
+                                className="text-legible mt-6 font-inter text-cool-white/90 text-base md:text-lg max-w-2xl leading-8"
                             />
                         )}
 
                         {animateEntrance && (
                             <motion.p
                                 {...fadeUp(1.25)}
-                                className="mt-3 font-inter text-silver/70 text-[13px] uppercase tracking-[0.08em]"
+                                className="text-legible mt-3 font-inter text-cool-white/70 text-[13px] uppercase tracking-[0.08em]"
                             >
                                 {heroContent.subtitle}
                             </motion.p>

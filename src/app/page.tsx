@@ -83,11 +83,16 @@ export default function Home() {
             <Interlude
               id="interlude-dubai"
               image="/scenes/interlude-dubai.jpg"
-              label="interlude / deployment"
+              label={
+                <>
+                  03 / <span className="hud-accent">INFERENCE</span> · selected work
+                </>
+              }
               titleLines={[
-                { text: 'Trained in theory.' },
-                { text: 'Deployed in Dubai.', em: true },
+                { text: 'The Deployment' },
+                { text: 'Log', em: true },
               ]}
+              sub="Trained in theory. Deployed in Dubai — production systems with real stakes."
               objectPosition="center 60%"
             />
             <FeaturedWork />
@@ -95,16 +100,8 @@ export default function Home() {
             <TechStack />
             <Education />
             <Opportunities />
-            <Interlude
-              id="interlude-dawn"
-              image="/scenes/dawn.jpg"
-              label="interlude / continuation"
-              titleLines={[
-                { text: 'The next model is' },
-                { text: 'always in training.', em: true },
-              ]}
-              objectPosition="center 35%"
-            />
+            {/* Contact carries the dawn image itself — no standalone
+                break between routing and output */}
             <Contact />
           </div>
         </div>

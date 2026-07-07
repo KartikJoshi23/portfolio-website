@@ -13,7 +13,8 @@
       "PowerShell($dir = \"D:\\\\My_Work\\\\Projects\\\\Portfolio-Website\\\\public\\\\scenes\"; New-Item -ItemType Directory -Force $dir | Out-Null; $imgs = @{ \"hero\" = \"photo-1550779864-6ccb28702fdb\"; \"about\" = \"photo-1488590528505-98d2b5aba04b\"; \"interlude-dubai\" = \"photo-1462007895615-c8c073bebcd8\"; \"proof\" = \"photo-1776160043138-52e2cf9c6e4e\"; \"skills\" = \"photo-1505506874110-6a7a69069a08\"; \"education\" = \"photo-1526289034009-0240ddb68ce3\"; \"dawn\" = \"photo-1500937172512-fc330654bc81\" }; foreach \\($k in $imgs.Keys\\) { curl.exe -sL \"https://images.unsplash.com/$\\($imgs[$k]\\)?w=1920&q=80&fm=jpg&fit=max\" -o \"$dir\\\\$k.jpg\" }; Get-ChildItem $dir | Select-Object Name, @{N='KB';E={[math]::Round\\($_.Length/1KB\\)}})",
       "PowerShell(curl.exe -sL \"https://images.unsplash.com/photo-1505506874110-6a7a69069a08?w=1600&q=65&fm=jpg&fit=max\" -o \"D:\\\\My_Work\\\\Projects\\\\Portfolio-Website\\\\public\\\\scenes\\\\skills.jpg\"; \\(Get-Item \"D:\\\\My_Work\\\\Projects\\\\Portfolio-Website\\\\public\\\\scenes\\\\skills.jpg\"\\).Length / 1KB)",
       "PowerShell(Remove-Item -Recurse -Force \"D:\\\\My_Work\\\\Projects\\\\Portfolio-Website\\\\.next\" -Confirm:$false)",
-      "PowerShell(\"cleared\")"
+      "PowerShell(\"cleared\")",
+      "PowerShell(\"cache cleared\")"
     ]
   }
 }

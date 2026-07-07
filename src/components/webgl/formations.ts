@@ -20,6 +20,9 @@ export type FormationId =
 export const SECTION_FORMATION: Record<string, FormationId> = {
     hero: 'constellation',
     about: 'clusters',
+    // Particles start streaming over the Deployment Log title card,
+    // carrying the motion straight into the gallery traversal.
+    'interlude-dubai': 'stream',
     work: 'stream',
     proof: 'curve',
     'how-i-work': 'lattice',

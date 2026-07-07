@@ -9,6 +9,7 @@
 "use client"
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
     Mail,
@@ -84,6 +85,29 @@ export default function Contact() {
 
     return (
         <section id="contact" className="relative py-20 md:py-28 overflow-hidden">
+            {/* The dawn lives INSIDE the output layer — the story's last
+                scene is the backdrop of the conversation, not a break
+                before it. Heavier veils keep the terminal legible. */}
+            <div className="absolute inset-0" aria-hidden="true">
+                <Image
+                    src="/scenes/dawn.jpg"
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    quality={70}
+                    className="scene-img-bright object-cover"
+                    style={{ objectPosition: 'center 28%' }}
+                />
+                <div className="scene-duotone absolute inset-0" />
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background:
+                            'linear-gradient(to bottom, #09090B 0%, rgba(9,9,11,0.55) 18%, rgba(9,9,11,0.68) 55%, rgba(9,9,11,0.86) 100%)',
+                    }}
+                />
+            </div>
+
             {/* Converged-node glow behind the section */}
             <div
                 className="pointer-events-none absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 h-150 w-150 rounded-full"
@@ -98,7 +122,7 @@ export default function Contact() {
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                 <ScrollReveal>
                     <p className="hud-label">
-                        [ 08 / <span className="hud-accent">OUTPUT</span> ] · the network emits a signal
+                        [ 08 / <span className="hud-accent">OUTPUT</span> ] · the next model is always in training
                     </p>
                 </ScrollReveal>
                 <ScrollReveal delay={0.1}>
@@ -118,7 +142,7 @@ export default function Contact() {
                             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald opacity-75" />
                             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald" />
                         </span>
-                        <span className="font-mono text-[12px] tracking-[0.06em] text-silver">
+                        <span className="text-legible font-mono text-[12px] tracking-[0.06em] text-cool-white/80">
                             accepting new signals · AI roles, research, product builds
                         </span>
                     </div>

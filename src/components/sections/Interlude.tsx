@@ -119,14 +119,14 @@ export default function Interlude({
                 <motion.p
                     initial={{ opacity: 0, y: 14 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.6 }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.6, ease: EASE_OUT }}
-                    className="hud-label mb-6"
+                    className="hud-label text-legible mb-6"
                 >
                     [ {label} ]
                 </motion.p>
                 <h2
-                    className="font-sora font-bold uppercase text-cool-white"
+                    className="text-legible font-sora font-bold uppercase text-cool-white"
                     style={{
                         fontSize: 'clamp(2.2rem, 6vw, 5rem)',
                         letterSpacing: '-0.015em',
@@ -135,13 +135,16 @@ export default function Interlude({
                 >
                     {titleLines.map((line, i) => (
                         <span key={line.text} className="block overflow-hidden">
+                            {/* Low threshold + short delay: the title must
+                                land even for fast scrollers — it IS the
+                                section heading, not decoration. */}
                             <motion.span
                                 initial={reduced ? undefined : { y: '112%' }}
                                 whileInView={reduced ? undefined : { y: '0%' }}
-                                viewport={{ once: true, amount: 0.8 }}
+                                viewport={{ once: true, amount: 0.2 }}
                                 transition={{
-                                    duration: 0.85,
-                                    delay: 0.15 + i * 0.16,
+                                    duration: 0.8,
+                                    delay: 0.08 + i * 0.12,
                                     ease: EASE_OUT,
                                 }}
                                 className={`block ${line.em ? 'text-gradient' : ''}`}
@@ -155,9 +158,9 @@ export default function Interlude({
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.6 }}
-                        transition={{ duration: 0.7, delay: 0.5, ease: EASE_OUT }}
-                        className="mt-6 font-inter italic text-silver text-base md:text-lg max-w-xl"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.7, delay: 0.35, ease: EASE_OUT }}
+                        className="text-legible mt-6 font-inter italic text-cool-white/85 text-base md:text-lg max-w-xl"
                     >
                         {sub}
                     </motion.p>

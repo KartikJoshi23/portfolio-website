@@ -44,21 +44,20 @@ const SCENES: Record<string, Scene> = {
     proof: { src: '/scenes/proof.jpg', opacity: 0.32 },
     skills: { src: '/scenes/skills.jpg', opacity: 0.34 },
     education: { src: '/scenes/education.jpg', opacity: 0.24 },
-    dawn: { src: '/scenes/dawn.jpg', opacity: 0.28, objectPosition: 'center 30%', bright: true },
 }
 
-/** Act (section id) → scene key, in page order. null = near-black. */
+/** Act (section id) → scene key, in page order. null = near-black.
+ *  The interlude and Contact carry their own in-section imagery. */
 const ACT_SCENE: [string, string | null][] = [
     ['hero', 'hero'],
     ['about', 'about'],
-    ['interlude-dubai', null], // interlude owns its own image
+    ['interlude-dubai', null],
     ['work', null],
     ['proof', 'proof'],
     ['how-i-work', 'skills'],
     ['education', 'education'],
     ['opportunities', null],
-    ['interlude-dawn', null],
-    ['contact', 'dawn'],
+    ['contact', null],
 ]
 
 export default function SceneStage() {
