@@ -19,6 +19,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import AuroraBackground from '@/components/ui/AuroraBackground'
 import GenerativeCover from '@/components/ui/GenerativeCover'
+import CaseStudyKeys from '@/components/ui/CaseStudyKeys'
 import StatusBadge from '@/components/ui/StatusBadge'
 import { projects, getProjectBySlug } from '@/data/projects'
 import { META } from '@/lib/constants'
@@ -70,6 +71,7 @@ export default async function ProjectDetailPage({
         <>
             <Navbar />
             <AuroraBackground />
+            <CaseStudyKeys prevSlug={prev.slug} nextSlug={next.slug} />
 
             <main id="main-content" className="relative z-10">
                 <article className="mx-auto max-w-5xl px-6 pb-24 pt-32 lg:px-8 lg:pt-36">

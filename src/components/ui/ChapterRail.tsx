@@ -87,9 +87,13 @@ export default function ChapterRail() {
                     <span className="act-sweep-beam" />
                 </div>
             )}
+        {/* Only rendered where a real gutter exists (≥2xl: content is
+            capped at 1280px, leaving ~128px of empty margin) — the rail
+            lives in that gutter and can never sit over content. Labels
+            appear on hover only, in a solid chip. */}
         <nav
             aria-label="Chapters"
-            className="hidden xl:flex fixed right-8 top-1/2 -translate-y-1/2 z-40 flex-col gap-4"
+            className="hidden 2xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col gap-4"
         >
             {CHAPTERS.map((c, i) => {
                 const isActive = active === c.id
@@ -97,34 +101,33 @@ export default function ChapterRail() {
                     <button
                         key={c.id}
                         onClick={() => go(c.id)}
-                        className="group flex items-center justify-end gap-3 text-right"
+                        className="group relative flex items-center justify-end gap-2"
                         aria-current={isActive ? 'true' : undefined}
+                        aria-label={c.label}
                     >
+                        {/* Hover label — solid backing, never a ghost overlay */}
                         <span
-                            className={`font-mono text-[11px] uppercase tracking-[0.14em] transition-all duration-300 ${
-                                isActive
-                                    ? 'text-cool-white opacity-100 translate-x-0'
-                                    : 'text-silver/50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
-                            }`}
+                            className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-md
+                                       border border-white/10 bg-obsidian/95 px-2.5 py-1
+                                       font-mono text-[10px] uppercase tracking-[0.14em] text-cool-white
+                                       opacity-0 transition-opacity duration-200 group-hover:opacity-100"
                         >
                             {c.label}
                         </span>
-                        <span className="flex items-center gap-2">
-                            <span
-                                className={`font-mono text-[10px] tabular-nums transition-colors duration-300 ${
-                                    isActive ? 'text-violet' : 'text-silver/40 group-hover:text-silver/70'
-                                }`}
-                            >
-                                {String(i + 1).padStart(2, '0')}
-                            </span>
-                            <span
-                                className={`block h-px transition-all duration-300 ${
-                                    isActive
-                                        ? 'w-8 bg-linear-to-r from-violet to-cyan'
-                                        : 'w-4 bg-white/20 group-hover:w-6 group-hover:bg-white/40'
-                                }`}
-                            />
+                        <span
+                            className={`font-mono text-[10px] tabular-nums transition-colors duration-300 ${
+                                isActive ? 'text-violet' : 'text-silver/40 group-hover:text-silver/70'
+                            }`}
+                        >
+                            {String(i + 1).padStart(2, '0')}
                         </span>
+                        <span
+                            className={`block h-px transition-all duration-300 ${
+                                isActive
+                                    ? 'w-7 bg-linear-to-r from-violet to-cyan'
+                                    : 'w-4 bg-white/20 group-hover:w-6 group-hover:bg-white/40'
+                            }`}
+                        />
                     </button>
                 )
             })}

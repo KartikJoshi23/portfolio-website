@@ -175,24 +175,37 @@ export default function SceneStage() {
                             // Inactive scenes wait slightly zoomed; becoming
                             // active settles them to 1 — the "scale settle".
                             scale: isActive ? '1' : '1.05',
+                            // Exposure settle: incoming scenes arrive a touch
+                            // over-bright and grade down (film cut feel).
+                            animation: isActive
+                                ? 'exposure-settle 1.1s ease-out'
+                                : 'none',
                         }}
                     >
-                        {/* Inner wrapper takes the scroll parallax transform */}
+                        {/* Inner wrapper takes the scroll parallax transform;
+                            the hero gets a one-shot "crane down" as the boot
+                            lifts (scene-opening) — films open with a move. */}
                         <div className="scene-parallax absolute -inset-[4%]">
-                            {(key === 'hero' || ignited) && (
-                                <Image
-                                    src={scene.src}
-                                    alt=""
-                                    fill
-                                    sizes="100vw"
-                                    quality={70}
-                                    priority={key === 'hero'}
-                                    className={`object-cover ${
-                                        scene.bright ? 'scene-img-bright' : 'scene-img'
-                                    }`}
-                                    style={{ objectPosition: scene.objectPosition }}
-                                />
-                            )}
+                            <div
+                                className={`absolute inset-0 ${
+                                    key === 'hero' && ignited ? 'scene-opening' : ''
+                                }`}
+                            >
+                                {(key === 'hero' || ignited) && (
+                                    <Image
+                                        src={scene.src}
+                                        alt=""
+                                        fill
+                                        sizes="100vw"
+                                        quality={70}
+                                        priority={key === 'hero'}
+                                        className={`object-cover ${
+                                            scene.bright ? 'scene-img-bright' : 'scene-img'
+                                        }`}
+                                        style={{ objectPosition: scene.objectPosition }}
+                                    />
+                                )}
+                            </div>
                         </div>
                         <div className="scene-duotone absolute inset-0" />
                         <div

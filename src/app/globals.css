@@ -586,6 +586,26 @@ html.lenis body {
   will-change: transform;
 }
 
+/* The Opening Shot — a slow crane-down as the boot lifts */
+.scene-opening {
+  animation: opening-shot 2.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes opening-shot {
+  from { transform: scale(1.09) translateY(-2.5%); }
+  to { transform: scale(1) translateY(0); }
+}
+
+/* Exposure settle — incoming scene grades down from over-bright */
+@keyframes exposure-settle {
+  from { filter: brightness(1.4); }
+  to { filter: brightness(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-opening { animation: none; }
+  .scene-layer { animation: none !important; }
+}
+
 /* === Act-boundary light sweep (one-shot, keyed remount) === */
 .act-sweep-beam {
   display: block;

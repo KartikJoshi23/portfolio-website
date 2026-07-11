@@ -1,159 +1,121 @@
-# Implementation Plan v2 — "The Forward Pass: Grounded"
+# Implementation Plan v3 — "Director's Cut"
 
-*Taking the site from "impressive dark portfolio" to "cinematic experience" —
-by grounding the abstract network in the real world, with photography-driven
-scenes and a scroll experience no template can produce.*
+*Two axes, one goal: make the site feel more like cinema, and make every
+interaction feel engineered. Nothing below hijacks scroll, dims text, or
+breaks the ordered layouts — those rules are locked from v1/v2 feedback.*
 
-> **Status: awaiting approval.** v1 (the Forward Pass overhaul) is live on
-> localhost and approved in structure. This plan covers the experience upgrade
-> you asked for: real-world imagery, richer storyline, and a signature
-> scrolling experience. Nothing below gets built until you say go.
+> **Status: awaiting approval.** Nothing gets built until you say go.
+> Items marked ⚑ are optional — veto freely.
 
 ---
 
-## 1. The Concept
+## Part 1 — The Cinematic Layer (feel like film)
 
-v1 tells the story of a signal moving through a network — but the story lives
-entirely in abstract space (particles, lines, glyphs). v2 grounds each act of
-that story in the **real world where your work actually happens**:
+### 1.1 The Opening Shot (hero entrance)
+Right now the preloader lifts and the hero is simply *there*. Films open
+with a move. After the boot lifts: the skyline scene starts ~8% zoomed-in
+and slightly raised, then **settles down and back over ~2.5s** (a slow
+crane-down) while the name decodes — one-shot entrance, never tied to
+scroll. Costs nothing after it plays. Reduced motion: skipped.
 
-> *A signal is abstract. The places it changes are real.*
+### 1.2 Exposure Settle on act changes
+Scene crossfades currently just fade. Film cuts "settle": each incoming
+scene arrives **very slightly over-bright for ~400ms, then grades down**
+into its final look — like an exposure adjusting. Subtle enough that you
+feel it rather than see it.
 
-Concretely: a full-screen, slowly-moving **photographic scene** sits behind
-each act, graded into the site's obsidian/violet/cyan palette so it reads as
-one visual system with the particle field — not a stock-photo collage. As you
-scroll between acts, the world behind the content **changes with the story**:
+### 1.3 Film Slates (scene annotations)
+When you cross into a new act, a small mono chip fades in at the bottom
+left for ~2s and dissolves: `scene 04 · training montage`, `scene 05 ·
+the latent space`. Cinema's slate/clapboard, in HUD language. One-shot
+per act per visit, never blocks anything, hidden on mobile.
 
-| Act | Scene behind it | Why |
-|-----|-----------------|-----|
-| INPUT (hero) | Dubai skyline at night, long-exposure | where you are — the city as a circuit |
-| REPRESENTATION (about) | dark workspace / code on glass | where the thinking happens |
-| INFERENCE (work) | scene dims to near-black | the work IS the visual — panels stay the hero |
-| TRAINING (proof) | stadium/arena lights or hackathon crowd | competition under pressure |
-| LATENT SPACE (skills) | star field / observatory sky | the map metaphor, literalized |
-| BACKPROP (education) | SP Jain / campus architecture lines | where the weights formed |
-| OUTPUT (contact) | dawn horizon over the city | the signal leaves the network |
+### 1.4 Credits Footer
+The footer becomes a **micro credits roll**: on scrolling into it, lines
+rise like end credits — "Written, directed & engineered by Kartik Joshi" ·
+"Cinematography: Three.js & GSAP" · "Shot on location in Dubai" — ending
+on the EOF line that's already there. Short (five lines), plays once.
 
-Between key acts, two **cinematic interludes** (see §3) give the site the
-"chapter" feeling of award-winning editorial sites.
-
----
-
-## 2. The Scene Stage (the core new system)
-
-One fixed, full-viewport background layer — the "stage" — that lives behind
-everything (below the particle field, above the base color):
-
-- **Crossfade on act change.** An IntersectionObserver watches act boundaries
-  (same mechanism the particle field already uses). Scenes crossfade over
-  ~900ms with a subtle scale settle (1.06 → 1.0) — no hard cuts.
-- **Depth on scroll.** Each scene parallaxes slowly (GSAP scrub, ±6% y) so the
-  world feels deep behind the content, never wallpaper-flat.
-- **Palette grading, in CSS.** Every image gets the same treatment: heavy
-  obsidian multiply + violet/cyan duotone tint + vignette + the existing film
-  grain. Result: photographs that look like they were shot inside the site.
-- **Legibility guarantee.** A radial content-shadow behind text columns at all
-  times; scenes run at 20–35% final opacity. The obsidian wash from v1 stays.
-- **Discipline.** The particle field stays on top — the two layers share the
-  palette, so the network appears to float *in* the world.
-
-**Performance:** scenes are next/image with AVIF, ~1600px wide, blurred
-placeholders, lazy-loaded one act ahead; only the active + adjacent scene stay
-mounted. Low-tier devices and reduced-motion get a single static graded image
-(hero) or none. Target: no measurable LCP change (hero text renders first).
+### 1.5 Boot log gets real telemetry
+The preloader lines currently say fixed things. Two of them become real:
+`> local time in dubai: 21:43 — ok` and `> render tier: high — ok` (from
+the actual device probe). Anyone technical will notice it's *live* — that
+moment of "wait, this is real" is worth more than any animation.
 
 ---
 
-## 3. Cinematic Interludes (the "wow" scroll moments)
+## Part 2 — The Interaction Layer (feel engineered)
 
-Two full-bleed pinned moments, placed at the story's turning points. Each pins
-for ~1.5 viewport heights while three things happen on scrub:
+### 2.1 Command Palette (⌘K / Ctrl+K) — the flagship
+An AI-engineer's portfolio should be *operable*. One keystroke opens a
+terminal-styled palette: type to jump to any section, open any project,
+download the resume, copy your email, or toggle the field. Fuzzy match,
+arrow keys, Enter, Esc. A quiet `⌘K` hint chip sits in the navbar; on
+mobile a small floating button opens the same palette. This is the single
+most "this person builds tools" interaction a portfolio can have.
 
-1. The photograph **Ken-Burns scales** (1.15 → 1.0) and its duotone lifts
-   slightly — like an image developing.
-2. An oversized editorial statement reveals **through a text mask**, line by
-   line, locked to scroll progress.
-3. A thin HUD frame draws itself around the viewport edges.
+### 2.2 Click pulse in the particle field
+The cursor already charges nearby particles. A **click anywhere on the
+background fires a radial pulse** through the network — a ripple of
+brightness propagating outward through the links. One shot, ~1s decay,
+pure delight, zero layout impact.
 
-- **Interlude I — after About, before Work:**
-  Dubai skyline scene. Copy: *"Trained in theory. **Deployed in Dubai.**"*
-  — sets up the work gallery as "what got deployed."
-- **Interlude II — after Opportunities, before Contact:**
-  Dawn/horizon scene. Copy: *"The next model is **always in training.**"*
-  — sets up contact as an invitation, not a form.
+### 2.3 Skill ↔ Project cross-references
+The Capability Map and the project data already share names (PyTorch,
+FastAPI, Docker…). Hovering a skill pill that's used in a shipped project
+shows a tiny chip: `→ used in Sentinel-Gate`. Clicking follows through to
+that case study. The map stops being a list and becomes **an index into
+the work** — recruiters love receipts.
 
-Mobile: interludes become non-pinned full-bleed images with the same masked
-text reveal (no pin on touch — same rule as the gallery).
+### 2.4 Context-aware cursor
+The custom cursor ring gains a word when it matters: `drag` over the
+gallery track, `open` over project panels, `send` over the submit button.
+Desktop only, one word, mono type — function labels, not decoration.
 
----
+### 2.5 Cover tilt
+Project covers get a gentle 3D perspective tilt following the cursor
+(≤4°, spring-settled) — the TiltCard physics already in the codebase,
+applied where eyes actually go. Combined with the existing cover-energy
+hover, panels feel alive under the hand.
 
-## 4. Scroll Experience Upgrades (site-wide)
+### 2.6 Terminal acknowledgment on contact
+After a successful send, the form prints a response line under the
+button, typed out in mono: `ack · signal received — expect a reply within
+24h`. Closes the terminal fiction properly instead of just a green state.
 
-- **Scroll velocity awareness.** Lenis velocity feeds two things: the particle
-  field's drift energy (fast scroll = the network streams) and a ±1.5°
-  skew-settle on the work panels while traversing — the signature "alive"
-  feel of high-end sites, kept subtle.
-- **Act-boundary signal flashes.** Crossing into a new act fires a one-shot
-  thin horizontal light-line sweep at the viewport edge + the ChapterRail
-  entry pulses — the "you've entered a new layer" beat.
-- **Hero exit upgrade.** As the hero scrolls out, the skyline scene scale-
-  pushes forward slightly (dolly-in) — you scroll *into* the city.
-- **Work gallery depth.** While panels traverse horizontally, the near-black
-  stage drifts opposite at 10% speed — real parallax depth behind the cards.
-- Everything stays inside v1's ordered layouts — motion adds depth, not chaos.
-
----
-
-## 5. Asset Plan (needs your input — see approval note)
-
-Seven images total (2 interlude "hero" shots + 5 scene backdrops). Because
-they're heavily graded and dimmed, they must be **high-resolution, dark-toned,
-simple compositions** — busy images will fight the content.
-
-**Option A (recommended, most authentic):** you provide personal shots —
-Dubai skyline from your area, SP Jain campus, a hackathon photo, your
-workspace. Anything ≥1920px wide works; I grade them to match.
-
-**Option B:** I source them from **Unsplash** (free license, commercial use,
-no attribution required — safe for a portfolio). I'd pick: Dubai skyline
-night, dark code-on-screen macro, stadium lights, star field, modern
-architecture lines, dawn horizon. **I'll need your explicit OK to download
-these** — I'll list the exact photos I chose in the build report so you can
-veto any.
-
-**Option A+B mix** is fine (e.g., your Dubai photo + Unsplash star field).
-
-Also optional, same mechanism for later: real screenshots of AlgoViz /
-Scanner / Traffic dashboards could replace or sit behind the generative
-covers on detail pages. Not required for this phase.
+### 2.7 Keyboard navigation on case studies ⚑
+On project detail pages: ← / → move between projects (the prev/next cards
+already exist — this just wires the keys), with a small hint chip.
 
 ---
 
-## 6. What Does NOT Change
+## Part 3 — Decisions I need from you
 
-Per your feedback so far, these are locked: hero headshot + gradient ring,
-restrained type scale, uniform project panels, ordered bento Capability Map,
-shimmer tagline, ~4s preloader, all v1 content and data files.
-
----
-
-## 7. Build Parts (sequential, each ends runnable)
-
-- **Part A — Scene Stage system**: the fixed stage layer, act-boundary
-  crossfades, grading treatment, parallax scrub, tier/reduced-motion
-  fallbacks. Ships with temporary gradient placeholders so it's reviewable
-  before final images land.
-- **Part B — Assets in**: your photos and/or approved Unsplash set, AVIF
-  conversion, blur placeholders, per-scene grading tuned.
-- **Part C — Interludes I & II**: pinned Ken-Burns + masked editorial text +
-  HUD frame; mobile fallback.
-- **Part D — Scroll feel**: velocity-reactive field + panel skew, act-boundary
-  light sweeps, hero dolly-out, gallery parallax depth.
-- **Part E — Verification**: production build, perf audit (LCP/CLS budgets),
-  reduced-motion pass, mobile sweep, then localhost review.
+1. **Sound design ⚑** — a single, very quiet UI "tick" on act boundaries
+   and palette open, **off by default** behind a tiny mute toggle in the
+   footer. Award-site standard, but genuinely divisive. In or out?
+2. **Film slates (1.3)** — comfortable with the scene chips, or too much
+   chrome? They're the most "visible" cinematic addition.
+3. Anything in Part 2 you'd cut? The palette (2.1) is the anchor; the
+   rest are independent.
 
 ---
 
-*⏸ Awaiting your approval on: (1) the overall concept, (2) the scene/interlude
-copy in §1/§3, and (3) the asset route — Option A (your photos), Option B
-(Unsplash, with your OK to download), or a mix.*
+## Part 4 — Build order (each part ends runnable)
+
+| Part | Contents | Risk |
+|------|----------|------|
+| A | Command palette + navbar hint (2.1) | isolated, new component |
+| B | Cinematic entrances: opening shot, exposure settle, slates (1.1–1.3) | touches SceneStage only |
+| C | Field interactions: click pulse (2.2) + context cursor (2.4) | small, additive |
+| D | Cross-refs + tilt + terminal ack (2.3, 2.5, 2.6) | per-section, independent |
+| E | Boot telemetry + credits footer (1.5, 1.4) + optional 2.7 | trivial |
+| F | Verification: build, reduced-motion, mobile, perf, localhost review | — |
+
+Constraints carried forward: no vertical-scroll capture anywhere, all text
+on imagery stays `.text-legible`, everything honors reduced motion and the
+device-tier governor, mobile gets equivalent (not amputated) experiences.
+
+---
+
+*⏸ Awaiting your call on Part 3's three questions + overall approval.*

@@ -24,6 +24,7 @@ import Interlude from '@/components/sections/Interlude'
 import SceneStage from '@/components/scene/SceneStage'
 import CanvasRoot from '@/components/webgl/CanvasRoot'
 import ChapterRail from '@/components/ui/ChapterRail'
+import FilmSlate from '@/components/ui/FilmSlate'
 import CredibilityStrip from '@/components/ui/CredibilityStrip'
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
 import CursorTrail from '@/components/ui/CursorTrail'
@@ -59,6 +60,7 @@ export default function Home() {
       <Navbar />
       <ScrollProgressBar />
       <ChapterRail />
+      <FilmSlate />
       <CursorTrail />
 
       <Preloader onComplete={() => setPreloaderDone(true)} />

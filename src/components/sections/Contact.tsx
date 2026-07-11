@@ -40,6 +40,8 @@ const inputClasses =
 
 export default function Contact() {
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+    // Sticks after the first successful send — the terminal's reply.
+    const [acked, setAcked] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -59,6 +61,7 @@ export default function Contact() {
                 const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
                 window.open(`mailto:${PERSONAL.email}?subject=${subject}&body=${body}`, '_self')
                 setStatus('success')
+                setAcked(true)
                 form.reset()
                 setTimeout(() => setStatus('idle'), 3500)
                 return
@@ -71,6 +74,7 @@ export default function Contact() {
             })
             if (res.ok) {
                 setStatus('success')
+                setAcked(true)
                 form.reset()
                 setTimeout(() => setStatus('idle'), 3500)
             } else {
@@ -231,6 +235,7 @@ export default function Contact() {
                                 <MagneticButton as="div" className="w-full">
                                     <button
                                         type="submit"
+                                        data-cursor="send"
                                         disabled={status === 'submitting'}
                                         className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl font-sora font-medium text-sm uppercase tracking-[0.05em] transition-colors ${
                                             status === 'success'
@@ -274,6 +279,17 @@ export default function Contact() {
                                     <a href={`mailto:${PERSONAL.email}`} className="text-violet hover:underline">
                                         {PERSONAL.email}
                                     </a>
+                                </p>
+                            )}
+
+                            {/* The terminal replies — closes the fiction properly */}
+                            {acked && (
+                                <p className="mt-4 border-t border-white/8 pt-3 font-mono text-[11px] tracking-[0.06em] text-emerald/90">
+                                    <DecodeText
+                                        text="ack · signal received — expect a reply within 24h"
+                                        immediate
+                                        speed={22}
+                                    />
                                 </p>
                             )}
                         </form>

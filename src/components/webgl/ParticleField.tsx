@@ -87,6 +87,9 @@ export default function ParticleField({ tier }: ParticleFieldProps) {
         formation: 'converge' as FormationId, // pre-ignite: held at center
         ignited: false,
         velEnergy: 0, // eased scroll-velocity energy (0..1)
+        // Click pulses: NDC coords converted to world on first frame,
+        // then a brightness ring propagates outward through the field.
+        pulses: [] as { nx: number; ny: number; x: number; y: number; start: number }[],
         lineOpacity: 0,
         lineOpacityTarget: 0,
         pointer: { x: 0, y: 0, active: false },
@@ -220,11 +223,28 @@ export default function ParticleField({ tier }: ParticleFieldProps) {
         const onLeave = (e: PointerEvent) => {
             if (!e.relatedTarget) s.pointer.active = false
         }
+        // Background clicks ripple through the network. Clicks on real
+        // UI (links, buttons, inputs) are ignored — delight must never
+        // compete with function.
+        const onClick = (e: MouseEvent) => {
+            const t = e.target as HTMLElement
+            if (t.closest('a, button, input, textarea, select, label, [role="button"], [role="dialog"]')) return
+            if (s.pulses.length >= 3) s.pulses.shift()
+            s.pulses.push({
+                nx: (e.clientX / window.innerWidth) * 2 - 1,
+                ny: -(e.clientY / window.innerHeight) * 2 + 1,
+                x: 0,
+                y: 0,
+                start: -1,
+            })
+        }
         window.addEventListener('pointermove', onMove, { passive: true })
         window.addEventListener('pointerout', onLeave)
+        window.addEventListener('click', onClick)
         return () => {
             window.removeEventListener('pointermove', onMove)
             window.removeEventListener('pointerout', onLeave)
+            window.removeEventListener('click', onClick)
         }
     }, [])
 
@@ -261,6 +281,20 @@ export default function ParticleField({ tier }: ParticleFieldProps) {
         const probeR = 3.2
         const probeRSq = probeR * probeR
 
+        // Resolve click pulses: convert NDC → world once, expire old ones.
+        const PULSE_LIFE = 1.15
+        for (const p of s.pulses) {
+            if (p.start < 0) {
+                const v = new THREE.Vector3(p.nx, p.ny, 0.5).unproject(cam)
+                const dir = v.sub(cam.position).normalize()
+                const t = -cam.position.z / dir.z
+                p.x = cam.position.x + dir.x * t
+                p.y = cam.position.y + dir.y * t
+                p.start = time
+            }
+        }
+        s.pulses = s.pulses.filter((p) => time - p.start < PULSE_LIFE)
+
         const pos = s.positions
         const tgt = s.targets
         const k = (s.ignited ? 0.045 : 0.08) * (1 + s.velEnergy * 0.5)
@@ -289,6 +323,26 @@ export default function ParticleField({ tier }: ParticleFieldProps) {
                     pos[i3 + 1] += dy * pull
                 }
             }
+
+            // click pulses: an expanding bright ring with a soft push
+            for (const p of s.pulses) {
+                const age = time - p.start
+                const radius = age * 13
+                const dx = pos[i3] - p.x
+                const dy = pos[i3 + 1] - p.y
+                const dist = Math.sqrt(dx * dx + dy * dy)
+                const band = Math.abs(dist - radius)
+                if (band < 1.6) {
+                    const strength = (1 - band / 1.6) * (1 - age / PULSE_LIFE)
+                    b = Math.max(b, strength)
+                    if (dist > 0.001) {
+                        const push = strength * 0.05
+                        pos[i3] += (dx / dist) * push
+                        pos[i3 + 1] += (dy / dist) * push
+                    }
+                }
+            }
+
             s.boost[i] = b * 0.92 // decay
         }
 

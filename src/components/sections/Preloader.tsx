@@ -11,26 +11,37 @@
  * ========================================================== */
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import DecodeText from '@/components/motion/DecodeText'
 import { EASE_PRELOADER_EXIT } from '@/lib/constants'
+import { useDeviceTier } from '@/hooks/useDeviceTier'
+
+/* Dubai wall-clock, SSR-safe ('--:--' on the server render). */
+const subscribeNever = () => () => {}
+const getDubaiTime = () => {
+    try {
+        return new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Asia/Dubai',
+            hour: '2-digit',
+            minute: '2-digit',
+        }).format(new Date())
+    } catch {
+        return '--:--'
+    }
+}
+const getDubaiTimeServer = () => '--:--'
 
 interface PreloaderProps {
     onComplete: () => void
 }
 
-const BOOT_LINES = [
-    'initializing weights',
-    'loading attention heads · 16/16',
-    'compiling visual cortex',
-    'calibrating signal path',
-]
+const LINE_COUNT = 4
 
 // ms timeline: each boot line starts decode at its offset.
 // Deliberately unhurried — the boot IS the first impression.
 const LINE_STEP = 520
-const IDENTITY_AT = BOOT_LINES.length * LINE_STEP + 200
+const IDENTITY_AT = LINE_COUNT * LINE_STEP + 200
 const EXIT_AT = IDENTITY_AT + 1750
 const TOTAL = EXIT_AT + 100
 
@@ -44,6 +55,20 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     const [progress, setProgress] = useState(0)
     const [showIdentity, setShowIdentity] = useState(false)
     const finishedRef = useRef(false)
+
+    // Live telemetry — technical visitors will notice it's real.
+    const tier = useDeviceTier()
+    const dubaiTime = useSyncExternalStore(subscribeNever, getDubaiTime, getDubaiTimeServer)
+
+    const bootLines = useMemo(
+        () => [
+            'initializing weights',
+            `local time in dubai · ${dubaiTime}`,
+            `render tier · ${tier}`,
+            'calibrating signal path',
+        ],
+        [dubaiTime, tier]
+    )
 
     const finish = useCallback(() => {
         if (finishedRef.current) return
@@ -128,7 +153,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
                     <div className="w-[min(88vw,420px)]">
                         {/* Boot log */}
                         <div className="min-h-28 space-y-1.5" aria-hidden="true">
-                            {BOOT_LINES.map((line, i) => (
+                            {bootLines.map((line, i) => (
                                 <div
                                     key={line}
                                     className="font-mono text-[12px] tracking-[0.08em] text-silver/80"

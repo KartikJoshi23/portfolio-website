@@ -8,8 +8,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Download, Menu, X } from 'lucide-react'
-import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
+import LogoMark from '@/components/ui/LogoMark'
 import { navLinks } from '@/data/navigation'
 import { useActiveSection } from '@/hooks/useActiveSection'
 import { useLenis } from '@/hooks/useLenis'
@@ -109,23 +109,15 @@ export default function Navbar() {
             >
                 <div className="max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center justify-between">
 
-                    {/* === Left: Logo — Blueprint Section 4.3.1 ===
-           * KJ gradient monogram — click scrolls to top
-           * mix-blend-mode: screen reduces the dark matte from the PNG
-           * If the dark bg is not fully removed, manually process Logo.png through remove.bg for a transparent version */}
+                    {/* === Left: Logo — inline SVG monogram ===
+                       * No PNG matte, no background box: gradient signal
+                       * strokes + pulsing nodes, at home over any scene */}
                     <button
                         onClick={handleLogoClick}
                         className="flex items-center"
                         aria-label="Scroll to top"
                     >
-                        <Image
-                            src="/Logo.png"
-                            alt="Kartik Joshi"
-                            width={36}
-                            height={36}
-                            priority
-                            className="h-9 w-auto transition-[filter] duration-300 ease-in-out hover:drop-shadow-[0_0_12px_rgba(124,58,237,0.4)]"
-                        />
+                        <LogoMark className="h-9 w-auto transition-[filter] duration-300 ease-in-out hover:drop-shadow-[0_0_14px_rgba(124,58,237,0.55)]" />
                     </button>
 
                     {/* === Center: Desktop Nav Links — Blueprint Section 4.3.1 ===
@@ -156,8 +148,21 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    {/* === Right: Resume Button + Mobile Hamburger === */}
+                    {/* === Right: Palette hint + Resume + Mobile Hamburger === */}
                     <div className="flex items-center gap-4">
+
+                        {/* Command palette hint — the site is operable */}
+                        <button
+                            type="button"
+                            onClick={() => window.dispatchEvent(new Event('fp:palette'))}
+                            className="hidden lg:flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5
+                                       font-mono text-[11px] text-silver/80 transition-colors hover:border-cyan/40 hover:text-cool-white"
+                            aria-label="Open command palette"
+                        >
+                            <kbd className="font-mono text-[10px]">⌘K</kbd>
+                            <span className="text-silver/50">·</span>
+                            navigate
+                        </button>
 
                         {/* Resume button — Blueprint Section 4.3.1
              * Ember gold background, download icon, triggers PDF download */}

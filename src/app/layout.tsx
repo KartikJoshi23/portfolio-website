@@ -9,6 +9,7 @@ import { Sora, Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import SmoothScroll from '@/components/layout/SmoothScroll'
+import CommandPalette from '@/components/ui/CommandPalette'
 import { META, PERSONAL } from '@/lib/constants'
 import './globals.css'
 
@@ -57,7 +58,12 @@ export const metadata: Metadata = {
     siteName: 'Kartik Joshi Portfolio',
   },
   icons: {
-    icon: '/Logo.png',
+    // SVG monogram first (matches the navbar mark); PNG fallback
+    // for browsers without SVG-favicon support
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/Logo.png' },
+    ],
     apple: '/Logo.png',
   },
   twitter: {
@@ -125,6 +131,8 @@ export default function RootLayout({
         <SmoothScroll>
           {children}
         </SmoothScroll>
+        {/* ⌘K command palette — available on every route */}
+        <CommandPalette />
         {/* Blueprint Section 12.4 — Analytics */}
         <Analytics />
         <SpeedInsights />

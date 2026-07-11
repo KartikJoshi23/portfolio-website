@@ -9,7 +9,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, useSpring } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import GenerativeCover from '@/components/ui/GenerativeCover'
 import DecodeText from '@/components/motion/DecodeText'
@@ -27,6 +27,22 @@ const showcaseProjects = featuredProjects.slice(0, MAX_SHOWCASE)
 function ProjectPanel({ project }: { project: Project }) {
     const [hover, setHover] = useState(false)
 
+    // Gentle 3D tilt on the cover, following the cursor (≤4°).
+    const tiltX = useSpring(0, { stiffness: 120, damping: 16 })
+    const tiltY = useSpring(0, { stiffness: 120, damping: 16 })
+
+    const onTilt = (e: React.MouseEvent<HTMLElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect()
+        const nx = (e.clientX - rect.left) / rect.width - 0.5
+        const ny = (e.clientY - rect.top) / rect.height - 0.5
+        tiltY.set(nx * 8)
+        tiltX.set(-ny * 8)
+    }
+    const resetTilt = () => {
+        tiltX.set(0)
+        tiltY.set(0)
+    }
+
     return (
         <motion.article
             initial={{ opacity: 0, y: 36 }}
@@ -34,11 +50,16 @@ function ProjectPanel({ project }: { project: Project }) {
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.7, ease: EASE_OUT }}
             onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            onMouseLeave={() => {
+                setHover(false)
+                resetTilt()
+            }}
+            onMouseMove={onTilt}
             className="work-panel snap-item relative shrink-0 w-[86vw] sm:w-[72vw] lg:w-[min(56vw,780px)]"
         >
             <Link
                 href={`/projects/${project.slug}`}
+                data-cursor="open"
                 className="group block glass-panel hud-corners rounded-3xl p-6 sm:p-7 lg:p-8 transition-colors duration-300 hover:border-violet/30"
                 draggable={false}
             >
@@ -102,8 +123,15 @@ function ProjectPanel({ project }: { project: Project }) {
                         </span>
                     </div>
 
-                    {/* Living cover — identical aspect on every panel */}
-                    <div className="relative aspect-[16/11] overflow-hidden rounded-2xl border border-white/10 bg-panel">
+                    {/* Living cover — identical aspect, tilts under the hand */}
+                    <motion.div
+                        className="relative aspect-[16/11] overflow-hidden rounded-2xl border border-white/10 bg-panel"
+                        style={{
+                            rotateX: tiltX,
+                            rotateY: tiltY,
+                            transformPerspective: 900,
+                        }}
+                    >
                         <GenerativeCover
                             slug={project.slug}
                             category={project.category}
@@ -116,7 +144,7 @@ function ProjectPanel({ project }: { project: Project }) {
                                     'radial-gradient(ellipse 90% 70% at 50% 110%, rgba(9,9,11,0.55) 0%, transparent 60%)',
                             }}
                         />
-                    </div>
+                    </motion.div>
                 </div>
             </Link>
         </motion.article>
@@ -241,6 +269,7 @@ export default function FeaturedWork() {
 
                 <div
                     ref={trackRef}
+                    data-cursor="drag"
                     onScroll={updateState}
                     onPointerDown={onPointerDown}
                     onPointerMove={onPointerMove}

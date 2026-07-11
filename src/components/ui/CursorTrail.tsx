@@ -28,6 +28,8 @@ const getServerSnapshot = () => false
 export default function CursorTrail() {
     const enabled = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
     const [hovering, setHovering] = useState(false)
+    // Context label ("drag" / "open" / "send") from data-cursor attrs.
+    const [label, setLabel] = useState<string | null>(null)
 
     const springConfig = { stiffness: 150, damping: 20 }
     const trailConfig = { stiffness: 80, damping: 25 }
@@ -52,9 +54,14 @@ export default function CursorTrail() {
             if (target.closest('a, button, [role="button"], input, textarea, select, label')) {
                 setHovering(true)
             }
+            const ctx = target.closest<HTMLElement>('[data-cursor]')
+            setLabel(ctx ? ctx.dataset.cursor ?? null : null)
         }
 
-        const onOut = () => setHovering(false)
+        const onOut = () => {
+            setHovering(false)
+            setLabel(null)
+        }
 
         window.addEventListener('mousemove', onMove)
         window.addEventListener('mouseover', onOver)
@@ -85,22 +92,36 @@ export default function CursorTrail() {
                     transition: 'width 0.2s, height 0.2s',
                 }}
             />
-            {/* Outer ring */}
+            {/* Outer ring — grows and gains a function label in context */}
             <motion.div
-                className="fixed top-0 left-0 z-9998 pointer-events-none hidden lg:block"
+                className="fixed top-0 left-0 z-9998 pointer-events-none hidden lg:flex items-center justify-center"
                 style={{
                     x: ringX,
                     y: ringY,
-                    width: hovering ? 50 : 36,
-                    height: hovering ? 50 : 36,
+                    width: label ? 62 : hovering ? 50 : 36,
+                    height: label ? 62 : hovering ? 50 : 36,
                     borderRadius: '50%',
-                    border: '1.5px solid rgba(124, 58, 237, 0.4)',
-                    backgroundColor: hovering ? 'rgba(124, 58, 237, 0.05)' : 'transparent',
+                    border: label
+                        ? '1.5px solid rgba(6, 182, 212, 0.55)'
+                        : '1.5px solid rgba(124, 58, 237, 0.4)',
+                    backgroundColor: label
+                        ? 'rgba(9, 9, 11, 0.55)'
+                        : hovering
+                            ? 'rgba(124, 58, 237, 0.05)'
+                            : 'transparent',
+                    backdropFilter: label ? 'blur(2px)' : undefined,
                     translateX: '-50%',
                     translateY: '-50%',
-                    transition: 'width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s',
+                    transition:
+                        'width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s',
                 }}
-            />
+            >
+                {label && (
+                    <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-cool-white">
+                        {label}
+                    </span>
+                )}
+            </motion.div>
         </>
     )
 }

@@ -14,7 +14,9 @@
       "PowerShell(curl.exe -sL \"https://images.unsplash.com/photo-1505506874110-6a7a69069a08?w=1600&q=65&fm=jpg&fit=max\" -o \"D:\\\\My_Work\\\\Projects\\\\Portfolio-Website\\\\public\\\\scenes\\\\skills.jpg\"; \\(Get-Item \"D:\\\\My_Work\\\\Projects\\\\Portfolio-Website\\\\public\\\\scenes\\\\skills.jpg\"\\).Length / 1KB)",
       "PowerShell(Remove-Item -Recurse -Force \"D:\\\\My_Work\\\\Projects\\\\Portfolio-Website\\\\.next\" -Confirm:$false)",
       "PowerShell(\"cleared\")",
-      "PowerShell(\"cache cleared\")"
+      "PowerShell(\"cache cleared\")",
+      "Bash(curl -s http://localhost:3000/projects/algoviz -o /tmp/cs.html)",
+      "Read(//tmp/**)"
     ]
   }
 }

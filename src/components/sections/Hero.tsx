@@ -142,7 +142,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                     {/* Headshot — above the name on mobile */}
                     {animateEntrance && (
                         <motion.div {...fadeUp(0.1)} className="lg:hidden">
-                            <RingHeadshot size={180} />
+                            <RingHeadshot size={156} />
                         </motion.div>
                     )}
 
@@ -265,7 +265,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                             transition={{ duration: 0.8, delay: 0.55, ease: EASE_OUT }}
                             className="hidden lg:flex lg:w-[40%] justify-center"
                         >
-                            <RingHeadshot size={320} />
+                            <RingHeadshot size={280} />
                         </motion.div>
                     )}
                 </div>

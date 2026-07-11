@@ -5,10 +5,19 @@
  * ========================================================== */
 "use client"
 
+import { motion } from 'framer-motion'
 import { Linkedin, Github, Mail, ArrowUp } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
 import DecodeText from '@/components/motion/DecodeText'
-import { PERSONAL } from '@/lib/constants'
+import { EASE_OUT, PERSONAL } from '@/lib/constants'
+
+/* The micro credits roll — plays once as the footer enters. */
+const CREDITS = [
+    'Written, directed & engineered by Kartik Joshi',
+    'Cinematography · Three.js, GSAP & six graded scenes',
+    'Score · silence, by design',
+    'Shot on location in Dubai',
+]
 
 const socials = [
     { Icon: Linkedin, href: PERSONAL.linkedin, label: 'LinkedIn' },
@@ -41,6 +50,32 @@ export default function Footer() {
             </p>
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+                {/* Credits roll */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ staggerChildren: 0.22 }}
+                    className="mb-9 space-y-2 text-center"
+                >
+                    {CREDITS.map((line) => (
+                        <motion.p
+                            key={line}
+                            variants={{
+                                hidden: { opacity: 0, y: 16 },
+                                visible: {
+                                    opacity: 1,
+                                    y: 0,
+                                    transition: { duration: 0.65, ease: EASE_OUT },
+                                },
+                            }}
+                            className="font-inter text-[12.5px] text-silver/75"
+                        >
+                            {line}
+                        </motion.p>
+                    ))}
+                </motion.div>
+
                 {/* EOF line */}
                 <p className="text-center font-mono text-[12px] tracking-[0.12em] text-silver/70">
                     <DecodeText text="[ end of forward pass — thanks for the signal ]" speed={18} />
