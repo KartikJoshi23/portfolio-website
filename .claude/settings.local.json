@@ -16,7 +16,8 @@
       "PowerShell(\"cleared\")",
       "PowerShell(\"cache cleared\")",
       "Bash(curl -s http://localhost:3000/projects/algoviz -o /tmp/cs.html)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "WebSearch"
     ]
   }
 }

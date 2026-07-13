@@ -65,9 +65,12 @@ export default function WhatSetsApart() {
             />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-                <div className="grid gap-12 lg:grid-cols-2 lg:gap-14 items-start">
+                {/* items-stretch + flex column on the left: the bullet block
+                    anchors to the bottom so both columns end together —
+                    no orphaned blank space under the editorial side. */}
+                <div className="grid gap-12 lg:grid-cols-2 lg:gap-14 items-stretch">
                     {/* --- Editorial intro --- */}
-                    <div className="max-w-2xl">
+                    <div className="max-w-2xl lg:flex lg:flex-col">
                         <motion.p
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
@@ -80,18 +83,24 @@ export default function WhatSetsApart() {
 
                         <MaskReveal
                             as="h2"
-                            text="Built for practical AI work, not isolated demos."
+                            text="Demos are easy. Shipping is the job."
                             className="mt-4 font-sora font-semibold text-3xl md:text-5xl text-cool-white leading-tight"
                             stagger={0.045}
                         />
 
                         <MaskReveal
-                            text="I build applied AI products end to end — from interaction design and orchestration to usable interfaces, backend logic, and deployment-ready systems. The edge is turning emerging AI workflows into working products quickly, with enough depth to matter."
+                            text="My work covers the full lifecycle of an intelligent system — framing the problem, architecting the models and data flows, engineering the backend, and delivering an interface people actually want to use."
                             className="mt-6 font-inter text-base md:text-lg text-silver leading-[1.9]"
                             stagger={0.012}
                         />
 
-                        <div className="mt-7 space-y-3 border-t border-white/8 pt-6">
+                        <MaskReveal
+                            text="That range is deliberate. AI moves too fast for narrow specialists — the engineers who matter are the ones who can carry an idea across every layer of the stack without losing momentum, or rigor."
+                            className="mt-5 font-inter text-base md:text-lg text-silver leading-[1.9]"
+                            stagger={0.012}
+                        />
+
+                        <div className="mt-7 space-y-3 border-t border-white/8 pt-6 lg:mt-auto">
                             {introPoints.map((point, i) => (
                                 <motion.div
                                     key={point}

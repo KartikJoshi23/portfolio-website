@@ -33,13 +33,10 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 /* --- Metadata (Blueprint Section 8.1) ---
- * Meta title uses TAGLINE, NOT generic job titles.
- * "Kartik Joshi — Automating Intelligence. Decentralizing Trust."
- */
+ * Title and descriptions read from META (single source of truth). */
 export const metadata: Metadata = {
-  title: 'Kartik Joshi — Automating Intelligence. Decentralizing Trust.',
-  description:
-    'AI/ML specialist building production-grade intelligent systems. Published researcher, hackathon competitor. Masters in AI with Business at SP Jain, Dubai.',
+  title: META.title,
+  description: META.description,
   keywords: [
     'Kartik Joshi', 'AI', 'Machine Learning', 'Portfolio',
     'Dubai', 'SP Jain', 'Computer Vision', 'Python', 'React',
@@ -52,9 +49,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: META.siteUrl,
-    title: 'Kartik Joshi — Automating Intelligence. Decentralizing Trust.',
-    description:
-      'AI/ML specialist building production-grade intelligent systems. Explore projects, research, and experience.',
+    title: META.title,
+    description: META.description,
     siteName: 'Kartik Joshi Portfolio',
   },
   icons: {
@@ -68,9 +64,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: 'Kartik Joshi — Automating Intelligence. Decentralizing Trust.',
-    description:
-      'AI/ML specialist building production-grade intelligent systems.',
+    title: META.title,
+    description: META.description,
   },
 }
 

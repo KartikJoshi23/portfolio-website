@@ -26,9 +26,9 @@ interface HeroProps {
 
 const heroContent = {
     role: 'AI ENGINEER',
-    tagline: 'Automating Intelligence. Decentralizing Trust.',
+    tagline: 'Intelligence you can ship. Systems you can trust.',
     summary:
-        'I design and ship applied AI systems — model integration, product architecture, and production deployment — with a focus on measurable real-world outcomes.',
+        'Every model is a hypothesis about the world. I put mine in front of real people, real data, real consequences — and let reality grade them.',
     subtitle: `${PERSONAL.degree} · ${PERSONAL.institution} · Dubai`,
     ctaPrimary: { text: 'View My Work', target: '#work' },
     ctaSecondary: { text: 'Ways to Collaborate', target: '#opportunities' },

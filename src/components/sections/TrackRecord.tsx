@@ -19,7 +19,6 @@ import DecodeText from '@/components/motion/DecodeText'
 import { gsap } from '@/lib/gsap'
 import { EASE_OUT } from '@/lib/constants'
 import { achievements, publication } from '@/data/achievements'
-import { projects } from '@/data/projects'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 /** Decorative falling loss per epoch — training converges. */
@@ -81,8 +80,8 @@ export default function TrackRecord() {
                 <ScrollReveal className="mt-12">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 py-8 border-y border-white/8">
                         <AnimatedCounter end={5} suffix="+" label="Hackathons" />
-                        {/* Reads from projects.ts — grows automatically */}
-                        <AnimatedCounter end={projects.length} suffix="" label="Projects Shipped" />
+                        {/* Durable by design — no project count to maintain */}
+                        <AnimatedCounter end={2} suffix="" label="Countries Built From" />
                         <AnimatedCounter end={1} suffix="" label="Publication" />
                         <AnimatedCounter prefix="Top " end={10} label="Global Finish" />
                     </div>

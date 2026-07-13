@@ -194,15 +194,22 @@ export default function CommandPalette() {
         }
     }, [close])
 
-    /* Focus + scroll lock while open. */
+    /* Focus + scroll lock while open. Lenis must be halted too — it
+       intercepts wheel events globally, which would scroll the PAGE
+       behind the palette instead of the results list. */
     useEffect(() => {
         if (!open) return
         const t = setTimeout(() => inputRef.current?.focus(), 30)
         const prev = document.body.style.overflow
         document.body.style.overflow = 'hidden'
+        const lenis = (window as unknown as {
+            __lenis?: { stop: () => void; start: () => void }
+        }).__lenis
+        lenis?.stop()
         return () => {
             clearTimeout(t)
             document.body.style.overflow = prev
+            lenis?.start()
         }
     }, [open])
 
@@ -289,8 +296,13 @@ export default function CommandPalette() {
                             </kbd>
                         </div>
 
-                        {/* Results */}
-                        <div ref={listRef} className="max-h-[46vh] overflow-y-auto py-2">
+                        {/* Results — data-lenis-prevent keeps Lenis's wheel
+                            handling out of this scroll container */}
+                        <div
+                            ref={listRef}
+                            data-lenis-prevent
+                            className="max-h-[46vh] overflow-y-auto py-2"
+                        >
                             {results.length === 0 && (
                                 <p className="px-5 py-6 text-center font-mono text-[12px] text-silver/60">
                                     no match — the network returned null

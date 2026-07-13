@@ -67,9 +67,9 @@ export const getAct = (id: string): Act | undefined =>
 
 // === Meta (Blueprint Section 8.1) ===
 export const META = {
-    title: 'Kartik Joshi — Automating Intelligence. Decentralizing Trust.',
+    title: 'Kartik Joshi — AI Engineer · Intelligence You Can Ship',
     description:
-        'AI/ML specialist building production-grade intelligent systems. Published researcher, hackathon competitor. Masters in AI with Business at SP Jain, Dubai.',
-    tagline: 'Automating intelligence. Decentralizing trust.',
+        'AI engineer in Dubai building production systems — real-time trading intelligence, smart-contract security, city-scale reinforcement learning. Published researcher, global hackathon finalist.',
+    tagline: 'Intelligence you can ship. Systems you can trust.',
     siteUrl: 'https://kartik-joshi.vercel.app',
 } as const

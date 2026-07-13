@@ -396,6 +396,130 @@ html.lenis body {
  * FORWARD-PASS OVERHAUL — new visual language utilities
  * ========================================================== */
 
+/* === Footer atmosphere — breathing glow + rising data motes === */
+.footer-glow {
+  background: radial-gradient(
+    ellipse 60% 80% at 50% 100%,
+    rgba(124, 58, 237, 0.12) 0%,
+    rgba(6, 182, 212, 0.04) 45%,
+    transparent 72%
+  );
+  animation: footer-breathe 9s ease-in-out infinite;
+}
+@keyframes footer-breathe {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.mote {
+  position: absolute;
+  bottom: -6px;
+  border-radius: 9999px;
+  filter: blur(0.5px);
+  box-shadow: 0 0 8px currentColor;
+  opacity: 0;
+  animation-name: mote-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes mote-rise {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: 0.9; }
+  80% { opacity: 0.5; }
+  100% { transform: translateY(-560px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mote { animation: none; opacity: 0; }
+  .footer-glow { animation: none; }
+}
+
+/* === Footer closing shot — hollow wordmark charging with signal === */
+.wordmark-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(240, 240, 243, 0.14);
+}
+.wordmark-fill {
+  /* Wider-than-text gradient + slow sweep: once charged, the name
+     doesn't sit still — light keeps moving through it. */
+  background-image: linear-gradient(
+    100deg,
+    #7C3AED 0%,
+    #B794F6 30%,
+    #E9E7FD 46%,
+    #06B6D4 62%,
+    #7C3AED 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 26px rgba(124, 58, 237, 0.3));
+  will-change: clip-path;
+  animation: wordmark-sheen 7s linear infinite;
+}
+@keyframes wordmark-sheen {
+  0% { background-position: 0% 0; }
+  100% { background-position: 220% 0; }
+}
+
+/* The whole closing shot breathes vertically, very slowly */
+.wordmark-float {
+  animation: wordmark-float 8s ease-in-out infinite;
+}
+@keyframes wordmark-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+/* Touch response: hovering the name makes the light race and the
+   glow surge — the climax reacts to the visitor */
+.wordmark-float:hover .wordmark-fill {
+  animation-duration: 2.2s;
+  filter: drop-shadow(0 0 40px rgba(124, 58, 237, 0.55));
+}
+
+/* Signal streaks — thin comets crossing behind the wordmark */
+.footer-streak {
+  position: absolute;
+  left: 0;
+  width: 180px;
+  height: 1.5px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(124, 58, 237, 0.7) 60%,
+    rgba(233, 231, 253, 0.95) 100%
+  );
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+  opacity: 0;
+  transform: translateX(-220px);
+  animation: streak-run 15s linear infinite;
+}
+.footer-streak-cyan {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(6, 182, 212, 0.7) 60%,
+    rgba(233, 251, 253, 0.95) 100%
+  );
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+@keyframes streak-run {
+  0% { transform: translateX(-220px); opacity: 0; }
+  2% { opacity: 0.9; }
+  12% { opacity: 0.9; }
+  14% { transform: translateX(110vw); opacity: 0; }
+  100% { transform: translateX(110vw); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark-fill { animation: none; }
+  .wordmark-float { animation: none; }
+  .footer-streak { animation: none; opacity: 0; }
+}
+
 /* === Logo monogram — junction nodes breathe, staggered === */
 .logo-node {
   animation: logo-pulse 2.8s ease-in-out infinite;
