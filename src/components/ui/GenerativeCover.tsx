@@ -2,10 +2,10 @@
  * GENERATIVECOVER.TSX — living project covers, zero images
  * Each project gets a themed Canvas-2D composition driven by
  * its actual domain:
+ *   collusion-graph    → community graph with a flagged cartel cluster
  *   algoviz            → streaming price line + candlesticks
  *   smart-contract-…   → hex grid security sweep
  *   smart-city-traffic → intersection grid with signal pulses
- *   sentinel-gate      → hand-landmark constellation scan
  * Pauses off-screen; static frame under reduced motion; the
  * `active` prop (hover) raises energy.
  * ========================================================== */
@@ -15,20 +15,20 @@ import { useEffect, useRef } from 'react'
 import { getProjectVisual } from '@/lib/projectVisuals'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
-type Theme = 'stream' | 'hexscan' | 'grid' | 'landmarks'
+type Theme = 'stream' | 'hexscan' | 'grid' | 'landmarks' | 'graph'
 
 const SLUG_THEME: Record<string, Theme> = {
+    'collusion-graph': 'graph',
     algoviz: 'stream',
     'smart-contract-scanner': 'hexscan',
     'smart-city-traffic': 'grid',
-    'sentinel-gate': 'landmarks',
 }
 
 const CATEGORY_THEME: Record<string, Theme> = {
+    'Graph ML': 'graph',
     'AI/ML': 'stream',
     Web3: 'hexscan',
     'Reinforcement Learning': 'grid',
-    'Edge AI': 'landmarks',
 }
 
 /* --- MediaPipe-style hand landmarks (normalized 0..1) --- */
@@ -323,6 +323,114 @@ export default function GenerativeCover({
             ctx.fillRect(0, scanY, w, 1)
         }
 
+        const drawGraph = (t: number) => {
+            const pad = Math.min(w, h) * 0.16
+            const COMM = 5
+            const PER = 8
+            const total = COMM * PER
+
+            // Community centers, spread deterministically across the frame.
+            const centers: [number, number][] = []
+            for (let c = 0; c < COMM; c++) {
+                centers.push([
+                    pad + prand(c * 5 + 1) * (w - pad * 2),
+                    pad + prand(c * 5 + 2) * (h - pad * 2),
+                ])
+            }
+
+            // Node positions — each orbits its community center slowly.
+            const nodes: { x: number; y: number; c: number }[] = []
+            for (let c = 0; c < COMM; c++) {
+                const [cx, cy] = centers[c]
+                const spread = Math.min(w, h) * (0.08 + prand(c + 30) * 0.05)
+                for (let n = 0; n < PER; n++) {
+                    const id = c * PER + n
+                    const ang =
+                        prand(id * 2 + 1) * Math.PI * 2 +
+                        t * 0.00018 * (1 + (id % 3) * 0.3)
+                    const rad = (0.3 + prand(id * 2 + 2) * 0.7) * spread
+                    nodes.push({ x: cx + Math.cos(ang) * rad, y: cy + Math.sin(ang) * rad, c })
+                }
+            }
+
+            // One community is "flagged" as a cartel at a time — cycles.
+            const period = 5200
+            const flagged = Math.floor(t / period) % COMM
+            const phase = (t % period) / period
+            const flag = Math.max(0, Math.sin(phase * Math.PI)) // 0 → 1 → 0
+            const linkDist = Math.min(w, h) * 0.26
+
+            // Edges: dense within communities, rare bridges between.
+            for (let i = 0; i < total; i++) {
+                for (let j = i + 1; j < total; j++) {
+                    const a = nodes[i]
+                    const b = nodes[j]
+                    const same = a.c === b.c
+                    const dist = Math.hypot(a.x - b.x, a.y - b.y)
+                    let show = false
+                    let bridge = false
+                    if (same && dist < linkDist) show = true
+                    else if (!same && prand(i * 131 + j) > 0.986) {
+                        show = true
+                        bridge = true
+                    }
+                    if (!show) continue
+                    const isFlag = same && a.c === flagged
+                    if (isFlag) {
+                        ctx.strokeStyle = `rgba(244,63,94,${(0.25 + flag * 0.6).toFixed(3)})`
+                        ctx.lineWidth = 1 + flag * 1.4
+                    } else if (bridge) {
+                        ctx.strokeStyle = 'rgba(240,240,243,0.10)'
+                        ctx.lineWidth = 0.6
+                    } else {
+                        ctx.strokeStyle = a.c % 2 ? 'rgba(6,182,212,0.16)' : 'rgba(124,58,237,0.18)'
+                        ctx.lineWidth = 0.8
+                    }
+                    ctx.beginPath()
+                    ctx.moveTo(a.x, a.y)
+                    ctx.lineTo(b.x, b.y)
+                    ctx.stroke()
+                }
+            }
+
+            // Detection ring expanding around the flagged community.
+            if (flag > 0.05) {
+                const [fx, fy] = centers[flagged]
+                const rr = Math.min(w, h) * (0.12 + phase * 0.22)
+                ctx.strokeStyle = `rgba(244,63,94,${(flag * 0.5).toFixed(3)})`
+                ctx.lineWidth = 1.2
+                ctx.beginPath()
+                ctx.arc(fx, fy, rr, 0, Math.PI * 2)
+                ctx.stroke()
+            }
+
+            // Nodes on top.
+            for (let i = 0; i < total; i++) {
+                const nd = nodes[i]
+                const isFlag = nd.c === flagged
+                const base = 1.8 + prand(i + 7) * 1.4
+                const r = base + energy * 1.2 + (isFlag ? flag * 2 : 0)
+                if (isFlag) {
+                    ctx.fillStyle = `rgba(244,63,94,${(0.55 + flag * 0.45).toFixed(3)})`
+                    ctx.shadowColor = 'rgba(244,63,94,0.9)'
+                    ctx.shadowBlur = flag * 10
+                } else {
+                    ctx.fillStyle = nd.c % 2 ? to : from
+                    ctx.shadowColor = to
+                    ctx.shadowBlur = 3 + energy * 4
+                }
+                ctx.beginPath()
+                ctx.arc(nd.x, nd.y, r, 0, Math.PI * 2)
+                ctx.fill()
+                ctx.shadowBlur = 0
+            }
+
+            // Scanning readout.
+            ctx.fillStyle = 'rgba(240,240,243,0.28)'
+            ctx.font = '9px monospace'
+            ctx.fillText(`community ${flagged + 1} · flag ${Math.round(flag * 100)}%`, 10, h - 10)
+        }
+
         /* ---------- frame loop ---------- */
 
         const draw = (t: number) => {
@@ -333,6 +441,7 @@ export default function GenerativeCover({
                 case 'hexscan': drawHexscan(t); break
                 case 'grid': drawGrid(t); break
                 case 'landmarks': drawLandmarks(t); break
+                case 'graph': drawGraph(t); break
             }
         }
 

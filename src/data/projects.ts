@@ -13,8 +13,48 @@ import type { Project } from '@/types'
 
 export const projects: Project[] = [
     {
-        slug: 'algoviz',
+        slug: 'collusion-graph',
         number: '01',
+        title: 'CollusionGraph',
+        subtitle: 'Graph Deep Learning for Collusion Detection',
+        year: '2026',
+        status: 'completed',
+        category: 'Graph ML',
+        featured: true,
+        oneLiner:
+            'One graph model that screens money laundering and bid-rigging cartels as the same problem — hidden coordination that only shows in the network.',
+        description:
+            'CollusionGraph treats two very different crimes — money laundering and bid-rigging cartels — as one underlying problem: coordination between parties that leaves a structural fingerprint in a network. Six public datasets are unified into a single graph schema, scored by four parallel model arms, calibrated and fused, then rolled up by community into a ranked, explained queue for a human investigator — served behind a strict read-only trust boundary with a grounded GenAI copilot.',
+        highlights: [
+            'Unified graph schema turns six public datasets across two crime domains into one domain-agnostic node/edge representation — a single stack for laundering and bid-rigging alike',
+            'Four scoring arms in parallel: supervised GNNs (GATv2 / GraphSAGE / R-GCN with focal loss), unsupervised graph anomaly detection (DOMINANT / GAE), hand-built structural features, and gradient-boosted baselines',
+            'On a 488k-node national contract network with no answer key, the unsupervised deep model recovers ~92% of bid-together cartels vs ~12% for a non-learning baseline',
+            'Calibrating scores before combining them made the ensemble ~9× stronger — the single highest-value fix, same models and data',
+            'Explanation layer: PGExplainer evidence, a 9-pattern FATF/OECD motif matcher, and a read-only GenAI copilot that grounds every number and cannot assert guilt',
+        ],
+        tech: [
+            'PyTorch', 'PyTorch Geometric', 'GATv2', 'GraphSAGE', 'R-GCN',
+            'PyGOD', 'scikit-learn', 'XGBoost', 'LightGBM',
+            'NetworkX', 'python-igraph', 'Leiden',
+            'Polars', 'Pandas', 'PyArrow', 'DuckDB', 'Pydantic',
+            'FastAPI', 'Uvicorn',
+            'NVIDIA NIM', 'BM25',
+            'React', 'TypeScript', 'Vite', 'TailwindCSS', 'Zustand',
+            'TanStack Query', 'Sigma.js', 'graphology', 'GSAP', 'Motion',
+            'Hydra', 'Weights & Biases',
+            'AWS', 'Docker', 'pytest', 'ruff', 'mypy',
+        ],
+        metrics: [
+            { label: 'Cartels Recovered', value: '~92%' },
+            { label: 'Graph Edges', value: '1.45M' },
+            { label: 'Ensemble Gain', value: '9×' },
+        ],
+        image: null,
+        links: {},
+    },
+    {
+        slug: 'algoviz',
+        number: '02',
         title: 'AlgoViz',
         subtitle: 'Real-Time Algorithmic Trading Dashboard',
         year: '2025',
@@ -45,7 +85,7 @@ export const projects: Project[] = [
     },
     {
         slug: 'smart-contract-scanner',
-        number: '02',
+        number: '03',
         title: 'Smart Contract Security Scanner',
         subtitle: 'AI Blockchain Vulnerability Analyzer',
         year: '2026',
@@ -75,7 +115,7 @@ export const projects: Project[] = [
     },
     {
         slug: 'smart-city-traffic',
-        number: '03',
+        number: '04',
         title: 'Smart City Traffic Management',
         subtitle: 'Multi-Agent Reinforcement Learning System',
         year: '2026',
@@ -99,36 +139,6 @@ export const projects: Project[] = [
             { label: 'Intersections', value: '16' },
             { label: 'Training Steps', value: '60k' },
             { label: 'Protocols', value: '3' },
-        ],
-        image: null,
-        links: {},
-    },
-    {
-        slug: 'sentinel-gate',
-        number: '04',
-        title: 'Sentinel-Gate',
-        subtitle: 'Gated Adaptive Biometric Authentication System',
-        year: '2025',
-        status: 'in-progress',
-        category: 'Edge AI',
-        featured: true,
-        oneLiner:
-            'Multi-modal biometric authentication fusing NFC behavior with hand geometry on edge hardware.',
-        description:
-            'Sentinel-Gate is a multi-modal authentication system that fuses behavioral NFC signals with hand-geometry landmarks. A custom gated fusion network runs in real time on constrained edge hardware, balancing security with sub-100ms responsiveness.',
-        highlights: [
-            'Custom Gated Fusion Network merging 8 behavioral NFC features with 232 hand geometry landmarks via MediaPipe',
-            'BiLSTM + Self-Attention encoder achieving sub-100ms inference on CPU-only edge hardware',
-            'Deployed on Arduino Nano for resource-constrained embedded devices',
-        ],
-        tech: [
-            'Python', 'PyTorch', 'OpenCV', 'MediaPipe',
-            'Arduino Nano', 'scikit-learn',
-        ],
-        metrics: [
-            { label: 'Landmarks', value: '232' },
-            { label: 'Inference', value: '<100ms' },
-            { label: 'NFC Features', value: '8' },
         ],
         image: null,
         links: {},

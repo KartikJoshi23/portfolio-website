@@ -112,10 +112,22 @@ function ProjectPanel({ project }: { project: Project }) {
                             ))}
                         </div>
 
-                        {/* Tech — one uniform line */}
-                        <p className="mt-4 font-mono text-[10px] tracking-[0.06em] text-silver/60 max-w-xl truncate">
-                            {project.tech.slice(0, 5).join(' · ')}
-                        </p>
+                        {/* Tech pills — show a curated subset, hint the rest */}
+                        <div className="mt-4 flex flex-wrap gap-1.5 max-w-xl">
+                            {project.tech.slice(0, 6).map((t) => (
+                                <span
+                                    key={t}
+                                    className="rounded-full border border-white/8 bg-white/[0.04] px-2.5 py-[3px] font-mono text-[10px] text-silver/80 transition-colors duration-200 group-hover:border-violet/20 group-hover:text-silver/90"
+                                >
+                                    {t}
+                                </span>
+                            ))}
+                            {project.tech.length > 6 && (
+                                <span className="rounded-full px-2 py-[3px] font-mono text-[10px] text-silver/50">
+                                    +{project.tech.length - 6} more
+                                </span>
+                            )}
+                        </div>
 
                         <span className="mt-5 inline-flex items-center gap-2 font-sora text-sm text-violet-bright transition-colors group-hover:text-cyan">
                             Open case study

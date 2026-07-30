@@ -94,7 +94,7 @@ export default function Home() {
                 { text: 'The Deployment' },
                 { text: 'Log', em: true },
               ]}
-              sub="Trained in theory. Deployed in Dubai — production systems with real stakes."
+              sub="Trained in theory. Built in Dubai — systems with real stakes, not toy demos."
               objectPosition="center 60%"
             />
             <FeaturedWork />

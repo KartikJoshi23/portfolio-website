@@ -9,7 +9,8 @@ import {
     BarChart3,
     Shield,
     TrafficCone,
-    Fingerprint,
+    Share2,
+    Network,
     BrainCircuit,
     Boxes,
     Cpu,
@@ -32,16 +33,17 @@ const categoryVisuals: Record<string, ProjectVisual> = {
     Web3: { Icon: Shield, from: '#06B6D4', to: '#7C3AED', accent: '#06B6D4' },
     'Reinforcement Learning': { Icon: TrafficCone, from: '#10B981', to: '#06B6D4', accent: '#10B981' },
     'Edge AI': { Icon: Cpu, from: '#F43F5E', to: '#7C3AED', accent: '#F43F5E' },
+    'Graph ML': { Icon: Network, from: '#7C3AED', to: '#06B6D4', accent: '#7C3AED' },
     'Full-Stack': { Icon: Boxes, from: '#7C3AED', to: '#10B981', accent: '#7C3AED' },
     Research: { Icon: BarChart3, from: '#06B6D4', to: '#10B981', accent: '#06B6D4' },
 }
 
 /** Per-slug icon overrides when a project deserves a specific symbol. */
 const slugIcons: Record<string, LucideIcon> = {
+    'collusion-graph': Share2,
     algoviz: BarChart3,
     'smart-contract-scanner': Shield,
     'smart-city-traffic': TrafficCone,
-    'sentinel-gate': Fingerprint,
 }
 
 const fallback: ProjectVisual = {
