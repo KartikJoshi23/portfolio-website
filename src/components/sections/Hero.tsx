@@ -141,7 +141,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                 <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-8">
                     {/* Headshot — above the name on mobile */}
                     {animateEntrance && (
-                        <motion.div {...fadeUp(0.1)} className="lg:hidden">
+                        <motion.div {...fadeUp(0.1)} className="lg:hidden md:scale-[1.3] md:mb-8 mb-2">
                             <RingHeadshot size={156} />
                         </motion.div>
                     )}
@@ -222,7 +222,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                             <MaskReveal
                                 text={heroContent.summary}
                                 delay={1.05}
-                                className="text-legible mt-6 font-inter text-cool-white/90 text-base md:text-lg max-w-2xl leading-8"
+                                className="text-legible mt-5 md:mt-6 font-inter text-cool-white/90 text-base md:text-lg max-w-2xl leading-7 md:leading-8"
                             />
                         )}
 
@@ -239,7 +239,7 @@ export default function Hero({ animateEntrance }: HeroProps) {
                         {animateEntrance && (
                             <motion.div
                                 {...fadeUp(1.45)}
-                                className="mt-9 flex flex-col sm:flex-row items-center gap-4"
+                                className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-center gap-3 sm:gap-4"
                             >
                                 <MagneticButton
                                     onClick={() => handleCTA(heroContent.ctaPrimary.target)}

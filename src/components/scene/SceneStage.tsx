@@ -19,6 +19,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import { useDeviceTier } from '@/hooks/useDeviceTier'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { useCoarsePointer } from '@/hooks/useCoarsePointer'
 
 /* The preloader sets window.__fpIgnited then fires fp:ignite. */
 function subscribeIgnite(callback: () => void) {
@@ -63,7 +64,13 @@ const ACT_SCENE: [string, string | null][] = [
 export default function SceneStage() {
     const tier = useDeviceTier()
     const reduced = useReducedMotion()
-    const staticOnly = tier === 'low' || reduced
+    const coarse = useCoarsePointer()
+    // Touch devices take the static path too: crossfading full-screen
+    // photographs under CSS filters, with a continuous scale animation,
+    // re-rasterise every frame — fine on a laptop GPU, a stutter on a
+    // phone's. One calm scene costs nothing and the content is what
+    // matters at that size anyway.
+    const staticOnly = tier === 'low' || reduced || coarse
 
     const [active, setActive] = useState<string | null>('hero')
     // Non-hero scenes mount after the preloader lifts, keeping their

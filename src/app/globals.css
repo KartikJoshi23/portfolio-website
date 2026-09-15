@@ -794,3 +794,25 @@ html.lenis body {
 @media (prefers-reduced-motion: reduce) {
   .caret::after { animation: none; }
 }
+/* ==========================================================
+ * SMALL-SCREEN TYPE FLOOR
+ * The mono HUD labels sit at 9–10px by design and read fine on
+ * a laptop. On a phone or tablet held in the hand they don't.
+ * Below lg they get a floor of 11px; desktop is untouched.
+ * ========================================================== */
+@media (max-width: 1023px) {
+  .text-\[9px\],
+  .text-\[10px\] {
+    font-size: 11px;
+  }
+}
+
+/* On touch devices the scene image is a single static plate; the
+   slow "breathe" scale is a full-screen re-rasterise under a filter
+   on every frame, which a phone GPU can't afford. */
+@media (pointer: coarse) {
+  .scene-img,
+  .scene-img-bright {
+    animation: none;
+  }
+}

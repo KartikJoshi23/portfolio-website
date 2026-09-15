@@ -186,7 +186,7 @@ export default function Navbar() {
              * Right: Hamburger (animated to X on open) */}
                         <button
                             onClick={() => setMobileOpen(!mobileOpen)}
-                            className="lg:hidden text-cool-white hover:text-violet transition-colors p-1"
+                            className="lg:hidden text-cool-white hover:text-violet transition-colors p-2.5 -mr-2.5"
                             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                             aria-expanded={mobileOpen}
                         >

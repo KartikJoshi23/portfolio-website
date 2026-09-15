@@ -67,11 +67,15 @@ const POINT_FRAG = /* glsl */ `
 
 interface ParticleFieldProps {
     tier: 'mid' | 'high'
+    /** Finger as primary input — phones and tablets. */
+    touch?: boolean
 }
 
-export default function ParticleField({ tier }: ParticleFieldProps) {
+export default function ParticleField({ tier, touch = false }: ParticleFieldProps) {
     const { viewport, gl } = useThree()
-    const count = tier === 'high' ? 2400 : 1300
+    // A phone GPU is sharing its budget with everything else on the
+    // page; the field keeps its character at half the count.
+    const count = touch ? 650 : tier === 'high' ? 2400 : 1300
 
     const pointsRef = useRef<THREE.Points>(null)
     const linesRef = useRef<THREE.LineSegments>(null)
@@ -97,7 +101,7 @@ export default function ParticleField({ tier }: ParticleFieldProps) {
         h: 0,
     })
 
-    const maxLinks = tier === 'high' ? 520 : 320
+    const maxLinks = touch ? 160 : tier === 'high' ? 520 : 320
 
     /* --- static attribute data --- */
     const { hues, sizes, phases } = useMemo(() => {

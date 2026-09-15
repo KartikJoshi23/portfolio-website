@@ -12,6 +12,7 @@
 import { useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useDeviceTier, type DeviceTier } from '@/hooks/useDeviceTier'
+import { useCoarsePointer } from '@/hooks/useCoarsePointer'
 
 const FieldScene = dynamic(() => import('./FieldScene'), {
     ssr: false,
@@ -36,6 +37,7 @@ function StaticField() {
 
 export default function CanvasRoot() {
     const probed = useDeviceTier()
+    const touch = useCoarsePointer()
     const [override, setOverride] = useState<DeviceTier | null>(null)
     const tier = override ?? probed
 
@@ -47,5 +49,5 @@ export default function CanvasRoot() {
     }, [probed])
 
     if (tier === 'low') return <StaticField />
-    return <FieldScene tier={tier} onDegrade={degrade} />
+    return <FieldScene tier={tier} onDegrade={degrade} touch={touch} />
 }

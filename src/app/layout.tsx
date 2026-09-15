@@ -4,7 +4,7 @@
  * Metadata: Section 8.1
  * Providers: SmoothScroll (Section 3.4.5), Analytics (Section 12.4)
  * ========================================================== */
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Sora, Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -69,6 +69,16 @@ export const metadata: Metadata = {
   },
 }
 
+/* --- Viewport ---
+ * viewport-fit=cover lets fixed controls honour the safe-area insets
+ * on notched phones instead of sitting under the home indicator. */
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#7C3AED',
+}
+
 /* --- JSON-LD Structured Data (Blueprint Section 8.1.2) --- */
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -104,7 +114,6 @@ export default function RootLayout({
         {/* Favicon — Logo.png (temporary; generate proper 16x16 and 32x32 .ico versions later)
            Next.js metadata.icons handles the favicon via /Logo.png */}
         <link rel="manifest" href="/site.webmanifest" />
-        <meta name="theme-color" content="#7C3AED" />
 
         {/* Blueprint Section 8.1.2 — JSON-LD */}
         <script

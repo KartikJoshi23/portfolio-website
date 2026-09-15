@@ -246,8 +246,14 @@ export default function CommandPalette() {
                 type="button"
                 onClick={() => setOpen(true)}
                 aria-label="Open command palette"
-                className="glass-panel fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full
+                className="glass-panel fixed z-40 flex h-11 w-11 items-center justify-center rounded-full
                            text-silver transition-colors hover:text-cyan lg:hidden"
+                // Clears the home indicator on notched phones; needs
+                // viewport-fit=cover (set in layout.tsx) to be non-zero.
+                style={{
+                    bottom: 'max(1.25rem, env(safe-area-inset-bottom))',
+                    right: 'max(1.25rem, env(safe-area-inset-right))',
+                }}
             >
                 <Terminal className="h-4.5 w-4.5" />
             </button>

@@ -14,9 +14,11 @@ import PerfGovernor from './PerfGovernor'
 interface FieldSceneProps {
     tier: 'mid' | 'high'
     onDegrade: () => void
+    /** Finger as primary input — phones and tablets. */
+    touch?: boolean
 }
 
-export default function FieldScene({ tier, onDegrade }: FieldSceneProps) {
+export default function FieldScene({ tier, onDegrade, touch = false }: FieldSceneProps) {
     const [frameloop, setFrameloop] = useState<'always' | 'never'>('always')
 
     useEffect(() => {
@@ -34,7 +36,9 @@ export default function FieldScene({ tier, onDegrade }: FieldSceneProps) {
         >
             <Canvas
                 frameloop={frameloop}
-                dpr={[1, 1.5]}
+                // Phones have 3x screens; rendering the field at 1x there
+                // is invisible at the particle scale and a third of the fill.
+                dpr={touch ? 1 : [1, 1.5]}
                 camera={{ position: [0, 0, 16], fov: 50, near: 0.1, far: 60 }}
                 gl={{
                     antialias: false,
@@ -45,7 +49,7 @@ export default function FieldScene({ tier, onDegrade }: FieldSceneProps) {
                 // cursor itself via window listeners.
                 events={undefined}
             >
-                <ParticleField tier={tier} />
+                <ParticleField tier={tier} touch={touch} />
                 <PerfGovernor onDegrade={onDegrade} />
             </Canvas>
         </div>
