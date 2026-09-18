@@ -14,6 +14,7 @@ import {
     BrainCircuit,
     Boxes,
     Cpu,
+    Sun,
     type LucideIcon,
 } from 'lucide-react'
 
@@ -44,6 +45,7 @@ const slugIcons: Record<string, LucideIcon> = {
     algoviz: BarChart3,
     'smart-contract-scanner': Shield,
     'smart-city-traffic': TrafficCone,
+    rimal: Sun,
 }
 
 const fallback: ProjectVisual = {

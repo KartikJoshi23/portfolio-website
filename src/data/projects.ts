@@ -53,8 +53,44 @@ export const projects: Project[] = [
         links: {},
     },
     {
-        slug: 'algoviz',
+        slug: 'rimal',
         number: '02',
+        title: 'RIMAL',
+        subtitle: 'Reinforcement Learning for Desert Solar Cleaning — a Negative Result',
+        year: '2026',
+        status: 'completed',
+        category: 'Reinforcement Learning',
+        featured: true,
+        oneLiner:
+            "An RL benchmark for cleaning a desert solar plant, calibrated to DEWA's own field data — where deep RL lost every hypothesis to a tuned rule, and a Kalman filter cut soiling-estimate error 17.7×.",
+        description:
+            "RIMAL (رمال, \"sands\") is a reinforcement-learning benchmark for photovoltaic soiling and cleaning dispatch at Dubai's Mohammed bin Rashid Al Maktoum Solar Park. It builds a simulator from ten years of NASA POWER weather and aerosol data, calibrates it to DEWA's published cleaning-robot field trial, reproduces the cleaning-interval optimum from the literature as a falsification gate, and then tests four hypotheses about where a learning agent should beat a well-tuned rule — with PPO, a belief-state PPO, a learned fleet estimator and a distributional QR-DQN. Deep RL did not win any of them. The value was somewhere else: the hard part of PV cleaning is state estimation, not control, and a Kalman filter over the plant's own performance ratio reduced soiling-estimate error 17.7× and made cleaning decisions immune to sensor noise that collapses a naive rule. The project ships with 195 tests and eight acceptance gates declared before each milestone was built, and as a live site that runs the same physics in the browser, including the trained PPO actor's forward pass.",
+        highlights: [
+            "Simulator calibrated to DEWA's own field trial (soiling 0.14–0.33 %/day, cleaning efficiencies 69–99%) on ten years of measured Dubai weather; specific yield 1,703–1,802 kWh/kWp against the Global Solar Atlas reference of 1,791.5",
+            "Falsification gate before any agent was trained: with the admissible cleaning cost fixed in advance, the simulator's optimum lands inside the published 28–34 day band (31 d at $60/MWp per pass, 34 d at $75) — and the optimum is flat: any interval from 16 to 57 days is within 1% of optimal",
+            "Four hypotheses, four negative results on held-out years: PPO lost to a tuned threshold by $20/MWp/yr, a belief-state agent added +$29 (p = 0.17), a learned fleet estimator ranked five robots perfectly (Spearman ρ = 1.00) and still lost $103/yr, and QR-DQN lost on CVaR@5% by $501 with a risk dial that produced no ordering",
+            "The finding that transfers: under a noisy performance-ratio signal a naive threshold rule collapses 17.2% and cleans ~98 times a year instead of 8; from 3% noise a blind calendar beats it; a Kalman filter holds within $13 across the whole 1–10% noise range",
+            "Engineering discipline as the credibility argument: acceptance criteria declared before each milestone, 195 tests, seven defects found in our own work and recorded at the site of each fix, a browser port of the physics verified against the Python engine to 7e-5, zero cost and CPU-only",
+        ],
+        tech: [
+            'Python', 'PyTorch', 'Gymnasium', 'pvlib', 'NumPy', 'pandas',
+            'SciPy', 'PyArrow', 'matplotlib', 'pytest',
+            'PPO', 'QR-DQN', 'Kalman filter', 'NASA POWER API',
+            'Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4',
+            'three.js', 'react-three-fiber', 'framer-motion', 'GSAP', 'Lenis',
+            'D3', 'Puppeteer', 'Vercel',
+        ],
+        metrics: [
+            { label: 'Estimate Error Cut', value: '17.7×' },
+            { label: 'Hypotheses Falsified', value: '4 / 4' },
+            { label: 'Tests · 8 Gates', value: '195' },
+        ],
+        image: null,
+        links: {},
+    },
+    {
+        slug: 'algoviz',
+        number: '03',
         title: 'AlgoViz',
         subtitle: 'Real-Time Algorithmic Trading Dashboard',
         year: '2025',
@@ -85,7 +121,7 @@ export const projects: Project[] = [
     },
     {
         slug: 'smart-contract-scanner',
-        number: '03',
+        number: '04',
         title: 'Smart Contract Security Scanner',
         subtitle: 'AI Blockchain Vulnerability Analyzer',
         year: '2026',
@@ -115,7 +151,7 @@ export const projects: Project[] = [
     },
     {
         slug: 'smart-city-traffic',
-        number: '04',
+        number: '05',
         title: 'Smart City Traffic Management',
         subtitle: 'Multi-Agent Reinforcement Learning System',
         year: '2026',
