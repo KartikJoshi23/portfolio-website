@@ -125,9 +125,13 @@ export default async function ProjectDetailPage({
                             {project.metrics.map((m) => (
                                 <div
                                     key={m.label}
-                                    className="rounded-2xl border border-white/8 bg-white/2 p-4 text-center md:p-6"
+                                    className="@container rounded-2xl border border-white/8 bg-white/2 p-3 text-center sm:p-4 md:p-6"
                                 >
-                                    <div className="font-sora text-2xl font-bold text-cool-white md:text-4xl">
+                                    {/* A value never splits across lines ("0–" / "100"), and
+                                        its size follows the tile: capped at 24px / 36px, it
+                                        only shrinks on narrow phones, where 29cqi still fits a
+                                        five-character value like "0–100" inside the padding. */}
+                                    <div className="whitespace-nowrap font-sora text-[length:min(24px,29cqi)] font-bold text-cool-white md:text-[length:min(36px,29cqi)]">
                                         {m.value}
                                     </div>
                                     <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-silver/60 md:text-xs">

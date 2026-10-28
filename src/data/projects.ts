@@ -146,7 +146,7 @@ export const projects: Project[] = [
             'Gemini 2.5 Flash', 'Docker', 'Alchemy API',
         ],
         metrics: [
-            { label: 'Networks', value: '6 chains' },
+            { label: 'Networks', value: '6' },
             { label: 'Vuln Classes', value: '10+' },
             { label: 'Risk Score', value: '0\u2013100' },
         ],
