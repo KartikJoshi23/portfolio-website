@@ -74,9 +74,12 @@ function ProjectPanel({ project }: { project: Project }) {
 
                 {/* Fixed row structure so every panel is identical in
                     shape regardless of copy length. */}
-                <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr] lg:gap-8 items-center">
+                {/* minmax(0, …) tracks + min-w-0: without them a long no-wrap
+                    line (the truncated category label) sets the column's
+                    minimum width and pushes the panel's content past its edge. */}
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-8 items-center">
                     {/* Info */}
-                    <div className="relative z-10 flex flex-col">
+                    <div className="relative z-10 flex min-w-0 flex-col">
                         <p className="hud-label truncate">
                             [ {project.number} ] · {project.category} · {project.year}
                             {project.status === 'in-progress' && (
@@ -100,12 +103,14 @@ function ProjectPanel({ project }: { project: Project }) {
                             {(project.metrics ?? []).slice(0, 3).map((m) => (
                                 <div
                                     key={m.label}
-                                    className="rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2"
+                                    className="metric-tile rounded-lg border border-white/10 bg-white/[0.03] py-2"
                                 >
-                                    <p className="font-mono text-[13px] text-cool-white truncate">
+                                    <p className="metric-value font-mono text-cool-white truncate">
                                         <DecodeText text={m.value} speed={40} />
                                     </p>
-                                    <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-silver/70 truncate">
+                                    {/* Sizing lives in globals.css (METRIC TILES): two
+                                        reserved lines, tightened where tiles are narrowest. */}
+                                    <p className="metric-label mt-0.5 font-mono uppercase text-silver/70">
                                         {m.label}
                                     </p>
                                 </div>
